@@ -1,7 +1,8 @@
 import gerenciador.GerenciadorUsuarios;
 
 public class main {
-	public static void main(String args[]) {
+	public main(String args[]) {
+
 		
 		GerenciadorUsuarios gu = new GerenciadorUsuarios();
 		
