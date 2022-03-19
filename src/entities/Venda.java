@@ -1,12 +1,14 @@
 package entities;
 
+import java.sql.Date;
+
 public class Venda {
 	private Integer id;
 	private Double precoTotal;
 	private String formaDePag; //Poderia ser um enum?
-	private String data; //date?
+	private Date data; //date?
 	
-	public Venda(Integer id, Double precoTotal, String formaDePag, String data) {
+	public Venda(Integer id, Double precoTotal, String formaDePag, Date data) {
 		super();
 		this.id = id;
 		this.precoTotal = precoTotal;
@@ -30,11 +32,11 @@ public class Venda {
 		this.formaDePag = formaDePag;
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 

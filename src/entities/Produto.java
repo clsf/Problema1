@@ -1,13 +1,15 @@
 package entities;
 
+import java.sql.Date;
+
 public class Produto {
 	
 	private Integer id;
 	private String nome;
 	private Double preco;
-	private String validade; //Pode ser data?
+	private Date validade; //Pode ser data?
 	
-	public Produto(Integer id, String nome, Double preco, String validade) {
+	public Produto(Integer id, String nome, Double preco, Date validade) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -31,11 +33,11 @@ public class Produto {
 		this.preco = preco;
 	}
 
-	public String getValidade() {
+	public Date getValidade() {
 		return validade;
 	}
 
-	public void setValidade(String validade) {
+	public void setValidade(Date validade) {
 		this.validade = validade;
 	}
 
