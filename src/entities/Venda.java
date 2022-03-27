@@ -3,6 +3,7 @@ package entities;
 import java.sql.Date;
 
 public class Venda {
+	private static Integer ultimoId=1;
 	private Integer id;
 	private Double precoTotal;
 	private String formaDePag; //Poderia ser um enum?
@@ -10,10 +11,11 @@ public class Venda {
 	
 	public Venda(Integer id, Double precoTotal, String formaDePag, Date data) {
 		super();
-		this.id = id;
+		this.id = ultimoId;
 		this.precoTotal = precoTotal;
 		this.formaDePag = formaDePag;
 		this.data = data;
+		ultimoId++;
 	}
 
 	public Double getPrecoTotal() {

@@ -6,30 +6,36 @@ import java.util.List;
 import entities.Usuario;
 
 
-public class GerenciadorUsuarios {
-	
-	private static Integer ultimoId=1;
+public class GerenciadorUsuarios {	
 	
 	private List <Usuario> listaUsuarios = new ArrayList<>();
 	
-	public void add(String login, String senha) {		
-		Usuario usuario = new Usuario(ultimoId,login,senha);		
-		listaUsuarios.add(usuario);
-		this.ultimoId++;
+	public void add(Usuario usuario) {		
+		this.listaUsuarios.add(usuario);		
 	}
 	
 	public void remover(Integer id) {
-		Usuario result = listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		Usuario result = this.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		if(result!=null) {
-			listaUsuarios.remove(result);
+			this.listaUsuarios.remove(result);
+		}
+	}
+	
+	public void editar(Usuario usuario) {
+		Usuario usuarioEdit = this.listaUsuarios.stream().filter(x -> x.getId() == usuario.getId()).findFirst().orElse(null);
+		if (usuarioEdit.getLogin() != usuario.getLogin()){
+			usuarioEdit.setLogin(usuario.getLogin());
+		}
+		if(usuarioEdit.getSenha() != usuario.getSenha()) {
+			usuarioEdit.setSenha(usuario.getSenha());
 		}
 	}
 	
 	
 	public String toString() {
 		String listagem=" ";
-		for(Usuario usuario : listaUsuarios) {
-			listagem +="ID: "+usuario.getId()+"\nLogin: "+usuario.getLogin()+"\nSenha: "+usuario.getSenha();
+		for(Usuario usuario : this.listaUsuarios) {
+			listagem +="ID: "+usuario.getId()+"\nLogin: "+usuario.getLogin()+"\nSenha: "+usuario.getSenha()+"\n";
 			/*listagem += "\nID: " 
 					+usuario.getId() +
 					"\n Login: "+

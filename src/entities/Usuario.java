@@ -1,17 +1,20 @@
 package entities;
 
 public class Usuario {
-	
+	private static Integer ultimoId=1;
 	private Integer id;
 	private String login;
 	private String senha;
 	
 	
-	public Usuario(Integer id, String login, String senha) {
-		this.id = id;
+	public Usuario(String login, String senha) {
+		this.id = ultimoId;
 		this.login = login;
 		this.senha = senha;
+		ultimoId++;
 	}
+	
+
 
 
 	public Integer getId() {

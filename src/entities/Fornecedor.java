@@ -1,7 +1,7 @@
 package entities;
 
 public class Fornecedor {
-	
+	private static Integer ultimoId=1;
 	private Integer id;
 	private Integer cnpj;
 	private String name;
@@ -10,10 +10,11 @@ public class Fornecedor {
 	
 	public Fornecedor(Integer id, Integer cnpj, String name, String endereco) {
 		super();
-		this.id = id;
+		this.id = ultimoId;
 		this.cnpj = cnpj;
 		this.name = name;
 		this.endereco = endereco;
+		ultimoId++;
 	}
 
 

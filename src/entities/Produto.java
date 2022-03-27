@@ -3,6 +3,7 @@ package entities;
 import java.sql.Date;
 
 public class Produto {
+	private static Integer ultimoId=1;
 	
 	private Integer id;
 	private String nome;
@@ -11,10 +12,11 @@ public class Produto {
 	
 	public Produto(Integer id, String nome, Double preco, Date validade) {
 		super();
-		this.id = id;
+		this.id = ultimoId;
 		this.nome = nome;
 		this.preco = preco;
 		this.validade = validade;
+		ultimoId++;
 	}
 
 	public String getNome() {

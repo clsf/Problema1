@@ -1,6 +1,7 @@
 package entities;
 
 public class Prato {
+	private static Integer ultimoId=1;
 	private Integer id;
 	private String nome;
 	private Double preco;
@@ -12,11 +13,12 @@ public class Prato {
 	
 	public Prato(Integer id, String nome, Double preco, String categoria, String descricao) {
 		super();
-		this.id = id;
+		this.id = ultimoId;
 		this.nome = nome;
 		this.preco = preco;
 		this.categoria = categoria;
 		this.descricao = descricao;
+		ultimoId++;
 	}
 	public String getNome() {
 		return nome;
