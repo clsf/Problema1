@@ -14,8 +14,41 @@ public class GerenciadorPrato {
 		
 	}
 	
-	public void add(Prato prato) {
+	public GerenciadorPrato(List <Prato> listaDePratos) {
+		this.listaDePratos=listaDePratos;
+	}
+	
+	private void add(Prato prato) {
 		listaDePratos.add(prato);		
+	}
+	
+	private void editar(Prato pratoEdit, Prato alterarPrato) {		
+
+		if(pratoEdit.getCategoria() != alterarPrato.getCategoria()) {
+			pratoEdit.setCategoria(alterarPrato.getCategoria());
+		}
+		if(pratoEdit.getDescricao() != alterarPrato.getDescricao()) {
+			pratoEdit.setDescricao(alterarPrato.getDescricao());
+		}
+		if(pratoEdit.getNome() != alterarPrato.getNome()) {
+			pratoEdit.setNome(alterarPrato.getNome());
+		}
+		if(pratoEdit.getPreco() != alterarPrato.getPreco()) {
+			pratoEdit.setPreco(alterarPrato.getPreco());
+		}
+		
+	}
+	
+	public void addOuEdit(Prato prato) {
+		Prato pratoExistente = this.listaDePratos.stream().filter(x->x.getId() == prato.getId())
+				.findFirst().orElse(null);
+		if(pratoExistente != null) {
+			editar(pratoExistente, prato);
+		}
+		else {
+			add(prato);
+		}
+
 	}
 	
 	public void remover(Integer id) {
@@ -25,25 +58,10 @@ public class GerenciadorPrato {
 			this.listaDePratos.remove(result);
 		}
 	
-	}
-	
-	public void editar(Prato prato) {
-		Prato pratoEdit = this.listaDePratos.stream().filter(x->x.getId() == prato.getId()).findFirst().orElse(null);
-		
-		if(pratoEdit != null) {
-			if(pratoEdit.getCategoria() != prato.getCategoria()) {
-				pratoEdit.setCategoria(prato.getCategoria());
-			}
-			if(pratoEdit.getDescricao() != prato.getDescricao()) {
-				pratoEdit.setDescricao(prato.getCategoria());
-			}
-			if(pratoEdit.getNome() != prato.getNome()) {
-				pratoEdit.setNome(prato.getNome());
-			}
-			if(pratoEdit.getPreco() != prato.getPreco()) {
-				pratoEdit.setPreco(prato.getPreco());
-			}
-		}
+	}	
+
+	public List<Prato> getPrato(){
+		return this.listaDePratos; 
 	}
 	
 	public String toString() {
@@ -58,6 +76,10 @@ public class GerenciadorPrato {
  		}
 		
 		return listagem;
+	}
+	
+	public Integer qtd() {
+		return this.listaDePratos.size();
 	}
 	
 	

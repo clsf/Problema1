@@ -5,17 +5,33 @@ public class Usuario {
 	private Integer id;
 	private String login;
 	private String senha;
+	private String nome;
 	
 	
-	public Usuario(String login, String senha) {
+	public Usuario(String login, String senha, String nome) {
 		this.id = ultimoId;
 		this.login = login;
 		this.senha = senha;
+		this.nome = nome;
 		ultimoId++;
 	}
+
 	
+	public Usuario(Integer id, String login, String senha, String nome) {
+		this.id = id;
+		this.login = login;
+		this.senha = senha;
+		this.nome = nome;
+	}
 
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public Integer getId() {
 		return id;

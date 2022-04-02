@@ -8,9 +8,9 @@ public class Produto {
 	private Integer id;
 	private String nome;
 	private Double preco;
-	private Date validade; //Pode ser data?
+	private Date validade; 
 	
-	public Produto(Integer id, String nome, Double preco, Date validade) {
+	public Produto(String nome, Double preco, Date validade) {
 		super();
 		this.id = ultimoId;
 		this.nome = nome;
@@ -18,6 +18,17 @@ public class Produto {
 		this.validade = validade;
 		ultimoId++;
 	}
+
+	
+	
+	public Produto(Integer id, String nome, Double preco, Date validade) {
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+		this.validade = validade;
+	}
+
+
 
 	public String getNome() {
 		return nome;

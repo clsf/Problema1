@@ -1,37 +1,44 @@
 package entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import enums.FormaDePagamento;
+
 
 public class Venda {
 	private static Integer ultimoId=1;
 	private Integer id;
-	private Double precoTotal;
-	private String formaDePag; //Poderia ser um enum?
-	private Date data; //date?
+	private FormaDePagamento formaDePagamento; 
+	private Date data; 
+	private List<Integer> itens = new ArrayList<>();
 	
-	public Venda(Integer id, Double precoTotal, String formaDePag, Date data) {
-		super();
+	public Venda(FormaDePagamento formaDePagamento, Date data, List<Integer> itens) {
 		this.id = ultimoId;
-		this.precoTotal = precoTotal;
-		this.formaDePag = formaDePag;
+		this.formaDePagamento = formaDePagamento;
 		this.data = data;
+		this.itens = itens;
 		ultimoId++;
 	}
+	
 
-	public Double getPrecoTotal() {
-		return precoTotal;
+	public Venda(Integer id,  FormaDePagamento formaDePagamento, Date data, 
+			List<Integer> itens) {
+		this.id = id;
+		this.formaDePagamento = formaDePagamento;
+		this.data = data;
+		this.itens = itens;
 	}
 
-	public void setPrecoTotal(Double precoTotal) {
-		this.precoTotal = precoTotal;
+
+
+	public FormaDePagamento getFormaDePagamento() {
+		return formaDePagamento;
 	}
 
-	public String getFormaDePag() {
-		return formaDePag;
-	}
-
-	public void setFormaDePag(String formaDePag) {
-		this.formaDePag = formaDePag;
+	public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
+		this.formaDePagamento = formaDePagamento;
 	}
 
 	public Date getData() {
@@ -44,6 +51,27 @@ public class Venda {
 
 	public Integer getId() {
 		return id;
+	}
+
+
+	public List<Integer> getItens() {
+		return itens;
+	}
+
+
+	public void setItens(List<Integer> itens) {
+		this.itens = itens;
+	}
+	
+	public Double precoTotal(List<Prato> pratos) {
+		Double precototal=(double) 0;
+		for(Integer idItem : this.itens) {
+			Prato prato = pratos.stream().filter(x -> x.getId() == idItem)
+					.findFirst().orElse(null);
+			precototal+= prato.getPreco();
+		}
+		
+		return precototal;
 	}
 	
 	

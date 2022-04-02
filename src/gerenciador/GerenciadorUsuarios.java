@@ -10,10 +10,28 @@ public class GerenciadorUsuarios {
 	
 	private List <Usuario> listaUsuarios = new ArrayList<>();
 	
-	public void add(Usuario usuario) {		
+	private void add(Usuario usuario) {		
 		this.listaUsuarios.add(usuario);		
 	}
+	private void editar(Usuario usuarioEdit, Usuario alterarUsuario) {
+		if (usuarioEdit.getLogin() != alterarUsuario.getLogin()){
+			usuarioEdit.setLogin(alterarUsuario.getLogin());
+		}
+		if(usuarioEdit.getSenha() != alterarUsuario.getSenha()) {
+			usuarioEdit.setSenha(alterarUsuario.getSenha());
+		}
+	}	
 	
+	public void addOuEdit(Usuario usuario) {
+		Usuario usuarioExistente = this.listaUsuarios.stream().filter(x -> x.getId() == usuario.getId())
+				.findFirst().orElse(null);
+		if(usuarioExistente != null) {
+			editar(usuarioExistente, usuario);
+		}
+		else {
+			add(usuario);
+		}
+	}
 	public void remover(Integer id) {
 		Usuario result = this.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		if(result!=null) {
@@ -21,28 +39,16 @@ public class GerenciadorUsuarios {
 		}
 	}
 	
-	public void editar(Usuario usuario) {
-		Usuario usuarioEdit = this.listaUsuarios.stream().filter(x -> x.getId() == usuario.getId()).findFirst().orElse(null);
-		if (usuarioEdit.getLogin() != usuario.getLogin()){
-			usuarioEdit.setLogin(usuario.getLogin());
-		}
-		if(usuarioEdit.getSenha() != usuario.getSenha()) {
-			usuarioEdit.setSenha(usuario.getSenha());
-		}
+	public List<Usuario> getListaDeUsuarios(){
+		return this.listaUsuarios;
 	}
 	
 	
 	public String toString() {
 		String listagem=" ";
 		for(Usuario usuario : this.listaUsuarios) {
-			listagem +="ID: "+usuario.getId()+"\nLogin: "+usuario.getLogin()+"\nSenha: "+usuario.getSenha()+"\n";
-			/*listagem += "\nID: " 
-					+usuario.getId() +
-					"\n Login: "+
-					usuario.getLogin() +
-					"\n Senha:  "
-					+ usuario.getSenha();*/
-					
+			listagem +="ID: "+usuario.getId()+"\nLogin: "+usuario.getLogin()+
+					"\nSenha: "+usuario.getSenha()+"\n";
 		}
 		
 		return listagem;

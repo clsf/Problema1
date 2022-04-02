@@ -1,20 +1,32 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Fornecedor {
 	private static Integer ultimoId=1;
 	private Integer id;
 	private Integer cnpj;
 	private String name;
 	private String endereco;
+	private List<Integer> idProdutosFornecidos = new ArrayList<>();
 	
 	
-	public Fornecedor(Integer id, Integer cnpj, String name, String endereco) {
-		super();
+	public Fornecedor(Integer cnpj, String name, String endereco, List<Integer> idProdutosFornecidos) {
 		this.id = ultimoId;
 		this.cnpj = cnpj;
 		this.name = name;
 		this.endereco = endereco;
+		this.idProdutosFornecidos = idProdutosFornecidos;
 		ultimoId++;
+	}
+	
+	public Fornecedor(Integer id, Integer cnpj, String name, String endereco, List<Integer>idProdutosFornecidos) {
+		this.id = id;
+		this.cnpj = cnpj;
+		this.name = name; 
+		this.endereco = endereco;
+		this.idProdutosFornecidos = idProdutosFornecidos;
 	}
 
 
@@ -51,6 +63,17 @@ public class Fornecedor {
 	public Integer getId() {
 		return id;
 	}
+
+
+	public List<Integer> getIdProdutosFornecidos() {
+		return idProdutosFornecidos;
+	}
+
+
+	public void setProdutosFornecidos(List<Integer> idProdutosFornecidos) {
+		this.idProdutosFornecidos = idProdutosFornecidos;
+	}
+	
 	
 	
 }

@@ -1,25 +1,46 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import enums.CategoriaPrato;
+
 public class Prato {
 	private static Integer ultimoId=1;
 	private Integer id;
 	private String nome;
 	private Double preco;
-	private String categoria; //poderia ser um enum?
+	private CategoriaPrato categoria; 
 	private String descricao;
+	private List<Integer> produtos = new ArrayList<>();
 	
 	
 	
 	
-	public Prato(Integer id, String nome, Double preco, String categoria, String descricao) {
-		super();
+	public Prato(String nome, Double preco, CategoriaPrato categoria, String descricao, 
+			List<Integer> produtos) {
 		this.id = ultimoId;
 		this.nome = nome;
 		this.preco = preco;
 		this.categoria = categoria;
 		this.descricao = descricao;
+		this.produtos = produtos;
 		ultimoId++;
 	}
+	
+	
+	public Prato(Integer id, String nome, Double preco, CategoriaPrato categoria, String descricao,
+			List<Integer> produtos) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+		this.categoria = categoria;
+		this.descricao = descricao;
+		this.produtos = produtos;
+	}
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -32,10 +53,10 @@ public class Prato {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-	public String getCategoria() {
+	public CategoriaPrato getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(String categoria) {
+	public void setCategoria(CategoriaPrato categoria) {
 		this.categoria = categoria;
 	}
 	public String getDescricao() {
@@ -47,6 +68,18 @@ public class Prato {
 	public Integer getId() {
 		return id;
 	}
+
+
+	public List<Integer> getProdutos() {
+		return produtos;
+	}
+
+
+	public void setProdutos(List<Integer> produtos) {
+		this.produtos = produtos;
+	}
+	
+	
 	
 	
 
