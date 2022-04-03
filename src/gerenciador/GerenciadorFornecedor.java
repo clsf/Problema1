@@ -6,7 +6,8 @@ import java.util.List;
 import entities.Fornecedor;
 
 
-public class GerenciadorFornecedor {	
+public class GerenciadorFornecedor {
+	
 		
 	private List <Fornecedor> listaFornecedores = new ArrayList<>();
 	
@@ -33,21 +34,26 @@ public class GerenciadorFornecedor {
 	}
 	
 	public void addOuEdit(Fornecedor fornecedor) {
+
 		Fornecedor fornecedorExistente = this.listaFornecedores.stream().filter(x -> x.getId() == fornecedor.getId())
 				.findFirst().orElse(null);
 		
 		if(fornecedorExistente!=null) {
 			editar(fornecedorExistente, fornecedor);
-		}
-		else {
+		}else {
 			add(fornecedor);
-		}		
+		}
+	
 	}
 	
 	public Fornecedor getFornecedor(Integer id) {
 		Fornecedor fornecedor = this.listaFornecedores.stream().filter(x -> x.getId() == id)
 				.findFirst().orElse(null);
 		return fornecedor;
+	}
+	
+	public Integer getFornecedor(Fornecedor f) {
+		return f.getId();
 	}
 	public void remover(Integer id) {
 		Fornecedor result = this.listaFornecedores.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
@@ -56,6 +62,12 @@ public class GerenciadorFornecedor {
 			
 		}
 	}	
+	
+	public void limparLista() {
+		listaFornecedores.clear();
+		
+		
+	}
 
 	public String toString() {
 		String listagem=" ";

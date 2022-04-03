@@ -13,12 +13,13 @@ public class Fornecedor {
 	
 	
 	public Fornecedor(Integer cnpj, String name, String endereco, List<Integer> idProdutosFornecidos) {
-		this.id = ultimoId;
+		this.id=ultimoId;
 		this.cnpj = cnpj;
 		this.name = name;
 		this.endereco = endereco;
 		this.idProdutosFornecidos = idProdutosFornecidos;
 		ultimoId++;
+		
 	}
 	
 	public Fornecedor(Integer id, Integer cnpj, String name, String endereco, List<Integer>idProdutosFornecidos) {
@@ -65,6 +66,11 @@ public class Fornecedor {
 	}
 
 
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public List<Integer> getIdProdutosFornecidos() {
 		return idProdutosFornecidos;
 	}
@@ -72,6 +78,14 @@ public class Fornecedor {
 
 	public void setProdutosFornecidos(List<Integer> idProdutosFornecidos) {
 		this.idProdutosFornecidos = idProdutosFornecidos;
+	}
+
+	public static Integer getUltimoId() {
+		return ultimoId;
+	}
+
+	public static void setUltimoId(Integer ultimoId) {
+		Fornecedor.ultimoId = ultimoId;
 	}
 	
 	
