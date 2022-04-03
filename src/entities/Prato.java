@@ -78,6 +78,16 @@ public class Prato {
 	public void setProdutos(List<Integer> produtos) {
 		this.produtos = produtos;
 	}
+
+
+	public static Integer getUltimoId() {
+		return ultimoId;
+	}
+
+
+	public static void setUltimoId(Integer ultimoId) {
+		Prato.ultimoId = ultimoId;
+	}
 	
 	
 	

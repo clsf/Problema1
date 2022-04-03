@@ -1,6 +1,6 @@
 package entities;
 
-import java.sql.Date;
+
 
 public class Produto {
 	private static Integer ultimoId=1;
@@ -8,9 +8,9 @@ public class Produto {
 	private Integer id;
 	private String nome;
 	private Double preco;
-	private Date validade; 
+	private Integer validade; 
 	
-	public Produto(String nome, Double preco, Date validade) {
+	public Produto(String nome, Double preco,Integer validade) {
 		super();
 		this.id = ultimoId;
 		this.nome = nome;
@@ -21,7 +21,7 @@ public class Produto {
 
 	
 	
-	public Produto(Integer id, String nome, Double preco, Date validade) {
+	public Produto(Integer id, String nome, Double preco, Integer validade) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
@@ -46,16 +46,28 @@ public class Produto {
 		this.preco = preco;
 	}
 
-	public Date getValidade() {
+	public Integer getValidade() {
 		return validade;
 	}
 
-	public void setValidade(Date validade) {
+	public void setValidade (Integer validade) {
 		this.validade = validade;
 	}
 
 	public Integer getId() {
 		return id;
+	}
+
+
+
+	public static Integer getUltimoId() {
+		return ultimoId;
+	}
+
+
+
+	public static void setUltimoId(Integer ultimoId) {
+		Produto.ultimoId = ultimoId;
 	}
 	
 	

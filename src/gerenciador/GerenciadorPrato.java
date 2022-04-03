@@ -63,6 +63,10 @@ public class GerenciadorPrato {
 	public List<Prato> getPrato(){
 		return this.listaDePratos; 
 	}
+	public Prato getPrato(Integer id) {
+		Prato prato = this.listaDePratos.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+		return prato;
+	}
 	
 	public String toString() {
 		String listagem= " ";
@@ -82,6 +86,9 @@ public class GerenciadorPrato {
 		return this.listaDePratos.size();
 	}
 	
+	public void limpaLista() {
+		this.listaDePratos.clear();
+	}
 	
 
 }

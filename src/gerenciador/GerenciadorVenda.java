@@ -52,6 +52,10 @@ public class GerenciadorVenda {
 	public List<Venda> getListaDeVendas(){
 		return this.listaDeVendas;
 	}
+	public Venda getVenda(Integer id) {
+		Venda venda = this.listaDeVendas.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
+		return venda;
+	}
 	
 	public String toString(List<Prato> pratos) {
 		String listagem = "";
@@ -69,6 +73,10 @@ public class GerenciadorVenda {
 
 	public Integer qtd() {
 		return this.listaDeVendas.size();
+	}
+	
+	public void limparLista() {
+		this.listaDeVendas.clear();
 	}
 }
 

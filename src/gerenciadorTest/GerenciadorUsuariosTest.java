@@ -2,7 +2,8 @@ package gerenciadorTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.BeforeClass;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,11 @@ class GerenciadorUsuariosTest {
 		gu.addOuEdit(u1);
 		gu.addOuEdit(u2);
 	}
+	@AfterEach
+	public void setUp() {
+		gu.limparLista();
+		Usuario.setUltimoId(1);
+	}
 	
 	
 	@Test
@@ -38,6 +44,39 @@ class GerenciadorUsuariosTest {
 	@Test
 	void editarUsuarioTeste() {
 		assertEquals(2,gu.qtd());
+		assertEquals("CLS",gu.getUsuario(1).getLogin());
+		assertEquals("Cometa",gu.getUsuario(1).getSenha());
+		assertEquals("Cláudia Inês",gu.getUsuario(1).getNome());
+		Usuario u3 = new Usuario(1,"CLS_F","Cometa08","Cláudia Inês Sales");
+		gu.addOuEdit(u3);
+		assertEquals("CLS_F",gu.getUsuario(1).getLogin());
+		assertEquals("Cometa08",gu.getUsuario(1).getSenha());
+		assertEquals("Cláudia Inês Sales",gu.getUsuario(1).getNome());
 	}
-
+	
+	@Test
+	void removerUsuarioTeste() {
+		assertEquals(2,gu.qtd());
+		Usuario u3 = new Usuario("Ninguém","54587","Ninguem SS");
+		gu.addOuEdit(u3);
+		gu.remover(2);
+		assertEquals(2,gu.qtd());
+		gu.remover(3);
+		assertEquals(1,gu.qtd());
+	}
+	
+	@Test
+	void ListagemDeUsuariosTeste() {
+		assertEquals(2,gu.qtd());
+		Usuario u3 = new Usuario("Ninguém","54587","Ninguem SS");
+		gu.addOuEdit(u3);
+		assertEquals(3,gu.qtd());
+		Usuario u4 = new Usuario("Ninguém2","54587","Ninguem SS");
+		Usuario u5 = new Usuario("Ninguém3","54587","Ninguem SS"); 
+		gu.addOuEdit(u4);
+		gu.addOuEdit(u5);
+		
+		assertEquals(5,gu.qtd());
+	}
+	
 }

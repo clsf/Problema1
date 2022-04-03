@@ -1,6 +1,6 @@
 package entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +72,16 @@ public class Venda {
 		}
 		
 		return precototal;
+	}
+
+
+	public static Integer getUltimoId() {
+		return ultimoId;
+	}
+
+
+	public static void setUltimoId(Integer ultimoId) {
+		Venda.ultimoId = ultimoId;
 	}
 	
 	

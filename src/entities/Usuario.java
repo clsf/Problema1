@@ -56,6 +56,16 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+
+	public static Integer getUltimoId() {
+		return ultimoId;
+	}
+
+
+	public static void setUltimoId(Integer ultimoId) {
+		Usuario.ultimoId = ultimoId;
+	}
 	
 	
 	

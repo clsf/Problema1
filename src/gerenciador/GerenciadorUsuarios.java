@@ -20,6 +20,9 @@ public class GerenciadorUsuarios {
 		if(usuarioEdit.getSenha() != alterarUsuario.getSenha()) {
 			usuarioEdit.setSenha(alterarUsuario.getSenha());
 		}
+		if(usuarioEdit.getNome() != alterarUsuario.getNome()) {
+			usuarioEdit.setNome(alterarUsuario.getNome());
+		}
 	}	
 	
 	public void addOuEdit(Usuario usuario) {
@@ -43,6 +46,10 @@ public class GerenciadorUsuarios {
 		return this.listaUsuarios;
 	}
 	
+	public Usuario getUsuario(Integer id) {
+		Usuario usuario = this.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		return usuario;
+	}
 	
 	public String toString() {
 		String listagem=" ";
@@ -58,5 +65,7 @@ public class GerenciadorUsuarios {
 		return listaUsuarios.size();
 	}
 		
-
+	public void limparLista() {
+		this.listaUsuarios.clear();
+	}
 }

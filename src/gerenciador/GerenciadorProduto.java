@@ -50,6 +50,11 @@ public class GerenciadorProduto {
 		
 	}
 	
+	public Produto getProduto(Integer id) {
+		Produto produto = this.listaDeProdutos.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
+		return produto;
+	}
+	
 	public String toString() {
 		String listagem = "";
 		for(Produto produto : this.listaDeProdutos) {
@@ -70,6 +75,10 @@ public class GerenciadorProduto {
 	
 	public Integer qtd() {
 		return this.listaDeProdutos.size();
+	}
+	
+	public void limparLista() {
+		this.listaDeProdutos.clear();
 	}
 
 }
