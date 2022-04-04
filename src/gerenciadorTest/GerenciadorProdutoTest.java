@@ -2,20 +2,17 @@ package gerenciadorTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import entities.Produto;
-import gerenciador.GerenciadorProduto;
+import gerenciador.GerenciadorProdutos;
 
 class GerenciadorProdutoTest {
 	
-	GerenciadorProduto gp = new GerenciadorProduto();
+	GerenciadorProdutos gp = new GerenciadorProdutos();
 	
 	
 	@BeforeEach

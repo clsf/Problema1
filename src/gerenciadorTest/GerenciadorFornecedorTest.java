@@ -12,17 +12,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import entities.Fornecedor;
-import gerenciador.GerenciadorFornecedor;
+import gerenciador.GerenciadorFornecedores;
 
 class GerenciadorFornecedorTest {	
 	
-	 GerenciadorFornecedor gf;
+	 GerenciadorFornecedores gf;
 	 
 
 	
 	@BeforeEach
 	public void init() {
-		gf = new GerenciadorFornecedor();
+		gf = new GerenciadorFornecedores();
 		List<Integer> produtos1 = new ArrayList<>();
 		produtos1.add(1); produtos1.add(2);
 		

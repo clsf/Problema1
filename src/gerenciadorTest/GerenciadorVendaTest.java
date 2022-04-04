@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 
 import entities.Venda;
 import enums.FormaDePagamento;
-import gerenciador.GerenciadorVenda;
+import gerenciador.GerenciadorVendas;
 
 class GerenciadorVendaTest {
 	
-	GerenciadorVenda gv = new GerenciadorVenda();
+	GerenciadorVendas gv = new GerenciadorVendas();
 	SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 	
 	@BeforeEach

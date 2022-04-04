@@ -6,14 +6,25 @@ import java.util.List;
 
 import enums.FormaDePagamento;
 
-
+/**
+ * Classe para criação de objeto do tipo Venda
+ * @author Cláudia Inês Sales
+ *
+ */
 public class Venda {
-	private static Integer ultimoId=1;
-	private Integer id;
-	private FormaDePagamento formaDePagamento; 
-	private Date data; 
-	private List<Integer> itens = new ArrayList<>();
+	private static Integer ultimoId=1; // Salva o último ID utilizado, atributo pertencente a classe
+	private Integer id;   			   // Id da Venda
+	private FormaDePagamento formaDePagamento; // Forma de pagamento podendo ser Débito, a vista, 
+												//Pix ou crédito
+	private Date data; 				//Data da venda		
+	private List<Integer> itens = new ArrayList<>(); //Lista com ID's de Pratos que foram comprados
 	
+	/**
+	 * Construtor do objeto venda permitindo instanciar sem fornecer o ID
+	 * @param formaDePagamento Forma de Pagamento, podendo ser Débito, Pix, Crédito, etc...
+	 * @param data Data que foi realizada a venda
+	 * @param itens Lista com ID's de pratos que fazem parte da venda
+	 */
 	public Venda(FormaDePagamento formaDePagamento, Date data, List<Integer> itens) {
 		this.id = ultimoId;
 		this.formaDePagamento = formaDePagamento;
@@ -22,6 +33,14 @@ public class Venda {
 		ultimoId++;
 	}
 	
+	/**
+	 * Construtor do objeto usuário para instanciar junto com o ID,
+	 * servirá para edição de usuários ja existentes
+	 * @param id Identidade do usuário
+	 * @param formaDePagamento Forma de Pagamento, podendo ser Débito, Pix, Crédito, etc...
+	 * @param data Data que foi realizada a venda
+	 * @param itens Lista com ID's de pratos que fazem parte da venda
+	 */
 
 	public Venda(Integer id,  FormaDePagamento formaDePagamento, Date data, 
 			List<Integer> itens) {
@@ -31,37 +50,69 @@ public class Venda {
 		this.itens = itens;
 	}
 
-
+	/**
+	 * Metódo para pegar a forma de pagamento da venda
+	 * @return FormaDePagamento - Forma de pagamento da venda
+	 */
 
 	public FormaDePagamento getFormaDePagamento() {
 		return formaDePagamento;
 	}
-
+	
+	/**
+	 * Metódo para configurar a forma de pagamento da venda
+	 * @param formaDePagamento  Forma de pagamento da venda
+	 */
 	public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
 	}
+	
+	/**
+	 * Metódo para pegar data da venda
+	 * @return Data - Data da venda
+	 */
 
 	public Date getData() {
 		return data;
 	}
-
+	
+	/**
+	 * Metódo para configurar data da venda
+	 * @param data - Data da venda
+	 */
 	public void setData(Date data) {
 		this.data = data;
 	}
-
+	/**
+	 * Metódo para pegar ID da venda
+	 * @return Integer - ID da venda
+	 */
 	public Integer getId() {
 		return id;
 	}
-
+	
+	/**
+	 * Metódo para pegar lista com os ID's dos itens que fazem parte da venda
+	 * @return Lista do tipo Integer - ID's dos pratos da venda
+	 */
 
 	public List<Integer> getItens() {
 		return itens;
 	}
 
-
+	/**
+	 * Metódo para configurar lista de ID's com os itens que fazem parte da venda
+	 * @param itens Lista de Itens que fazem da parte da venda
+	 */
 	public void setItens(List<Integer> itens) {
 		this.itens = itens;
 	}
+	
+	/**
+	 * Metódo para calcular o preço total da venda 
+	 * @param pratos Pratos cadastrados na classe Pratos 
+	 * @return Double - Preço total da venda
+	 */
 	
 	public Double precoTotal(List<Prato> pratos) {
 		Double precototal=(double) 0;
@@ -73,13 +124,21 @@ public class Venda {
 		
 		return precototal;
 	}
-
+	
+	/**
+	 * Metódo para pegar o último ID utilizado pela classe 
+	 * @return Integer - último ID utilizado pela classe
+	 */
 
 	public static Integer getUltimoId() {
 		return ultimoId;
 	}
 
-
+	/**
+	 * Metódo para configurar o último ID da classe, esse metódo só será utilizado 
+	 * nos testes para fazer o resete
+	 * @param ultimoId Ultimo ID que será referência para adição dos próximos
+	 */
 	public static void setUltimoId(Integer ultimoId) {
 		Venda.ultimoId = ultimoId;
 	}

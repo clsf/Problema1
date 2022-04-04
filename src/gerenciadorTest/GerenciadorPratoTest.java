@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import entities.Prato;
 import enums.CategoriaPrato;
-import gerenciador.GerenciadorPrato;
+import gerenciador.GerenciadorPratos;
 
 class GerenciadorPratoTest {
 	
-	GerenciadorPrato gp = new GerenciadorPrato();
+	GerenciadorPratos gp = new GerenciadorPratos();
 	
 	@BeforeEach
 	 public void init() {

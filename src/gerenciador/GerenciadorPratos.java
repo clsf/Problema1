@@ -1,0 +1,151 @@
+package gerenciador;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Prato;
+
+/**
+ * Classe para criação do objeto Gerenciador de Pratos
+ * @author Cláudia Inês Sales
+ *
+ */
+public class GerenciadorPratos {	
+		
+	private List <Prato> listaDePratos = new ArrayList<>();//Lista contendo os Pratos
+	
+	/**
+	 * Construtor para inicializar o Gerenciador de Pratos
+	 */
+	public GerenciadorPratos() {
+		
+	}	
+
+	/**
+	 * Metódo para adicionar o prato na lista 
+	 * @param prato Objeto do tipo Prato
+	 */
+	private void add(Prato prato) {
+		listaDePratos.add(prato);		
+	}
+	
+	/**
+	 *  Metódo para editar prato já existente na lista
+	 * @param pratoEdit Prato que já existe e será editado
+	 * @param alterarPrato Prato que será utilizado como parâmetro para substituição
+	 */
+	
+	private void editar(Prato pratoEdit, Prato alterarPrato) {		
+		//Troca a categoria do prato se for diferente
+		if(pratoEdit.getCategoria() != alterarPrato.getCategoria()) {
+			pratoEdit.setCategoria(alterarPrato.getCategoria());
+		}
+		//Troca descrição do prato se for diferente
+		if(pratoEdit.getDescricao() != alterarPrato.getDescricao()) {
+			pratoEdit.setDescricao(alterarPrato.getDescricao());
+		}
+		//Troca nome do prato se for diferente
+		if(pratoEdit.getNome() != alterarPrato.getNome()) {
+			pratoEdit.setNome(alterarPrato.getNome());
+		}
+		//Troca o preço do prato se for diferente
+		if(pratoEdit.getPreco() != alterarPrato.getPreco()) {
+			pratoEdit.setPreco(alterarPrato.getPreco());
+		}
+		//Troca lista de produtos que compoem os pratos se for diferente
+		if(pratoEdit.getProdutos() != alterarPrato.getProdutos()){
+			pratoEdit.setProdutos(alterarPrato.getProdutos());
+		}
+		
+	}
+	
+	/**
+	 * Metódo que será utilizado por outras classes para adicionar ou editar um prato
+	 * Nele o objeto passado será verificado se já existe na lista, se não existir será
+	 * adicionado, caso já exista será editado
+	 * @param prato Prato que será adicionado ou editado
+	 */
+	
+	public void addOuEdit(Prato prato) {
+		//Procura a existência do prato na lista através do ID
+		Prato pratoExistente = this.listaDePratos.stream().filter(x->x.getId() == prato.getId())
+				.findFirst().orElse(null);
+		//Se o prato já existir na lista será editado, se não será adicionado
+		if(pratoExistente != null) {
+			editar(pratoExistente, prato);
+		}
+		else {
+			add(prato);
+		}
+
+	}
+	
+	/**
+	 * Metódo para remover prato da lista através do ID dele
+	 * @param id ID do prato
+	 */
+	public void remover(Integer id) {
+		Prato result = this.listaDePratos.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+		
+		if(result != null) {
+			this.listaDePratos.remove(result);
+		}
+	
+	}
+	
+	/**
+	 * Metódo para pegar a lista completa dos pratos
+	 * @return Lista Prato - Lista de pratos existentes no gerenciador
+	 */
+
+	public List<Prato> getPrato(){
+		return this.listaDePratos; 
+	}
+	
+	/**
+	 * Metódo para recuperar um prato específio na lista de pratos
+	 * @param id ID do prato a ser recuperado
+	 * @return Prato - Objeto do tipo prato
+	 */
+	public Prato getPrato(Integer id) {
+		Prato prato = this.listaDePratos.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+		return prato;
+	}
+	
+	/**
+	 * Metódo para fazer a listagem dos fornecedores
+	 * @returne String - Listagem completa dos fornecedores
+	 */
+	
+	public String toString() {
+		String listagem= " ";
+		
+		for(Prato prato : this.listaDePratos) {
+			listagem +="Nome: " + prato.getNome() + "Categoria: " + prato.getCategoria()+ 
+					"Descricao: " +
+					prato.getDescricao() +
+					"Preco:  " +
+					prato.getPreco();				
+ 		}
+		
+		return listagem;
+	}
+	
+	/**
+	 * Metódo para pegar a quantidade de fornecedores na lista
+	 * @return Integer - Quantidade de Fornecedores cadastrados
+	 */
+	
+	public Integer qtd() {
+		return this.listaDePratos.size();
+	}
+	
+	/**
+	 * Metódo para limpar a lista de fornecedores, somente será utilizado nos Testes
+	 */
+	public void limpaLista() {
+		this.listaDePratos.clear();
+	}
+	
+
+}

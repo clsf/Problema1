@@ -11,8 +11,8 @@ import entities.Gerente;
 import entities.Prato;
 import entities.Usuario;
 import enums.CategoriaPrato;
-import gerenciador.GerenciadorFornecedor;
-import gerenciador.GerenciadorPrato;
+import gerenciador.GerenciadorFornecedores;
+import gerenciador.GerenciadorPratos;
 import gerenciador.GerenciadorUsuarios;
 
 public class main {
