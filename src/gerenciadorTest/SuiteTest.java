@@ -8,19 +8,19 @@ apostilas, e páginas ou documentos eletrônicos da Internet. Qualquer trecho de c
 de outra autoria que não a minha está destacado com uma citação para o autor e a fonte
 do código, e estou ciente que estes trechos não serão considerados para fins de avaliação.
 ******************************************************************************************/
-package enums;
-/**
- * Classe para especificar a forma de pagamento da venda 
- * @author Cláudia Inês Sales
- *
- */
-public enum FormaDePagamento {
-	/**
-	 * Tipos de forma de pagamento que podem ser utilizadas na hora da compra
-	 */
-	DEBITO,
-	CREDITO,
-	AVISTA,
-	PIX;
 
+package gerenciadorTest;
+
+
+import org.junit.platform.suite.api.*;
+
+@Suite
+@SelectClasses({
+	GerenciadorFornecedorTest.class,
+	GerenciadorPratoTest.class,
+	GerenciadorProdutoTest.class,
+	GerenciadorUsuariosTest.class,
+	GerenciadorVendaTest.class
+})
+public class SuiteTest {
 }
