@@ -17,13 +17,14 @@ import entities.Venda;
 import enums.FormaDePagamento;
 import gerenciador.GerenciadorVendas;
 
-class GerenciadorVendaTest {
+public class GerenciadorVendaTest {
 	
 	GerenciadorVendas gv = new GerenciadorVendas();
 	SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 	
+	//Método para inicializar a lista com algumas vendas
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		List<Integer> itens1 = new ArrayList<>();
 		itens1.add(1); itens1.add(2);
 		
@@ -36,15 +37,19 @@ class GerenciadorVendaTest {
 		gv.addOuEdit(venda2);
 		
 	}
+	
 
+	//Metódo para limpar a lista e último ID para não dar erro nas posições
+	//no momento do teste 
 	@AfterEach
-	void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		gv.limparLista();
 		Venda.setUltimoId(1);
 	}
-
+	
+	//Teste de adicionar vendas do gerenciador
 	@Test
-	void adicionarTeste() throws ParseException {
+	public void adicionarTeste() throws ParseException {
 		assertEquals(2,gv.qtd());
 		
 		List<Integer> itens2 = new ArrayList<>();
@@ -53,14 +58,17 @@ class GerenciadorVendaTest {
 		Venda venda3 = new Venda(FormaDePagamento.CREDITO, data3, itens2);
 		gv.addOuEdit(venda3);
 		assertEquals(3,gv.qtd());
+		assertSame(venda3,gv.getVenda(3));
 		
 		Venda venda4 = new Venda(FormaDePagamento.DEBITO,data3,itens2);
 		gv.addOuEdit(venda4);
 		assertEquals(4,gv.qtd());
+		assertSame(venda4,gv.getVenda(4));
 	}
 	
+	//Teste de edição de venda do gerenciador
 	@Test
-	void editarTeste() throws ParseException {
+	public void editarTeste() throws ParseException {
 		assertEquals(2,gv.qtd());
 		assertEquals(FormaDePagamento.AVISTA,gv.getVenda(1).getFormaDePagamento());
 		assertEquals("03/04/2022",sdf1.format(gv.getVenda(1).getData()));
@@ -73,12 +81,15 @@ class GerenciadorVendaTest {
 		gv.addOuEdit(venda1);
 		
 		assertEquals(FormaDePagamento.CREDITO,gv.getVenda(1).getFormaDePagamento());
-		assertEquals("08/04/2022",sdf1.format(gv.getVenda(1).getData()));	
+		assertEquals("08/04/2022",sdf1.format(gv.getVenda(1).getData()));
+		
+		assertEquals(2,gv.qtd());
 		
 	}
 	
+	//Teste de remoção das vendas do gerenciador
 	@Test 
-	void removerTeste() throws ParseException {
+	public void removerTeste() throws ParseException {
 		assertEquals(2,gv.qtd());
 		
 		gv.remover(1);
@@ -98,8 +109,9 @@ class GerenciadorVendaTest {
 		
 	}
 	
+	//Teste de listagem das vendas do gerenciador
 	@Test
-	void ListagemTeste() throws ParseException {
+	public void ListagemTeste() throws ParseException {
 		assertEquals(2,gv.qtd());
 		
 		List<Integer> itens2 = new ArrayList<>();
@@ -108,11 +120,18 @@ class GerenciadorVendaTest {
 		Venda venda3 = new Venda(FormaDePagamento.CREDITO, data3, itens2);
 		gv.addOuEdit(venda3);
 		assertEquals(3,gv.qtd());
+		assertSame(venda3,gv.getVenda(3));
 		
 		Venda venda4 = new Venda(FormaDePagamento.PIX, data3, itens2);
 		gv.addOuEdit(venda4);
 		assertEquals(4,gv.qtd());
+		assertSame(venda4,gv.getVenda(4));
 		
+		gv.remover(1);
+		gv.remover(2);
+		gv.remover(3);
+		gv.remover(4);
+		assertEquals(0,gv.qtd());
 	
 	}
 }

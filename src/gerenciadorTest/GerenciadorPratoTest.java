@@ -13,10 +13,11 @@ import entities.Prato;
 import enums.CategoriaPrato;
 import gerenciador.GerenciadorPratos;
 
-class GerenciadorPratoTest {
+public class GerenciadorPratoTest {
 	
 	GerenciadorPratos gp = new GerenciadorPratos();
 	
+	//Método para inicializar a lista com alguns pratos
 	@BeforeEach
 	 public void init() {
 		List<Integer> produtos1 = new ArrayList<>();
@@ -29,14 +30,19 @@ class GerenciadorPratoTest {
 		gp.addOuEdit(p1);
 		gp.addOuEdit(p2);
 	}
+	
+
+	//Metódo para limpar a lista e último ID para não dar erro nas posições
+	//no momento do teste 
 	@AfterEach 
 	public void setUp() {
 		gp.limpaLista();
 		Prato.setUltimoId(1);
 	}
 
+	//Teste de adicionar pratos
 	@Test
-	void adicionarTeste() {
+	public void adicionarTeste() {
 		assertEquals(2,gp.qtd());
 		List<Integer> produtos3 = new ArrayList<>();
 		produtos3.add(44);produtos3.add(3);
@@ -46,12 +52,19 @@ class GerenciadorPratoTest {
 		assertEquals(3,gp.qtd());
 		Prato p4 = new Prato("Aimpim Frito",10.0,CategoriaPrato.ENTRADA,"Aimpim frito da casa",produtos3);
 		gp.addOuEdit(p4);		
-		assertEquals(4,gp.qtd());		
+		assertFalse(3==gp.qtd());
+		assertEquals(4,gp.qtd());
+		
+		assertSame(p3,gp.getPrato(3));
+		assertSame(p4,gp.getPrato(4));
+		
 	}
 	
+	//Teste de edição dos pratos
 	@Test
-	void editarTeste() {
+	public void editarTeste() {
 		assertEquals(2,gp.qtd());
+		
 		assertEquals("Macarrão",gp.getPrato(1).getNome());
 		assertEquals(8.5,gp.getPrato(1).getPreco());
 		assertEquals(CategoriaPrato.MASSA,gp.getPrato(1).getCategoria());
@@ -69,8 +82,10 @@ class GerenciadorPratoTest {
 		
 	}
 	
+
+	//Teste de remoção de pratos
 	@Test
-	void removerTeste() {
+	public void removerTeste() {
 		assertEquals(2,gp.qtd());
 		gp.remover(1);
 		assertEquals(1,gp.qtd());
@@ -82,12 +97,16 @@ class GerenciadorPratoTest {
 		assertEquals(2,gp.qtd());
 		
 		gp.remover(2);
-		assertEquals(1,gp.qtd());		
-		
+		assertEquals(1,gp.qtd());
+		gp.remover(1);
+		assertFalse(1==gp.qtd());
+		assertTrue(0==gp.qtd());
 	}
 	
+	
+	//Teste de listagem dos Pratos
 	@Test
-	void ListagemTeste() {
+	public void ListagemTeste() {
 		assertEquals(2,gp.qtd());
 		
 		List<Integer> produtos1 = new ArrayList<>();
@@ -104,6 +123,10 @@ class GerenciadorPratoTest {
 		
 		gp.remover(3);
 		assertEquals(0,gp.qtd());
+		
+		gp.addOuEdit(p3);
+		assertSame(p3,gp.getPrato(3));
+		assertEquals("Batat Frita",gp.getPrato(3).getNome());
 	
 		
 		

@@ -6,7 +6,7 @@ import java.util.List;
 import entities.Produto;
 
 /**
- * Construtor para inicializar o Gerenciador de Produtos
+ * Classe para criação do objeto Gerenciador de Produtos
  * @author Cláudia Inês Sales
  *
  */

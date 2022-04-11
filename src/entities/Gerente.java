@@ -1,7 +1,7 @@
 package entities;
 
 /**
- * Essa classe instancia objetos do tipo Gerente que é um usuário
+ * Classe para criação objetos do tipo Gerente que é um usuário
  * @author Cláudia Inês Sales
  *
  */
