@@ -120,7 +120,9 @@ public class GerenciadorVendas {
 	public String toString(List<Prato> pratos) {
 		String listagem = "";
 		for(Venda venda: this.listaDeVendas) {
-			listagem += "Data: "
+			listagem += "ID: "
+					+ venda.getId() +
+					"\nData: "
 					+venda.getData()+
 					"\nPreco Total: "
 					+venda.precoTotal(pratos)+

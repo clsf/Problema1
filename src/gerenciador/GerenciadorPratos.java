@@ -131,10 +131,10 @@ public class GerenciadorPratos {
 		String listagem= " ";
 		
 		for(Prato prato : this.listaDePratos) {
-			listagem +="Nome: " + prato.getNome() + "Categoria: " + prato.getCategoria()+ 
-					"Descricao: " +
+			listagem +="ID: "+ prato.getId()+"\nNome: " + prato.getNome() + "\nCategoria: " + prato.getCategoria()+ 
+					"\nDescricao: " +
 					prato.getDescricao() +
-					"Preco:  " +
+					"\nPreco:  " +
 					prato.getPreco();				
  		}
 		

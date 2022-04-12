@@ -112,7 +112,9 @@ public class GerenciadorProdutos {
 		String listagem = "";
 		//Percorre a lista de produtos concatenando as informações em uma string só
 		for(Produto produto : this.listaDeProdutos) {
-			listagem+="Nome: "
+			listagem+="ID: "
+					+produto.getId()+
+					"\nNome: "
 					+produto.getNome()+
 					"\nValidade: "
 					+produto.getValidade()+
