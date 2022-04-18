@@ -10,6 +10,8 @@ do código, e estou ciente que estes trechos não serão considerados para fins de 
 ******************************************************************************************/
 package entities;
 
+import java.util.Date;
+
 /**
  * Classe para criação do objeto Produto
  * @author Cláudia Inês Sales
@@ -21,9 +23,11 @@ public class Produto {
 	private Integer id;				// Id do produto
 	private String nome;			// Nome do produto
 	private Double preco;			// Preço do produto
-	private Integer validade;       // Validade do produto em dias
-	
-	
+	private Date validade;       // Validade do produto FOI TROCADO NO SEGUNDO PROBLEMA
+	private Double quantidade;   //Quantidade dos ingredientes SEGUNDO PROBLEMA
+	 
+
+
 	/**
 	 * Construtor do objeto usuário permitindo instanciar sem fornecer o ID
 	 * @param nome Nome do produto
@@ -31,12 +35,13 @@ public class Produto {
 	 * @param validade Validade do produto em dias
 	 */
 	
-	public Produto(String nome, Double preco,Integer validade) {
+	public Produto(String nome, Double preco,Date validade,Double quantidade) {
 		super();
 		this.id = ultimoId;
 		this.nome = nome;
 		this.preco = preco;
 		this.validade = validade;
+		this.quantidade = quantidade;
 		ultimoId++;
 	}
 
@@ -49,11 +54,12 @@ public class Produto {
 	 * @param validade Validade do produto em dias
 	 */
 	
-	public Produto(Integer id, String nome, Double preco, Integer validade) {
+	public Produto(Integer id, String nome, Double preco, Date validade, Double quantidade) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 		this.validade = validade;
+		this.quantidade = quantidade;
 	}
 
 	/**
@@ -94,7 +100,7 @@ public class Produto {
 	 * Metódo para pegar validade do produto em dias
 	 * @return  Integer - validade do produto
 	 */
-	public Integer getValidade() {
+	public Date getValidade() {
 		return validade;
 	}
 	
@@ -103,7 +109,7 @@ public class Produto {
 	 * @param validade Validade do produto
 	 */
 
-	public void setValidade (Integer validade) {
+	public void setValidade (Date validade) {
 		this.validade = validade;
 	}
 	
@@ -134,6 +140,12 @@ public class Produto {
 		Produto.ultimoId = ultimoId;
 	}
 	
-	
+		public Double getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
+	}
 
 }

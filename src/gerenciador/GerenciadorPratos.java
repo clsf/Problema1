@@ -22,7 +22,7 @@ import entities.Prato;
  */
 public class GerenciadorPratos {	
 		
-	private List <Prato> listaDePratos = new ArrayList<>();//Lista contendo os Pratos
+	private static List <Prato> listaDePratos = new ArrayList<>();//Lista contendo os Pratos
 	
 	/**
 	 * Construtor para inicializar o Gerenciador de Pratos
@@ -35,7 +35,7 @@ public class GerenciadorPratos {
 	 * Metódo para adicionar o prato na lista 
 	 * @param prato Objeto do tipo Prato
 	 */
-	private void add(Prato prato) {
+	private static void add(Prato prato) {
 		listaDePratos.add(prato);		
 	}
 	
@@ -45,7 +45,7 @@ public class GerenciadorPratos {
 	 * @param alterarPrato Prato que será utilizado como parâmetro para substituição
 	 */
 	
-	private void editar(Prato pratoEdit, Prato alterarPrato) {		
+	private static void editar(Prato pratoEdit, Prato alterarPrato) {		
 		//Troca a categoria do prato se for diferente
 		if(pratoEdit.getCategoria() != alterarPrato.getCategoria()) {
 			pratoEdit.setCategoria(alterarPrato.getCategoria());
@@ -76,9 +76,9 @@ public class GerenciadorPratos {
 	 * @param prato Prato que será adicionado ou editado
 	 */
 	
-	public void addOuEdit(Prato prato) {
+	public static void addOuEdit(Prato prato) {
 		//Procura a existência do prato na lista através do ID
-		Prato pratoExistente = this.listaDePratos.stream().filter(x->x.getId() == prato.getId())
+		Prato pratoExistente = GerenciadorPratos.listaDePratos.stream().filter(x->x.getId() == prato.getId())
 				.findFirst().orElse(null);
 		//Se o prato já existir na lista será editado, se não será adicionado
 		if(pratoExistente != null) {
@@ -94,11 +94,11 @@ public class GerenciadorPratos {
 	 * Metódo para remover prato da lista através do ID dele
 	 * @param id ID do prato
 	 */
-	public void remover(Integer id) {
-		Prato result = this.listaDePratos.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+	public static void remover(Integer id) {
+		Prato result = GerenciadorPratos.listaDePratos.stream().filter(x->x.getId() == id).findFirst().orElse(null);
 		
 		if(result != null) {
-			this.listaDePratos.remove(result);
+			GerenciadorPratos.listaDePratos.remove(result);
 		}
 	
 	}
@@ -109,7 +109,7 @@ public class GerenciadorPratos {
 	 */
 
 	public List<Prato> getPrato(){
-		return this.listaDePratos; 
+		return GerenciadorPratos.listaDePratos; 
 	}
 	
 	/**
@@ -117,8 +117,8 @@ public class GerenciadorPratos {
 	 * @param id ID do prato a ser recuperado
 	 * @return Prato - Objeto do tipo prato
 	 */
-	public Prato getPrato(Integer id) {
-		Prato prato = this.listaDePratos.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+	public static Prato getPrato(Integer id) {
+		Prato prato = GerenciadorPratos.listaDePratos.stream().filter(x->x.getId() == id).findFirst().orElse(null);
 		return prato;
 	}
 	
@@ -130,7 +130,7 @@ public class GerenciadorPratos {
 	public String toString() {
 		String listagem= " ";
 		
-		for(Prato prato : this.listaDePratos) {
+		for(Prato prato : GerenciadorPratos.listaDePratos) {
 			listagem +="ID: "+ prato.getId()+"\nNome: " + prato.getNome() + "\nCategoria: " + prato.getCategoria()+ 
 					"\nDescricao: " +
 					prato.getDescricao() +
@@ -147,14 +147,14 @@ public class GerenciadorPratos {
 	 */
 	
 	public Integer qtd() {
-		return this.listaDePratos.size();
+		return GerenciadorPratos.listaDePratos.size();
 	}
 	
 	/**
 	 * Metódo para limpar a lista de fornecedores, somente será utilizado nos Testes
 	 */
 	public void limpaLista() {
-		this.listaDePratos.clear();
+		GerenciadorPratos.listaDePratos.clear();
 	}
 	
 

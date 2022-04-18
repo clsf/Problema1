@@ -38,8 +38,8 @@ public class GerenciadorPratoTest {
 		
 		Prato p1 = new Prato("Macarrão",8.5,CategoriaPrato.MASSA,"Macarrão ao molho",produtos1);
 		Prato p2 = new Prato("Refigerante",5.0,CategoriaPrato.BEBIDA,"Refrigerante de Uva",produtos2);
-		gp.addOuEdit(p1);
-		gp.addOuEdit(p2);
+		GerenciadorPratos.addOuEdit(p1);
+		GerenciadorPratos.addOuEdit(p2);
 	}
 	
 
@@ -59,15 +59,15 @@ public class GerenciadorPratoTest {
 		produtos3.add(44);produtos3.add(3);
 		
 		Prato p3 = new Prato("Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",produtos3);
-		gp.addOuEdit(p3);
+		GerenciadorPratos.addOuEdit(p3);
 		assertEquals(3,gp.qtd());
 		Prato p4 = new Prato("Aimpim Frito",10.0,CategoriaPrato.ENTRADA,"Aimpim frito da casa",produtos3);
-		gp.addOuEdit(p4);		
+		GerenciadorPratos.addOuEdit(p4);		
 		assertFalse(3==gp.qtd());
 		assertEquals(4,gp.qtd());
 		
-		assertSame(p3,gp.getPrato(3));
-		assertSame(p4,gp.getPrato(4));
+		assertSame(p3,GerenciadorPratos.getPrato(3));
+		assertSame(p4,GerenciadorPratos.getPrato(4));
 		
 	}
 	
@@ -76,20 +76,20 @@ public class GerenciadorPratoTest {
 	public void editarTeste() {
 		assertEquals(2,gp.qtd());
 		
-		assertEquals("Macarrão",gp.getPrato(1).getNome());
-		assertEquals(8.5,gp.getPrato(1).getPreco());
-		assertEquals(CategoriaPrato.MASSA,gp.getPrato(1).getCategoria());
-		assertEquals("Macarrão ao molho", gp.getPrato(1).getDescricao());
+		assertEquals("Macarrão",GerenciadorPratos.getPrato(1).getNome());
+		assertEquals(8.5,GerenciadorPratos.getPrato(1).getPreco());
+		assertEquals(CategoriaPrato.MASSA,GerenciadorPratos.getPrato(1).getCategoria());
+		assertEquals("Macarrão ao molho", GerenciadorPratos.getPrato(1).getDescricao());
 		
 		List<Integer> produtos1 = new ArrayList<>();
 		produtos1.add(1); produtos1.add(2);
 		Prato p3 = new Prato(1,"Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",produtos1);
-		gp.addOuEdit(p3);
+		GerenciadorPratos.addOuEdit(p3);
 		
-		assertEquals("Batat Frita",gp.getPrato(1).getNome());
-		assertEquals(10.0,gp.getPrato(1).getPreco());
-		assertEquals(CategoriaPrato.ENTRADA,gp.getPrato(1).getCategoria());
-		assertEquals("Batata Frita da casa", gp.getPrato(1).getDescricao());		
+		assertEquals("Batat Frita",GerenciadorPratos.getPrato(1).getNome());
+		assertEquals(10.0,GerenciadorPratos.getPrato(1).getPreco());
+		assertEquals(CategoriaPrato.ENTRADA,GerenciadorPratos.getPrato(1).getCategoria());
+		assertEquals("Batata Frita da casa", GerenciadorPratos.getPrato(1).getDescricao());		
 		
 	}
 	
@@ -98,18 +98,18 @@ public class GerenciadorPratoTest {
 	@Test
 	public void removerTeste() {
 		assertEquals(2,gp.qtd());
-		gp.remover(1);
+		GerenciadorPratos.remover(1);
 		assertEquals(1,gp.qtd());
 		
 		List<Integer> produtos1 = new ArrayList<>();
 		produtos1.add(1); produtos1.add(2);
 		Prato p3 = new Prato(1,"Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",produtos1);
-		gp.addOuEdit(p3);
+		GerenciadorPratos.addOuEdit(p3);
 		assertEquals(2,gp.qtd());
 		
-		gp.remover(2);
+		GerenciadorPratos.remover(2);
 		assertEquals(1,gp.qtd());
-		gp.remover(1);
+		GerenciadorPratos.remover(1);
 		assertFalse(1==gp.qtd());
 		assertTrue(0==gp.qtd());
 	}
@@ -123,21 +123,21 @@ public class GerenciadorPratoTest {
 		List<Integer> produtos1 = new ArrayList<>();
 		produtos1.add(1); produtos1.add(2);
 		Prato p3 = new Prato("Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",produtos1);
-		gp.addOuEdit(p3);
+		GerenciadorPratos.addOuEdit(p3);
 		assertEquals(3,gp.qtd());
 		
-		gp.remover(1);
+		GerenciadorPratos.remover(1);
 		assertEquals(2,gp.qtd());
 		
-		gp.remover(2);
+		GerenciadorPratos.remover(2);
 		assertEquals(1,gp.qtd());
 		
-		gp.remover(3);
+		GerenciadorPratos.remover(3);
 		assertEquals(0,gp.qtd());
 		
-		gp.addOuEdit(p3);
-		assertSame(p3,gp.getPrato(3));
-		assertEquals("Batat Frita",gp.getPrato(3).getNome());
+		GerenciadorPratos.addOuEdit(p3);
+		assertSame(p3,GerenciadorPratos.getPrato(3));
+		assertEquals("Batat Frita",GerenciadorPratos.getPrato(3).getNome());
 	
 		
 		

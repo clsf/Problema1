@@ -38,13 +38,13 @@ public class GerenciadorFornecedorTest {
 		produtos1.add(1); produtos1.add(2);
 		
 		Fornecedor f1 = new Fornecedor(1123,"CLS EMPRESA","Tomba",produtos1);
-		gf.addOuEdit(f1);
+		GerenciadorFornecedores.addOuEdit(f1);
 		
 			
 		List<Integer> produtos2 = new ArrayList<>();
 		produtos2.add(3); produtos2.add(4);
 		Fornecedor f2 = new Fornecedor(5454,"LTDA Fornecedor","Feira",produtos2);
-		gf.addOuEdit(f2);
+		GerenciadorFornecedores.addOuEdit(f2);
 		
 	}
 	
@@ -52,7 +52,7 @@ public class GerenciadorFornecedorTest {
 	//	no momento do teste 
 	@AfterEach
 	public void setUp2() {
-		gf.limparLista();
+		GerenciadorFornecedores.limparLista();
 		Fornecedor.setUltimoId(1);
 		
 	}
@@ -68,17 +68,17 @@ public class GerenciadorFornecedorTest {
 		List<Integer> produtos3 = new ArrayList<>();
 		produtos3.add(3); produtos3.add(4);
 		Fornecedor f3 = new Fornecedor(68544,"SEM NOME","SSA", produtos3);
-		gf.addOuEdit(f3);
+		GerenciadorFornecedores.addOuEdit(f3);
 		assertEquals(3,gf.qtd());
 		
 		List<Integer>produtos4=new ArrayList<>();
 		Fornecedor f4 = new Fornecedor(8799,"NENHUM","Vilas",produtos4);
-		gf.addOuEdit(f4);
+		GerenciadorFornecedores.addOuEdit(f4);
 		assertFalse(gf.qtd()==3);
 		assertTrue(gf.qtd()==4);
 		
-		assertEquals(f4,gf.getFornecedor(4));
-		assertEquals(f3,gf.getFornecedor(3));	
+		assertEquals(f4,GerenciadorFornecedores.getFornecedor(4));
+		assertEquals(f3,GerenciadorFornecedores.getFornecedor(3));	
 		
 	}
 	
@@ -86,19 +86,19 @@ public class GerenciadorFornecedorTest {
 	@Test
 	public void editarFornecedor() {
 		assertEquals(2,gf.qtd());
-		assertEquals(1123,gf.getFornecedor(1).getCnpj());
+		assertEquals(1123,GerenciadorFornecedores.getFornecedor(1).getCnpj());
 		
 		List<Integer> produtos1 = new ArrayList<>();
 		produtos1.add(1); produtos1.add(2);
 		Fornecedor f1 = new Fornecedor(1,7878,"CLS EMPRESA","Tomba",produtos1);
-		gf.addOuEdit(f1);
-		assertEquals(7878,gf.getFornecedor(1).getCnpj());
-		assertTrue("Tomba"==gf.getFornecedor(1).getEndereco());
+		GerenciadorFornecedores.addOuEdit(f1);
+		assertEquals(7878,GerenciadorFornecedores.getFornecedor(1).getCnpj());
+		assertTrue("Tomba"==GerenciadorFornecedores.getFornecedor(1).getEndereco());
 		
 		f1 = new Fornecedor(1,1234,"CLS S EMPRESA","Papagaio",produtos1);
-		gf.addOuEdit(f1);
-		assertFalse("CLS EMPRESA"==gf.getFornecedor(1).getName());
-		assertTrue("CLS S EMPRESA"==gf.getFornecedor(1).getName());
+		GerenciadorFornecedores.addOuEdit(f1);
+		assertFalse("CLS EMPRESA"==GerenciadorFornecedores.getFornecedor(1).getName());
+		assertTrue("CLS S EMPRESA"==GerenciadorFornecedores.getFornecedor(1).getName());
 		
 	}
 	
@@ -108,19 +108,19 @@ public class GerenciadorFornecedorTest {
 		List<Integer> produtos3 = new ArrayList<>();
 		produtos3.add(3); produtos3.add(4);
 		Fornecedor f3 = new Fornecedor(8744,"TuudoCerto","NDA",produtos3);
-		gf.addOuEdit(f3);	
+		GerenciadorFornecedores.addOuEdit(f3);	
 		assertEquals(3, gf.qtd());
-		gf.remover(3);
+		GerenciadorFornecedores.remover(3);
 		assertEquals(2, gf.qtd());
 		
-		gf.remover(2);
-		gf.remover(1);
+		GerenciadorFornecedores.remover(2);
+		GerenciadorFornecedores.remover(1);
 		assertTrue(0==gf.qtd());
 		
-		gf.addOuEdit(f3);
+		GerenciadorFornecedores.addOuEdit(f3);
 		assertEquals(1, gf.qtd());
 		
-		gf.remover(10);
+		GerenciadorFornecedores.remover(10);
 		assertEquals(1, gf.qtd());
 		
 		
@@ -133,20 +133,20 @@ public class GerenciadorFornecedorTest {
 		List<Integer>produtos5 = new ArrayList<>();
 		produtos5.add(5); produtos5.add(9);
 		Fornecedor f5 = new Fornecedor(545454, "Fornecedor 3", "Nenhum",produtos5);
-		gf.addOuEdit(f5);	
+		GerenciadorFornecedores.addOuEdit(f5);	
 		
 		assertEquals(3, gf.qtd());		
-		assertTrue("Fornecedor 3"==gf.getFornecedor(3).getName());	
-		gf.remover(3);
+		assertTrue("Fornecedor 3"==GerenciadorFornecedores.getFornecedor(3).getName());	
+		GerenciadorFornecedores.remover(3);
 		assertEquals(2,gf.qtd());
 		
-		gf.remover(2);
-		gf.remover(1);
+		GerenciadorFornecedores.remover(2);
+		GerenciadorFornecedores.remover(1);
 		assertEquals(0,gf.qtd());
 		
-		gf.addOuEdit(f5);
+		GerenciadorFornecedores.addOuEdit(f5);
 		assertFalse(0==gf.qtd());
-		assertEquals(545454,gf.getFornecedor(3).getCnpj());
+		assertEquals(545454,GerenciadorFornecedores.getFornecedor(3).getCnpj());
 		
 		
 		

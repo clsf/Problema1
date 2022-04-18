@@ -28,6 +28,7 @@ public class Venda {
 												//Pix ou crédito
 	private Date data; 				//Data da venda		
 	private List<Integer> itens = new ArrayList<>(); //Lista com ID's de Pratos que foram comprados
+	private List<Ingredientes> ingrediente = new ArrayList<>();
 	
 	/**
 	 * Construtor do objeto venda permitindo instanciar sem fornecer o ID

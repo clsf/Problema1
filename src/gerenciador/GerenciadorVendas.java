@@ -24,7 +24,7 @@ import entities.Venda;
 public class GerenciadorVendas {
 	
 	
-	private List<Venda> listaDeVendas = new ArrayList<>(); //Lista de vendas cadastradas
+	private static List<Venda> listaDeVendas = new ArrayList<>(); //Lista de vendas cadastradas
 	
 	/**
 	 * Construtor para inicializar o Gerenciador de vendas
@@ -38,8 +38,8 @@ public class GerenciadorVendas {
 	 * Metódo para adicionar a venda na lista de vendas
 	 * @param venda Objeto do tipo venda que será adicionada
 	 */
-	private void add(Venda venda) {
-		this.listaDeVendas.add(venda);
+	private static void add(Venda venda) {
+		GerenciadorVendas.listaDeVendas.add(venda);
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class GerenciadorVendas {
 	 * @param vendaEdit Objeto venda já existente na lista
 	 * @param alterarVenda Objeto venda que será usado como parâmetro para editar o original
 	 */
-	private void editar(Venda vendaEdit, Venda alterarVenda) {
+	private static void editar(Venda vendaEdit, Venda alterarVenda) {
 			//Se a data estiver diferente será trocada
 			if(vendaEdit.getData() != alterarVenda.getData()) {
 				vendaEdit.setData(alterarVenda.getData());
@@ -68,9 +68,9 @@ public class GerenciadorVendas {
 	 * @param venda Objeto do tipo venda que será adicionado ou editado
 	 */
 	
-	public void addOuEdit(Venda venda) {
+	public static void addOuEdit(Venda venda) {
 		//Verifica a existência de uma venda com o mesmo ID
-		Venda vendaExistente = this.listaDeVendas.stream().filter(x-> x.getId() == venda.getId())
+		Venda vendaExistente =GerenciadorVendas.listaDeVendas.stream().filter(x-> x.getId() == venda.getId())
 				.findFirst().orElse(null);
 		//Se existir a venda será editada, se não será adicionada
 		if(vendaExistente != null) {
@@ -85,11 +85,11 @@ public class GerenciadorVendas {
 	 * Metódo para remover a venda da lista através do ID dela
 	 * @param id ID da venda
 	 */
-	public void remover(Integer id) {
-		Venda result = this.listaDeVendas.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
+	public static void remover(Integer id) {
+		Venda result = GerenciadorVendas.listaDeVendas.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
 		
 		if(result != null) {
-			this.listaDeVendas.remove(result);
+			GerenciadorVendas.listaDeVendas.remove(result);
 		}
 	}
 	
@@ -98,7 +98,7 @@ public class GerenciadorVendas {
 	 * @return Lista venda - Lista das vendas cadastradas
 	 */
 	public List<Venda> getListaDeVendas(){
-		return this.listaDeVendas;
+		return GerenciadorVendas.listaDeVendas;
 	}
 	
 	/**
@@ -107,7 +107,7 @@ public class GerenciadorVendas {
 	 * @return Venda - Objeto do tipo venda
 	 */
 	public Venda getVenda(Integer id) {
-		Venda venda = this.listaDeVendas.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
+		Venda venda = GerenciadorVendas.listaDeVendas.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
 		return venda;
 	}
 	
@@ -119,7 +119,7 @@ public class GerenciadorVendas {
 	
 	public String toString(List<Prato> pratos) {
 		String listagem = "";
-		for(Venda venda: this.listaDeVendas) {
+		for(Venda venda: GerenciadorVendas.listaDeVendas) {
 			listagem += "ID: "
 					+ venda.getId() +
 					"\nData: "
@@ -139,14 +139,14 @@ public class GerenciadorVendas {
 	 * 
 	 */
 	public Integer qtd() {
-		return this.listaDeVendas.size();
+		return GerenciadorVendas.listaDeVendas.size();
 	}
 	
 	/**
 	 * Metódo para limpar a lista de vendas, somente será utilizado nos Testes
 	 */
 	public void limparLista() {
-		this.listaDeVendas.clear();
+		GerenciadorVendas.listaDeVendas.clear();
 	}
 }
 

@@ -40,11 +40,11 @@ public class GerenciadorVendaTest {
 		
 		Date data1 = sdf1.parse("03/04/2022");		
 		Venda venda1 = new Venda(FormaDePagamento.AVISTA , data1, itens1);
-		gv.addOuEdit(venda1);
+		GerenciadorVendas.addOuEdit(venda1);
 		
 		Date data2 = sdf1.parse("04/03/2022");
 		Venda venda2 = new Venda(FormaDePagamento.PIX, data2, itens1);
-		gv.addOuEdit(venda2);
+		GerenciadorVendas.addOuEdit(venda2);
 		
 	}
 	
@@ -66,12 +66,12 @@ public class GerenciadorVendaTest {
 		itens2.add(3); itens2.add(4);
 		Date data3 = sdf1.parse("05/03/2022");
 		Venda venda3 = new Venda(FormaDePagamento.CREDITO, data3, itens2);
-		gv.addOuEdit(venda3);
+		GerenciadorVendas.addOuEdit(venda3);
 		assertEquals(3,gv.qtd());
 		assertSame(venda3,gv.getVenda(3));
 		
 		Venda venda4 = new Venda(FormaDePagamento.DEBITO,data3,itens2);
-		gv.addOuEdit(venda4);
+		GerenciadorVendas.addOuEdit(venda4);
 		assertEquals(4,gv.qtd());
 		assertSame(venda4,gv.getVenda(4));
 	}
@@ -88,7 +88,7 @@ public class GerenciadorVendaTest {
 		
 		Date data1 = sdf1.parse("08/04/2022");		
 		Venda venda1 = new Venda(1,FormaDePagamento.CREDITO , data1, itens1);
-		gv.addOuEdit(venda1);
+		GerenciadorVendas.addOuEdit(venda1);
 		
 		assertEquals(FormaDePagamento.CREDITO,gv.getVenda(1).getFormaDePagamento());
 		assertEquals("08/04/2022",sdf1.format(gv.getVenda(1).getData()));
@@ -102,19 +102,19 @@ public class GerenciadorVendaTest {
 	public void removerTeste() throws ParseException {
 		assertEquals(2,gv.qtd());
 		
-		gv.remover(1);
+		GerenciadorVendas.remover(1);
 		assertEquals(1,gv.qtd());
-		gv.remover(2);
+		GerenciadorVendas.remover(2);
 		assertEquals(0,gv.qtd());
 		
 		List<Integer> itens2 = new ArrayList<>();
 		itens2.add(3); itens2.add(4);
 		Date data3 = sdf1.parse("05/03/2022");
 		Venda venda3 = new Venda(FormaDePagamento.CREDITO, data3, itens2);
-		gv.addOuEdit(venda3);
+		GerenciadorVendas.addOuEdit(venda3);
 		assertEquals(1,gv.qtd());
 		
-		gv.remover(3);
+		GerenciadorVendas.remover(3);
 		assertEquals(0,gv.qtd());
 		
 	}
@@ -128,19 +128,19 @@ public class GerenciadorVendaTest {
 		itens2.add(3); itens2.add(4);
 		Date data3 = sdf1.parse("05/03/2022");
 		Venda venda3 = new Venda(FormaDePagamento.CREDITO, data3, itens2);
-		gv.addOuEdit(venda3);
+		GerenciadorVendas.addOuEdit(venda3);
 		assertEquals(3,gv.qtd());
 		assertSame(venda3,gv.getVenda(3));
 		
 		Venda venda4 = new Venda(FormaDePagamento.PIX, data3, itens2);
-		gv.addOuEdit(venda4);
+		GerenciadorVendas.addOuEdit(venda4);
 		assertEquals(4,gv.qtd());
 		assertSame(venda4,gv.getVenda(4));
 		
-		gv.remover(1);
-		gv.remover(2);
-		gv.remover(3);
-		gv.remover(4);
+		GerenciadorVendas.remover(1);
+		GerenciadorVendas.remover(2);
+		GerenciadorVendas.remover(3);
+		GerenciadorVendas.remover(4);
 		assertEquals(0,gv.qtd());
 	
 	}

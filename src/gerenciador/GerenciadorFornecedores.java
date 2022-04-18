@@ -23,7 +23,7 @@ import entities.Fornecedor;
 public class GerenciadorFornecedores {
 	
 		
-	private List <Fornecedor> listaFornecedores = new ArrayList<>(); //Lista contendo os fornecedores
+	private static List <Fornecedor> listaFornecedores = new ArrayList<>(); //Lista contendo os fornecedores
 	
 	/**
 	 * Construtor para inicializar o Gerenciador de Fornecedores
@@ -36,8 +36,8 @@ public class GerenciadorFornecedores {
 	 * Metódo para adicionar o fornecedor na lista 
 	 * @param fornecedor Objeto do tipo Fornecedor
 	 */
-	private void add(Fornecedor fornecedor) {		
-		this.listaFornecedores.add(fornecedor); 
+	private static void add(Fornecedor fornecedor) {		
+		GerenciadorFornecedores.listaFornecedores.add(fornecedor); 
 		
 	}
 	
@@ -47,7 +47,7 @@ public class GerenciadorFornecedores {
 	 * @param alterarFornecedor Fornecedor utilizado para parâmetro de substituição
 	 */
 	
-	private void editar(Fornecedor fornecedorEdit,Fornecedor alterarFornecedor) {
+	private static void editar(Fornecedor fornecedorEdit,Fornecedor alterarFornecedor) {
 		//Troca o CNPJ do fornecedor se for diferente
 		if (fornecedorEdit.getCnpj() != alterarFornecedor.getCnpj()) {
 			fornecedorEdit.setCnpj(alterarFornecedor.getCnpj());
@@ -73,9 +73,9 @@ public class GerenciadorFornecedores {
 	 * @param fornecedor Objeto do tipo Fornecedor
 	 */
 	
-	public void addOuEdit(Fornecedor fornecedor) {
+	public static void addOuEdit(Fornecedor fornecedor) {
 		//Verifica a existência do fornecedor na lista através do ID
-		Fornecedor fornecedorExistente = this.listaFornecedores.stream().filter(x -> x.getId() == fornecedor.getId())
+		Fornecedor fornecedorExistente = GerenciadorFornecedores.listaFornecedores.stream().filter(x -> x.getId() == fornecedor.getId())
 				.findFirst().orElse(null);
 		
 		//Se existir o fornecedor é editado, se não ele é adicionado na lista
@@ -92,9 +92,9 @@ public class GerenciadorFornecedores {
 	 * @param id Id do fornecedor que vai ser procurado na lista
 	 * @return Fornecedor - Objeto do tipo fornecedor 
 	 */
-	public Fornecedor getFornecedor(Integer id) {
+	public static Fornecedor getFornecedor(Integer id) {
 		//Procura Fornecedor através do ID na lista de fornecedores
-		Fornecedor fornecedor = this.listaFornecedores.stream().filter(x -> x.getId() == id)
+		Fornecedor fornecedor = listaFornecedores.stream().filter(x -> x.getId() == id)
 				.findFirst().orElse(null);
 		return fornecedor;
 	}
@@ -104,7 +104,7 @@ public class GerenciadorFornecedores {
 	 * @param f  Objeto do tipo fornecedor
 	 * @return Integer - ID do fornecedor
 	 */
-	public Integer getFornecedor(Fornecedor f) {
+	public static Integer getFornecedor(Fornecedor f) {
 		return f.getId();
 	}
 	
@@ -112,10 +112,10 @@ public class GerenciadorFornecedores {
 	 * Metódo para remover fornecedor da lista através do ID dele
 	 * @param id ID do fornecedor a ser removido
 	 */
-	public void remover(Integer id) {
-		Fornecedor result = this.listaFornecedores.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+	public static void remover(Integer id) {
+		Fornecedor result = listaFornecedores.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		if(result!=null) {
-			this.listaFornecedores.remove(result);
+			listaFornecedores.remove(result);
 			
 		}
 	}	
@@ -123,7 +123,7 @@ public class GerenciadorFornecedores {
 	/**
 	 * Metódo para limpar a lista de fornecedores, somente será utilizado nos Testes
 	 */
-	public void limparLista() {
+	public static void limparLista() {
 		listaFornecedores.clear();
 		
 		
@@ -136,7 +136,7 @@ public class GerenciadorFornecedores {
 
 	public String toString() {
 		String listagem=" ";
-		for(Fornecedor fornecedor : this.listaFornecedores) {
+		for(Fornecedor fornecedor : listaFornecedores) {
 			listagem +="ID: "+fornecedor.getId()+"\nCNPJ: "+fornecedor.getCnpj()+
 					"\nNome: "+fornecedor.getName()+"\nEndereco:"+fornecedor.getEndereco();
 			}
@@ -148,7 +148,7 @@ public class GerenciadorFornecedores {
 	 * @return Lista Fornecedor - Lista de fornecedores
 	 */
 	public List<Fornecedor> getListaDeFornecedores(){
-		return this.listaFornecedores;
+		return GerenciadorFornecedores.listaFornecedores;
 	}
 	
 	/**

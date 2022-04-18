@@ -22,7 +22,7 @@ import entities.Produto;
  */
 public class GerenciadorProdutos {
 	
-	private List <Produto> listaDeProdutos = new ArrayList<>(); //Lista contendo os produtos
+	private static List <Produto> listaDeProdutos = new ArrayList<>(); //Lista contendo os produtos
 	
 	/**
 	 * Construtor para inicializar o Gerenciador de produtos
@@ -35,8 +35,8 @@ public class GerenciadorProdutos {
 	 * Metódo para adicionar o produto na lista 
 	 * @param produto Objeto do tipo produto
 	 */
-	private void add(Produto produto) {
-		this.listaDeProdutos.add(produto);
+	private static void add(Produto produto) {
+		GerenciadorProdutos.listaDeProdutos.add(produto);
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public class GerenciadorProdutos {
 	 * @param alterarProduto Produto que será utilizado como parâmetro para substituição
 	 */
 	
-	private void editar(Produto produtoEdit, Produto alterarProduto) {
+	private static void editar(Produto produtoEdit, Produto alterarProduto) {
 			
 			//Se o nome do produto for diferente será trocado
 			if(produtoEdit.getNome() != alterarProduto.getNome()) {
@@ -58,7 +58,12 @@ public class GerenciadorProdutos {
 			//Se a validade do produto for diferente será trocado
 			if(produtoEdit.getValidade() != alterarProduto.getValidade()) {
 				produtoEdit.setValidade(alterarProduto.getValidade());
-			}			
+			}
+			//Se a quantidade do produto for diferente será trocado
+			if(produtoEdit.getQuantidade() != alterarProduto.getQuantidade()) {
+				produtoEdit.setQuantidade(alterarProduto.getQuantidade());
+			}
+			
 		
 	}
 	
@@ -68,9 +73,9 @@ public class GerenciadorProdutos {
 	 * adicionado, caso já exista será editado. 
 	 * @param produto Objeto do tipo produto
 	 */
-	public void addOuEdit(Produto produto) {
+	public static void addOuEdit(Produto produto) {
 		//Verifica a existência do produto na lista através do ID
-		Produto produtoExistente = this.listaDeProdutos.stream().filter(x-> x.getId() == produto.getId())
+		Produto produtoExistente = GerenciadorProdutos.listaDeProdutos.stream().filter(x-> x.getId() == produto.getId())
 				.findFirst().orElse(null);
 		
 		//Se já existir será editado, se não será adicionado
@@ -86,10 +91,10 @@ public class GerenciadorProdutos {
 	 * Metódo para remover um produto da lista através do ID dele
 	 * @param id ID do produto
 	 */
-	public void remover(Integer id) {
-		Produto result = this.listaDeProdutos.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
+	public static void remover(Integer id) {
+		Produto result = GerenciadorProdutos.listaDeProdutos.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
 		if(result != null) {
-			this.listaDeProdutos.remove(result);
+			GerenciadorProdutos.listaDeProdutos.remove(result);
 		}
 		
 	}
@@ -99,7 +104,7 @@ public class GerenciadorProdutos {
 	 * @return Produto - Produto 
 	 */
 	public Produto getProduto(Integer id) {
-		Produto produto = this.listaDeProdutos.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
+		Produto produto = GerenciadorProdutos.listaDeProdutos.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
 		return produto;
 	}
 	
@@ -111,7 +116,7 @@ public class GerenciadorProdutos {
 	public String toString() {
 		String listagem = "";
 		//Percorre a lista de produtos concatenando as informações em uma string só
-		for(Produto produto : this.listaDeProdutos) {
+		for(Produto produto : GerenciadorProdutos.listaDeProdutos) {
 			listagem+="ID: "
 					+produto.getId()+
 					"\nNome: "
@@ -130,7 +135,7 @@ public class GerenciadorProdutos {
 	 * @return Lista Produto - Lista dos produtos cadastrados	 */
 	
 	public List<Produto> getListaDeProdutos(){
-		return this.listaDeProdutos;
+		return GerenciadorProdutos.listaDeProdutos;
 	}
 	
 	/**
@@ -139,13 +144,13 @@ public class GerenciadorProdutos {
 	 */
 	
 	public Integer qtd() {
-		return this.listaDeProdutos.size();
+		return GerenciadorProdutos.listaDeProdutos.size();
 	}
 	/**
 	 * Metódo para limpar a lista de fornecedores, somente será utilizado nos Testes
 	 */
-	public void limparLista() {
-		this.listaDeProdutos.clear();
+	public static void limparLista() {
+		GerenciadorProdutos.listaDeProdutos.clear();
 	}
 
 }

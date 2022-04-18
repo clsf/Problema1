@@ -24,7 +24,7 @@ import entities.Usuario;
 public class GerenciadorUsuarios {	
 	
 	
-	private List <Usuario> listaUsuarios = new ArrayList<>(); //Lista de Usuários cadastrados
+	private static List <Usuario> listaUsuarios = new ArrayList<>(); //Lista de Usuários cadastrados
 	
 	/**
 	 * Construtor para inicializar o Gerenciador de Usuários
@@ -37,8 +37,8 @@ public class GerenciadorUsuarios {
 	 * Metódo para adicionar o usuário na lista 
 	 * @param usuario Objeto do tipo Usuário que será adicionado
 	 */
-	private void add(Usuario usuario) {		
-		this.listaUsuarios.add(usuario);		
+	private static void add(Usuario usuario) {		
+		GerenciadorUsuarios.listaUsuarios.add(usuario);		
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class GerenciadorUsuarios {
 	 * @param alterarUsuario Objeto do tipo Usuário que será utilizado como parâmetro para
 	 * substituição
 	 */
-	private void editar(Usuario usuarioEdit, Usuario alterarUsuario) {
+	private static void editar(Usuario usuarioEdit, Usuario alterarUsuario) {
 		//Se o login for diferente será trocado
 		if (usuarioEdit.getLogin() != alterarUsuario.getLogin()){
 			usuarioEdit.setLogin(alterarUsuario.getLogin());
@@ -69,9 +69,9 @@ public class GerenciadorUsuarios {
 	 * @param usuario Objeto do tipo usuário que será adicionado ou editado
 	 */
 	
-	public void addOuEdit(Usuario usuario) {
+	public static void addOuEdit(Usuario usuario) {
 		//Verifica a existência do usuário na lista através do ID
-		Usuario usuarioExistente = this.listaUsuarios.stream().filter(x -> x.getId() == usuario.getId())
+		Usuario usuarioExistente = GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getId() == usuario.getId())
 				.findFirst().orElse(null);
 		//Se o ID já existir o usuários será editado, se não será adicionado
 		if(usuarioExistente != null) {
@@ -87,10 +87,10 @@ public class GerenciadorUsuarios {
 	 * 
 	 * @param id ID do usuário que será removido da lista
 	 */
-	public void remover(Integer id) {
-		Usuario result = this.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+	public static void remover(Integer id) {
+		Usuario result = GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		if(result!=null) {
-			this.listaUsuarios.remove(result);
+			GerenciadorUsuarios.listaUsuarios.remove(result);
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class GerenciadorUsuarios {
 	 */
 	
 	public List<Usuario> getListaDeUsuarios(){
-		return this.listaUsuarios;
+		return GerenciadorUsuarios.listaUsuarios;
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class GerenciadorUsuarios {
 	 */
 	
 	public Usuario getUsuario(Integer id) {
-		Usuario usuario = this.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		Usuario usuario =GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		return usuario;
 	}
 	
@@ -118,10 +118,10 @@ public class GerenciadorUsuarios {
 	 * Metódo para fazer a listagem dos usuários
 	 * @return String - Listagem dos usuários cadastrados
 	 */
-	public String toString() {
+	public static String listagem() {
 		String listagem=" ";
 		//Percorre a lista concatenando as informações todas em uma variável do tipo String
-		for(Usuario usuario : this.listaUsuarios) {
+		for(Usuario usuario : GerenciadorUsuarios.listaUsuarios) {
 			listagem +="ID: "+usuario.getId()+"\nLogin: "+usuario.getLogin()+
 					"\nSenha: "+usuario.getSenha()+"\n";
 		}
@@ -132,7 +132,7 @@ public class GerenciadorUsuarios {
 	 *Metódo para pegar a quantidade de usuários cadastrados na lista 
 	 * @return Integer - Quantidade de usuários cadastrados
 	 */
-	public Integer qtd() {
+	public static Integer qtd() {
 		return listaUsuarios.size();
 	}
 	
@@ -140,6 +140,21 @@ public class GerenciadorUsuarios {
 	 * Metódo para limpar a lista de fornecedores, somente será utilizado nos Testes
 	 */
 	public void limparLista() {
-		this.listaUsuarios.clear();
+		GerenciadorUsuarios.listaUsuarios.clear();
+	}
+	
+	public static Usuario login(String login, String senha) {
+		System.out.println(GerenciadorUsuarios.qtd());
+		Usuario usuario =GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getLogin() == login).findFirst().orElse(null);
+
+
+		if(usuario!=null) {
+			System.out.println("ACHOU!!!");
+			if(usuario.getSenha()==senha) {
+				System.out.println("ACHOU!!!2");
+				return usuario;
+			}
+		}
+		return null;
 	}
 }
