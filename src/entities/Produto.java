@@ -12,6 +12,8 @@ package entities;
 
 import java.util.Date;
 
+import Exceptions.DomainException;
+
 /**
  * Classe para criação do objeto Produto
  * @author Cláudia Inês Sales
@@ -146,6 +148,15 @@ public class Produto {
 
 	public void setQuantidade(Double quantidade) {
 		this.quantidade = quantidade;
+	}
+	
+	public void atualizarEstoque(Double quantidade)throws DomainException {
+		if(this.quantidade<quantidade) {
+			throw new DomainException ("Não há quantidade suficiente do produto "+getNome());
+		}
+		else {
+			setQuantidade(this.quantidade-quantidade);
+		}
 	}
 
 }

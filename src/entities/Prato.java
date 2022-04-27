@@ -13,6 +13,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.DomainException;
 import enums.CategoriaPrato;
 
 /**
@@ -30,7 +31,7 @@ public class Prato {
 	private String descricao;		//Descrição do Prato 	
 	private List<Integer> produtos = new ArrayList<>(); //Lista contendo os produtos que compoem 
 														//o prato.
-	
+	private List<Ingredientes> ingredientes = new ArrayList<>();
 	
 	/**
 	 * Construtor do objeto Prato permitindo instanciar sem fornecer o ID
@@ -42,13 +43,13 @@ public class Prato {
 	 */
 	
 	public Prato(String nome, Double preco, CategoriaPrato categoria, String descricao, 
-			List<Integer> produtos) {
+			List<Ingredientes> ingredientes) {
 		this.id = ultimoId;
 		this.nome = nome;
 		this.preco = preco;
 		this.categoria = categoria;
 		this.descricao = descricao;
-		this.produtos = produtos;
+		this.ingredientes = ingredientes;
 		ultimoId++;
 	}
 	
@@ -63,14 +64,14 @@ public class Prato {
 	 * @param produtos 	Lista contendo os produtos que compoem o prato
 	 */
 	public Prato(Integer id, String nome, Double preco, CategoriaPrato categoria, String descricao,
-			List<Integer> produtos) {
+			List<Ingredientes> ingredientes) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 		this.categoria = categoria;
 		this.descricao = descricao;
-		this.produtos = produtos;
+		this.ingredientes = ingredientes;
 	}
 
 	
@@ -177,9 +178,26 @@ public class Prato {
 	public static void setUltimoId(Integer ultimoId) {
 		Prato.ultimoId = ultimoId;
 	}
+
+	public List<Ingredientes> getIngredientes() {
+		return ingredientes;
+	}
+
+	public void setIngredientes(List<Ingredientes> ingredientes) {
+		this.ingredientes = ingredientes;
+	}
 	
+	public void setIngredientesUnidade(Ingredientes ingrediente,List<Produto> produtos) throws DomainException {
+		Produto produto = produtos.stream().filter(x -> x.getId() == ingrediente.getId())
+				.findFirst().orElse(null);
+		if(produto==null) {
+			throw new DomainException("Este produto não existe no catálogo!");
+		}else {
+			ingredientes.add(ingrediente);
+		}
+		
 	
-	
+	}
 	
 
 }

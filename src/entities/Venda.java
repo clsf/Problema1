@@ -14,7 +14,9 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.DomainException;
 import enums.FormaDePagamento;
+
 
 /**
  * Classe para criação de objeto do tipo Venda
@@ -28,17 +30,17 @@ public class Venda {
 												//Pix ou crédito
 	private Date data; 				//Data da venda		
 	private List<Integer> itens = new ArrayList<>(); //Lista com ID's de Pratos que foram comprados
-	private List<Ingredientes> ingrediente = new ArrayList<>();
+	
 	
 	/**
 	 * Construtor do objeto venda permitindo instanciar sem fornecer o ID
 	 * @param formaDePagamento Forma de Pagamento, podendo ser Débito, Pix, Crédito, etc...
 	 * @param data Data que foi realizada a venda
-	 * @param itens Lista com ID's de pratos que fazem parte da venda
+	 * @param ingredientes Lista com ID's de pratos que fazem parte da venda
 	 */
 	public Venda(FormaDePagamento formaDePagamento, Date data, List<Integer> itens) {
 		this.id = ultimoId;
-		this.formaDePagamento = formaDePagamento;
+		this.formaDePagamento = formaDePagamento;		
 		this.data = data;
 		this.itens = itens;
 		ultimoId++;
@@ -112,11 +114,23 @@ public class Venda {
 	}
 
 	/**
-	 * Metódo para configurar lista de ID's com os itens que fazem parte da venda
+	 * Metódo para configurar lista de ID's  com os itens que fazem parte da venda
 	 * @param itens Lista de Itens que fazem da parte da venda
 	 */
 	public void setItens(List<Integer> itens) {
-		this.itens = itens;
+		this.itens=itens;
+	}
+	
+	public void addItens(Integer item,List<Prato> pratos) throws DomainException {
+		Prato prato = pratos.stream().filter(x -> x.getId() == item)
+				.findFirst().orElse(null);
+		if(prato==null) {
+			throw new DomainException("Este prato não existe no catálogo!");
+		}
+		else {
+			this.itens.add(item);
+		}
+		
 	}
 	
 	/**
@@ -127,8 +141,8 @@ public class Venda {
 	
 	public Double precoTotal(List<Prato> pratos) {
 		Double precototal=(double) 0;
-		for(Integer idItem : this.itens) {
-			Prato prato = pratos.stream().filter(x -> x.getId() == idItem)
+		for(Integer item : this.itens) {
+			Prato prato = pratos.stream().filter(x -> x.getId() == item)
 					.findFirst().orElse(null);
 			precototal+= prato.getPreco();
 		}
@@ -152,6 +166,29 @@ public class Venda {
 	 */
 	public static void setUltimoId(Integer ultimoId) {
 		Venda.ultimoId = ultimoId;
+	}
+	
+	
+	public void realizarVenda(List<Prato> pratos, List<Produto> produtos) throws DomainException {
+		for(Integer item: this.itens) {
+			Prato prato = pratos.stream().filter(x -> x.getId() == item)
+					.findFirst().orElse(null);
+			if(prato==null) {
+				throw new DomainException("Este prato não existe no catálogo!");
+			}
+			else {
+				for(Ingredientes ingrediente: prato.getIngredientes()) {
+					Produto produto = produtos.stream().filter(x -> x.getId() == item)
+							.findFirst().orElse(null);
+					if(produto==null) {
+						throw new DomainException("Este produto não existe no catálogo!");
+					}
+					else {
+						produto.atualizarEstoque(ingrediente.getQuantidade());
+					}
+				}
+			}
+		}
 	}
 	
 	

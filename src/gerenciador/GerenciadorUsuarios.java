@@ -99,7 +99,7 @@ public class GerenciadorUsuarios {
 	 * @return Lista de Usuários - Lista dos usuários cadastrados
 	 */
 	
-	public List<Usuario> getListaDeUsuarios(){
+	public static List<Usuario> getListaDeUsuarios(){
 		return GerenciadorUsuarios.listaUsuarios;
 	}
 	
@@ -109,7 +109,7 @@ public class GerenciadorUsuarios {
 	 * @return Usuário - Objeto do tipo usuário
 	 */
 	
-	public Usuario getUsuario(Integer id) {
+	public static Usuario getUsuario(Integer id) {
 		Usuario usuario =GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		return usuario;
 	}
@@ -144,14 +144,12 @@ public class GerenciadorUsuarios {
 	}
 	
 	public static Usuario login(String login, String senha) {
-		System.out.println(GerenciadorUsuarios.qtd());
-		Usuario usuario =GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getLogin() == login).findFirst().orElse(null);
+
+		Usuario usuario =GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getLogin().equals(login)).findFirst().orElse(null);
 
 
-		if(usuario!=null) {
-			System.out.println("ACHOU!!!");
-			if(usuario.getSenha()==senha) {
-				System.out.println("ACHOU!!!2");
+		if(usuario!=null) {		
+			if(usuario.getSenha().equals(senha)) {				
 				return usuario;
 			}
 		}

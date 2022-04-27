@@ -23,6 +23,7 @@ import entities.Prato;
 public class GerenciadorPratos {	
 		
 	private static List <Prato> listaDePratos = new ArrayList<>();//Lista contendo os Pratos
+
 	
 	/**
 	 * Construtor para inicializar o Gerenciador de Pratos
