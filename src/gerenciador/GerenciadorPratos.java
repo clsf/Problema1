@@ -128,7 +128,8 @@ public class GerenciadorPratos {
 	 * @returne String - Listagem completa dos fornecedores
 	 */
 	
-	public String toString() {
+	public static String listagem() {
+		
 		String listagem= " ";
 		
 		for(Prato prato : GerenciadorPratos.listaDePratos) {

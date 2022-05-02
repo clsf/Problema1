@@ -156,6 +156,14 @@ public class Fornecedor {
 		Fornecedor.ultimoId = ultimoId;
 	}
 	
-	
+	public String infoFornecedor(Fornecedor f) {
+		String info= "Código:" + f.getId() +"\nNome: " +f.getName() + "\nCnpj:" +f.getCnpj()+"\nEdenreço:"+
+						f.getEndereco()+"\n Código de Produtos Fornecidos:";
+		for(int i=0;i<idProdutosFornecidos.size();i++) {
+			info+= idProdutosFornecidos.get(i)+", ";
+		}
+		return info;
+		
+	}
 	
 }

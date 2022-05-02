@@ -10,6 +10,7 @@ do código, e estou ciente que estes trechos não serão considerados para fins de 
 ******************************************************************************************/
 package gerenciador;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +104,7 @@ public class GerenciadorProdutos {
 	 * @param id ID do produto a ser buscado
 	 * @return Produto - Produto 
 	 */
-	public Produto getProduto(Integer id) {
+	public static Produto getProduto(Integer id) {
 		Produto produto = GerenciadorProdutos.listaDeProdutos.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
 		return produto;
 	}
@@ -113,7 +114,8 @@ public class GerenciadorProdutos {
 	 * @return String - Listagem dos produtos cadastrados
 	 */
 	
-	public String toString() {
+	public static String listagem() {
+		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy");
 		String listagem = "";
 		//Percorre a lista de produtos concatenando as informações em uma string só
 		for(Produto produto : GerenciadorProdutos.listaDeProdutos) {
@@ -122,10 +124,10 @@ public class GerenciadorProdutos {
 					"\nNome: "
 					+produto.getNome()+
 					"\nValidade: "
-					+produto.getValidade()+
+					+sdf1.format(produto.getValidade())+
 					"\nPreço: "
 					+produto.getPreco()+
-					"\n R$\n";
+					" R$\n";
 		}
 		return listagem;
 	}

@@ -127,7 +127,11 @@ public class Usuario {
 	}
 	
 	
-	
+	public String infoUsuario(Usuario u) {
+		String info= "Código:" + u.getId() +"\nNome: " +u.getNome() + "\nLogin:" +u.getLogin();
+		return info;
+		
+	}
 	
 
 }

@@ -10,6 +10,7 @@ do código, e estou ciente que estes trechos não serão considerados para fins de 
 ******************************************************************************************/
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import Exceptions.DomainException;
@@ -159,4 +160,11 @@ public class Produto {
 		}
 	}
 
+	public String infoProduto(Produto p) {
+		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy");
+		String info= "Código:" + p.getId() +"\nNome: " +p.getNome() + "\nPreço:" +p.getPreco()+
+						"\nValidade: "+sdf1.format(p.getValidade())+"\nQuantidade: "+p.getQuantidade();
+		return info;
+		
+	}
 }

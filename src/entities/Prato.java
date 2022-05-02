@@ -199,5 +199,15 @@ public class Prato {
 	
 	}
 	
+	public String infoPrato(Prato p) {
+		String info= "Código:" + p.getId() +"\nNome: "+p.getNome() + "\nDescrição:" +p.getDescricao()+"\nCategoria do prato: "+p.getCategoria()+
+					"\nPreço: "+p.getPreco()+" R$"+"\nIngredientes: ";
+		for(int i=0;i<ingredientes.size();i++) {
+			info+=ingredientes.get(i).getId()+", ";
+		}
+		return info;
+		
+	}
+	
 
 }

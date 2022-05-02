@@ -134,12 +134,16 @@ public class GerenciadorFornecedores {
 	 * @return String - Listagem dos fornecedores
 	 */
 
-	public String toString() {
+	public static String listagem() {
 		String listagem=" ";
 		for(Fornecedor fornecedor : listaFornecedores) {
 			listagem +="ID: "+fornecedor.getId()+"\nCNPJ: "+fornecedor.getCnpj()+
-					"\nNome: "+fornecedor.getName()+"\nEndereco:"+fornecedor.getEndereco();
+					"\nNome: "+fornecedor.getName()+"\nEndereco:"+fornecedor.getEndereco()+
+					"\nCódigo dos Produtos Fornecidos: ";
+			for(int i=0; i<fornecedor.getIdProdutosFornecidos().size();i++) {
+				listagem+=fornecedor.getIdProdutosFornecidos().get(i)+", ";
 			}
+		}
 		
 		return listagem;
 	}
