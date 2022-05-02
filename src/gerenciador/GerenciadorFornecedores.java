@@ -151,7 +151,7 @@ public class GerenciadorFornecedores {
 	 * Metódo para pegar a lista completa dos fornecedores
 	 * @return Lista Fornecedor - Lista de fornecedores
 	 */
-	public List<Fornecedor> getListaDeFornecedores(){
+	public static List<Fornecedor> getListaDeFornecedores(){
 		return GerenciadorFornecedores.listaFornecedores;
 	}
 	

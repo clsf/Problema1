@@ -20,8 +20,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import entities.Ingredientes;
 import entities.Prato;
 import enums.CategoriaPrato;
+import enums.UnidadeDeMedida;
 import gerenciador.GerenciadorPratos;
 
 public class GerenciadorPratoTest {
@@ -31,13 +33,12 @@ public class GerenciadorPratoTest {
 	//Método para inicializar a lista com alguns pratos
 	@BeforeEach
 	 public void init() {
-		List<Integer> produtos1 = new ArrayList<>();
-		produtos1.add(1); produtos1.add(2);
-		List<Integer> produtos2 = new ArrayList<>();
-		produtos2.add(3);
+		List<Ingredientes> ingrediente = new ArrayList<>();
+		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
+
 		
-		Prato p1 = new Prato("Macarrão",8.5,CategoriaPrato.MASSA,"Macarrão ao molho",produtos1);
-		Prato p2 = new Prato("Refigerante",5.0,CategoriaPrato.BEBIDA,"Refrigerante de Uva",produtos2);
+		Prato p1 = new Prato("Macarrão",8.5,CategoriaPrato.MASSA,"Macarrão ao molho",ingrediente);
+		Prato p2 = new Prato("Refigerante",5.0,CategoriaPrato.BEBIDA,"Refrigerante de Uva",ingrediente);
 		GerenciadorPratos.addOuEdit(p1);
 		GerenciadorPratos.addOuEdit(p2);
 	}

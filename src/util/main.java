@@ -13,11 +13,13 @@ import java.util.Scanner;
 import Exceptions.DomainException;
 import entities.*;
 import enums.CategoriaPrato;
+import enums.FormaDePagamento;
 import enums.UnidadeDeMedida;
 import gerenciador.GerenciadorFornecedores;
 import gerenciador.GerenciadorPratos;
 import gerenciador.GerenciadorProdutos;
 import gerenciador.GerenciadorUsuarios;
+import gerenciador.GerenciadorVendas;
 
 public class main {
 	
@@ -62,6 +64,71 @@ public class main {
 				+"\n4- Listar Pratos \n5- Voltar");
 		System.out.print("\nOpção:" );
 	}
+	
+	public static void menuVendas() {
+		System.out.println("\n------------ Menu Vendas ------------");
+		System.out.println("1- Adicionar Venda \n2- Editar Venda \n3- Excluir Venda"
+				+"\n4- Listar Vendas \n5- Voltar");
+		System.out.print("\nOpção:" );
+	}
+	
+	public static void menuRelatorios() {
+		System.out.println("\n------------ Menu Relatórios ------------");
+		System.out.println("1- Relatórios de Venda \n2- Relatórios de Estoque \n3- Relatório de Fornecedores"
+				+"\n4- x \n5- Voltar");
+		System.out.print("\nOpção:" );
+	}
+	
+	public static void menuRelatorioVenda() {
+		System.out.println("\n------------ Menu Relatórios ------------");
+		System.out.println("1- Vendas Realizadas no geral \n2- Vendas Realizadas por período \n3- Vendas Realizadas por tipo de prato"
+				+"\n4- x \n5- Voltar");
+		System.out.print("\nOpção:" );
+	}
+	
+	
+	public static void inicializar() throws ParseException {
+		Usuario u1 = new Usuario("claus","cometa","Cláudia Inês");
+		Usuario u2 = new Usuario("SLC","Estrelas","Inês Cláudia");
+		GerenciadorUsuarios.addOuEdit(u1);
+		GerenciadorUsuarios.addOuEdit(u2);
+		
+		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy");
+		Date data1 = sdf1.parse("09/08/2022");
+		Produto p1 = new Produto("Refrigerante",5.0,data1,500.0);		
+		GerenciadorProdutos.addOuEdit(p1);		
+		Date data2 = sdf1.parse("10/08/2022");
+		Produto p2 = new Produto("Arroz", 4.0, data2,600.0);
+		GerenciadorProdutos.addOuEdit(p2);
+		
+		
+		List<Ingredientes> ingrediente = new ArrayList<>();
+		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
+		Prato pr1 = new Prato("Macarrão",8.5,CategoriaPrato.MASSA,"Macarrão ao molho",ingrediente);
+		Prato pr2 = new Prato("Refigerante",5.0,CategoriaPrato.BEBIDA,"Refrigerante de Uva",ingrediente);
+		GerenciadorPratos.addOuEdit(pr1);
+		GerenciadorPratos.addOuEdit(pr2);
+		
+		
+		List<Integer> itens1 = new ArrayList<>();
+		itens1.add(1); itens1.add(2);		
+		Date data3 = new Date();		
+		Venda venda1 = new Venda(FormaDePagamento.AVISTA , data3, itens1);
+		GerenciadorVendas.addOuEdit(venda1);		
+		Date data4 = new Date();
+		Venda venda2 = new Venda(FormaDePagamento.PIX, data4, itens1);
+		GerenciadorVendas.addOuEdit(venda2);
+		
+		
+		List<Integer> produtos1 = new ArrayList<>();
+		produtos1.add(1); produtos1.add(2);		
+		Fornecedor f1 = new Fornecedor(1123,"CLS EMPRESA","Tomba",produtos1);
+		GerenciadorFornecedores.addOuEdit(f1);	
+		Fornecedor f2 = new Fornecedor(5454,"LTDA Fornecedor","Feira",produtos1);
+		GerenciadorFornecedores.addOuEdit(f2);
+		
+		
+	}
 
 	
 	
@@ -70,10 +137,7 @@ public class main {
 		Scanner sc = new Scanner(System.in);
 		int opcao=1; boolean continuar; Integer id=null;
 		Usuario usuario=null; Usuario usuarioCad=null;
-		String login1 ="claus";
-		String senha1="cometa";
-		Usuario u1= new Usuario(login1,senha1,"Claudia Ines");
-		GerenciadorUsuarios.addOuEdit(u1);
+		inicializar();
 		
 		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy");
 
@@ -605,6 +669,191 @@ public class main {
 									break;
 							}}
 					}
+					else if(opcao==5) {
+						while(opcao!=6) {
+							menuVendas();
+							continuar = true;
+							while(continuar) {
+							try {						
+								opcao = sc.nextInt();
+								continuar= false;
+								sc.nextLine();
+							}
+							catch(InputMismatchException e){
+								System.out.println("Opção inválida! ");
+								
+							}}
+							switch(opcao) {
+								case 1:
+									Venda v=null;
+									Date atual = new Date();
+									List<Integer> idPratos = new ArrayList<>();
+									try {
+										System.out.print("\nQuantos Pratos serão vendidos?: ");
+										Integer qtdPratos = sc.nextInt();
+										sc.nextLine();
+										for(int i=0;i<qtdPratos;i++) {
+											System.out.print("\nDigite o ID do prato: ");
+											Integer idPrato=sc.nextInt();
+											sc.nextLine();
+											verificarPrato(idPrato,GerenciadorPratos.getPrato());
+											idPratos.add(idPrato);
+										}										
+										
+										System.out.print("\nDigite a forma de pagamento:");
+										System.out.print("\n1-Débito 2-Crédito 3-Á vista 4-PIX");
+										Integer tipo=sc.nextInt();
+										sc.nextLine();									
+										
+										if(tipo==1) {
+											v=cadastrarVenda(FormaDePagamento.DEBITO,atual,idPratos);
+										}
+										else if(tipo==2) {
+											v=cadastrarVenda(FormaDePagamento.CREDITO,atual,idPratos);
+										}
+										else if(tipo==3) {
+											v=cadastrarVenda(FormaDePagamento.AVISTA,atual,idPratos);
+										}
+										else {											
+											v=cadastrarVenda(FormaDePagamento.PIX,atual,idPratos);											
+										}
+
+										 
+										
+									}catch(InputMismatchException e) {
+										System.out.print("Dado inválido");
+									}catch(DomainException e) {
+										System.out.println("Erro na criação da Venda: "+e.getMessage());
+									}
+									if(v!=null) {
+										System.out.print("\nPrato cadastrado com Sucesso!");
+									}
+									sc.nextLine();
+									break;
+								
+								case 2:
+									//Editar Usuário, não ia pegar da tela as informações?
+									break;
+								
+								case 3:
+									System.out.println("Digite o código da Venda: ");
+									
+									
+									continuar = true;
+									while(continuar) {
+									try {						
+										id=sc.nextInt();
+										continuar= false;
+										sc.nextLine();
+									}
+									catch(InputMismatchException e){
+										System.out.println("Código inválido! ");
+										
+									}}
+									
+									Venda removerVenda= GerenciadorVendas.getVenda(id);
+									if(removerVenda!=null) {
+										System.out.print(removerVenda.infoVenda(removerVenda));
+										System.out.print("\nDeseja remover o Venda? \n1- Sim 2-Não ");
+										System.out.print("\nOpção: ");
+										continuar = true;
+										while(continuar) {
+										try {						
+											opcao = sc.nextInt();
+											continuar= false;
+											sc.nextLine();											
+										}
+										catch(InputMismatchException e){
+											System.out.println("Opção inválida! ");		
+											sc.nextLine();
+										}}
+										if(opcao==1) {
+											GerenciadorPratos.remover(id);
+											System.out.print("\nVenda removida!");
+										}									
+										
+									}
+									
+									break;
+								
+								case 4:
+									System.out.print(GerenciadorVendas.listagem(GerenciadorPratos.getPrato()));
+									break;
+								default:									
+									break;
+							}}
+					}
+					else if(opcao==6) {
+						while(opcao!=7) {
+							menuRelatorios();
+							continuar = true;
+							while(continuar) {
+							try {						
+								opcao = sc.nextInt();
+								continuar= false;
+								sc.nextLine();
+							}
+							catch(InputMismatchException e){
+								System.out.println("Opção inválida! ");
+								
+							}}
+							switch(opcao) {
+								case 1:
+									System.out.println("Entrou aqui fia");
+									Relatorios.gerarRelatorioVenda(GerenciadorVendas.getListaDeVendas(),1);
+								
+								case 2:
+									//Editar Usuário, não ia pegar da tela as informações?
+									break;
+								
+								case 3:
+									System.out.println("Digite o código da Venda: ");
+									
+									
+									continuar = true;
+									while(continuar) {
+									try {						
+										id=sc.nextInt();
+										continuar= false;
+										sc.nextLine();
+									}
+									catch(InputMismatchException e){
+										System.out.println("Código inválido! ");
+										
+									}}
+									
+									Venda removerVenda= GerenciadorVendas.getVenda(id);
+									if(removerVenda!=null) {
+										System.out.print(removerVenda.infoVenda(removerVenda));
+										System.out.print("\nDeseja remover o Venda? \n1- Sim 2-Não ");
+										System.out.print("\nOpção: ");
+										continuar = true;
+										while(continuar) {
+										try {						
+											opcao = sc.nextInt();
+											continuar= false;
+											sc.nextLine();											
+										}
+										catch(InputMismatchException e){
+											System.out.println("Opção inválida! ");		
+											sc.nextLine();
+										}}
+										if(opcao==1) {
+											GerenciadorPratos.remover(id);
+											System.out.print("\nVenda removida!");
+										}									
+										
+									}
+									
+									break;
+								
+								case 4:
+									System.out.print(GerenciadorVendas.listagem(GerenciadorPratos.getPrato()));
+									break;
+								default:									
+									break;
+							}}
+					}
 					System.out.println("OPCAO:"+opcao);
 				} while (opcao != 0);
 			}
@@ -676,5 +925,20 @@ public class main {
 		Prato p=new Prato(nome,preco,categoria,descricao,ingredientes);
 		GerenciadorPratos.addOuEdit(p);
 		return p;
+	}
+	
+	public static void verificarPrato(Integer idPrato,List<Prato> pratos) throws DomainException {
+		Prato prato = pratos.stream().filter(x -> x.getId() == idPrato)
+				.findFirst().orElse(null);
+		if(prato==null) {
+			throw new DomainException("Este prato não existe no catálogo!");
+		}
+
+	}
+	
+	public static Venda cadastrarVenda(FormaDePagamento formaDePagamento, Date data, List<Integer> pratos) {
+		Venda v=new Venda(formaDePagamento,data,pratos);
+		return v;
+		
 	}
 }

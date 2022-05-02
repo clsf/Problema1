@@ -109,7 +109,7 @@ public class GerenciadorPratos {
 	 * @return Lista Prato - Lista de pratos existentes no gerenciador
 	 */
 
-	public List<Prato> getPrato(){
+	public static List<Prato> getPrato(){
 		return GerenciadorPratos.listaDePratos; 
 	}
 	

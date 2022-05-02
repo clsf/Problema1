@@ -16,6 +16,8 @@ import java.util.List;
 
 import Exceptions.DomainException;
 import enums.FormaDePagamento;
+import enums.StatusDaVenda;
+import gerenciador.GerenciadorPratos;
 
 
 /**
@@ -30,7 +32,7 @@ public class Venda {
 												//Pix ou crédito
 	private Date data; 				//Data da venda		
 	private List<Integer> itens = new ArrayList<>(); //Lista com ID's de Pratos que foram comprados
-	
+	private StatusDaVenda status = StatusDaVenda.ABERTO;
 	
 	/**
 	 * Construtor do objeto venda permitindo instanciar sem fornecer o ID
@@ -169,7 +171,21 @@ public class Venda {
 	}
 	
 	
+	
+	
+	
+	public StatusDaVenda getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusDaVenda status) {
+		this.status = status;
+	}
+
 	public void realizarVenda(List<Prato> pratos, List<Produto> produtos) throws DomainException {
+		if(this.status==StatusDaVenda.FECHADO) {
+			throw new DomainException("Esta venda está fechada!");
+		}
 		for(Integer item: this.itens) {
 			Prato prato = pratos.stream().filter(x -> x.getId() == item)
 					.findFirst().orElse(null);
@@ -189,6 +205,18 @@ public class Venda {
 				}
 			}
 		}
+		this.status=StatusDaVenda.FECHADO;
+	}
+	
+	public String infoVenda(Venda v) {
+		String info= "Código:" + v.getId() +"\nForma de Pagamento: "+v.getFormaDePagamento() +
+					"\nTotal: "+v.precoTotal(GerenciadorPratos.getPrato())+" R$"+"\nPratos: ";
+		for(int i=0;i<itens.size();i++) {
+			String prato = GerenciadorPratos.getPrato(i).getNome();
+			info+=prato+", ";
+		}
+		return info;
+		
 	}
 	
 	

@@ -97,7 +97,7 @@ public class GerenciadorVendas {
 	 * Metódo para pegar a lista completa das vendas
 	 * @return Lista venda - Lista das vendas cadastradas
 	 */
-	public List<Venda> getListaDeVendas(){
+	public static List<Venda> getListaDeVendas(){
 		return GerenciadorVendas.listaDeVendas;
 	}
 	
@@ -106,7 +106,7 @@ public class GerenciadorVendas {
 	 * @param id ID da venda
 	 * @return Venda - Objeto do tipo venda
 	 */
-	public Venda getVenda(Integer id) {
+	public static Venda getVenda(Integer id) {
 		Venda venda = GerenciadorVendas.listaDeVendas.stream().filter(x-> x.getId() == id).findFirst().orElse(null);
 		return venda;
 	}
@@ -117,7 +117,7 @@ public class GerenciadorVendas {
 	 * @return String - Listagem das vendas cadastradas
 	 */
 	
-	public String toString(List<Prato> pratos) {
+	public static String listagem(List<Prato> pratos) {
 		String listagem = "";
 		for(Venda venda: GerenciadorVendas.listaDeVendas) {
 			listagem += "ID: "
