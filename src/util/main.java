@@ -86,6 +86,20 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	public static void menuRelatorioEstoque() {
+		System.out.println("\n------------ Menu Relatórios de Estoque ------------");
+		System.out.println("1- Estoque geral \n2- Estoque por produto \n3- Produtos a vencer"
+				+"\n4-Voltar");
+		System.out.print("\nOpção:" );
+	}
+	
+	public static void menuRelatorioFornecedores() {
+		System.out.println("\n------------ Menu Relatórios de Estoque ------------");
+		System.out.println("1- Fornecedores por produto \n2- Fornecedores"
+				+"\n4-Voltar");
+		System.out.print("\nOpção:" );
+	}
+	
 	
 	public static void inicializar() throws ParseException {
 		Usuario u1 = new Usuario("claus","cometa","Cláudia Inês");
@@ -146,7 +160,7 @@ public class main {
 			paginaPrincipal();
 			
 			continuar = true;
-			while(continuar)
+			while(continuar) {
 			try {						
 				opcao = sc.nextInt();
 				continuar= false;
@@ -154,8 +168,9 @@ public class main {
 			}
 			catch(InputMismatchException e){
 				System.out.println("Opção inválida! ");
+				sc.nextLine();
 				
-			}
+			}}
 			
 			switch(opcao) {
 				case 1:
@@ -921,16 +936,177 @@ public class main {
 										
 									break;
 								case 2:
-								
-								
+									while(opcao!=4) {
+										menuRelatorioEstoque();
+										continuar = true;
+										while(continuar) {
+										try {						
+											opcao = sc.nextInt();
+											continuar= false;
+											sc.nextLine();
+										}
+										catch(InputMismatchException e){
+											System.out.println("Opção inválida! ");
+											
+										}}
+										int gerar=0;
+										switch(opcao) {
+											case 1:
+												Double total = Relatorios.precoTotalProduto(GerenciadorProdutos.getListaDeProdutos());
+												System.out.println(Relatorios.imprimirRelatorioProduto(GerenciadorProdutos.getListaDeProdutos()));
+												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+												continuar = true;
+												while(continuar) {
+												try {						
+													gerar = sc.nextInt();
+													continuar= false;
+													sc.nextLine();
+												}
+												catch(InputMismatchException e){
+													System.out.println("Opção inválida! ");
+													
+												}}
+												if(gerar==1) {
+													Relatorios.gerarRelatorioProduto(GerenciadorProdutos.getListaDeProdutos(), 1, null, total);
+												}
+													
+												
+												break;
+										
+											case 2:
+												
+												gerar=0;
+												continuar = true;
+												List<Produto> produtos =null;
+												total=null;
+												while(continuar) {
+													try {
+														System.out.print("\nDigite o código do produto que deseja gerar o relatório");
+														Integer idProduto=sc.nextInt();
+														produtos = Relatorios.relatorioEstoquePorProduto(idProduto);
+														System.out.print(Relatorios.imprimirRelatorioProduto(produtos));
+														total = Relatorios.precoTotalProduto(produtos);
+														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+														gerar = sc.nextInt();
+														
+														continuar= false;
+														sc.nextLine();
+													}
+													catch(InputMismatchException e){
+														System.out.println("Opção inválida! ");
+														sc.nextLine();
+													}
+												}
+												if(gerar==1) {
+													Relatorios.gerarRelatorioProduto(produtos,2 , "", total);
+												}
+												
+												
+												break;
+											
+											case 3:
+												System.out.println(Relatorios.imprimirRelatorioProduto(Relatorios.relatorioEstoqueProdutosAvencer()));
+												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+												total=0.0;
+												continuar = true;
+												while(continuar) {
+												try {
+													total=Relatorios.precoTotalProduto(Relatorios.relatorioEstoqueProdutosAvencer());
+													gerar = sc.nextInt();
+													continuar= false;
+													sc.nextLine();
+												}
+												catch(InputMismatchException e){
+													System.out.println("Opção inválida! ");
+													sc.nextLine();
+												}}
+												if(gerar==1) {
+													Relatorios.gerarRelatorioProduto(Relatorios.relatorioEstoqueProdutosAvencer(), 3, null, total);
+												}													
+												
+												break;
+										}}
 								case 3:
+									while(opcao!=3) {
+										menuRelatorioFornecedores();
+										continuar = true;
+										while(continuar) {
+										try {						
+											opcao = sc.nextInt();
+											continuar= false;
+											sc.nextLine();
+										}
+										catch(InputMismatchException e){
+											System.out.println("Opção inválida! ");
+											sc.nextLine();
+										}}
+										int gerar=0;
+										switch(opcao) {
+											case 1:
+												
+												continuar = true;
+												while(continuar) {
+												try {
+													System.out.println(Relatorios.imprimirRelatorioFornecedor(GerenciadorFornecedores.getListaDeFornecedores()));
+													System.out.print("\nDeseja imprimir? 1-Sim 0-Não");						
+													gerar = sc.nextInt();
+													continuar= false;
+													sc.nextLine();
+												}
+												catch(InputMismatchException e){
+													System.out.println("Opção inválida! ");
+													
+												}catch(DomainException e) {
+													System.out.print("\nErro:"+e.getMessage());
+													}
+												}
+												sc.nextLine();
+												if(gerar==1) {
+													Relatorios.gerarRelatorioFornecedor(GerenciadorFornecedores.getListaDeFornecedores(),2,"");
+												}
+													
+												
+												break;
+										
+											case 2:
+												System.out.print("\nDigite o código do produto que deseja filtrar o fornecedor");
+												gerar=0;
+												continuar = true;												
+												List<Fornecedor> fornecedores=null;
+												Produto produto=null;
+												while(continuar) {
+												try {
+													Integer idProduto=sc.nextInt();
+													produto = GerenciadorProdutos.getListaDeProdutos().stream().filter(x-> x.getId() == idProduto).findFirst().orElse(null);
+													fornecedores=Relatorios.relatorioFornecedorePorProduto(idProduto);
+													System.out.print(Relatorios.imprimirRelatorioFornecedor(fornecedores));
+													
+													System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+													gerar = sc.nextInt();
+													continuar= false;
+													sc.nextLine();
+												}
+												catch(InputMismatchException e){
+													System.out.println("Opção inválida! ");
+													
+												}catch(DomainException e) {
+													System.out.print("\nErro:"+e.getMessage());
+												}
+												}
+												if(gerar==1) {
+													if(produto==null) {
+														Relatorios.gerarRelatorioFornecedor(fornecedores,1,"");
+													}
+													else {
+														Relatorios.gerarRelatorioFornecedor(fornecedores,1,produto.getNome());
+													}
+												}
+												break;
+											
+											
+										}}
 								
-									
-									break;
-								
-								case 4:
-									System.out.print(GerenciadorVendas.listagem(GerenciadorPratos.getPrato()));
-									break;
+
 								default:									
 									break;
 							}}

@@ -136,7 +136,7 @@ public class GerenciadorProdutos {
 	 * Metódo para pegar a lista completa dos produtos
 	 * @return Lista Produto - Lista dos produtos cadastrados	 */
 	
-	public List<Produto> getListaDeProdutos(){
+	public static List<Produto> getListaDeProdutos(){
 		return GerenciadorProdutos.listaDeProdutos;
 	}
 	
