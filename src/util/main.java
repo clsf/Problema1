@@ -27,7 +27,7 @@ public class main {
 		System.out.println("\n------------ Menu Principal ------------");
 		System.out.println("1- Gerenciar Usuários. \n2- Gerenciar Fornecedores. \n"
 				+ "3- Gerenciar Produtos. \n4- Gerenciar Pratos. \n5- Gerenciar Vendas."
-				+ "\n0- Sair");
+				+"\n6- Relatórios" +"\n0- Sair");
 		System.out.print("\nOpção:" );
 	}
 	
@@ -40,7 +40,7 @@ public class main {
 	
 	public static void paginaPrincipal() {
 		System.out.println("\n------------ Página Principal ------------");
-		System.out.println("1- Entrar \n2-Cadastrar Usuário \n0- Sair");
+		System.out.println("1- Entrar \n2- Cadastrar Usuário \n0- Sair");
 		System.out.print("\nOpção:" );
 	}
 	
@@ -75,14 +75,14 @@ public class main {
 	public static void menuRelatorios() {
 		System.out.println("\n------------ Menu Relatórios ------------");
 		System.out.println("1- Relatórios de Venda \n2- Relatórios de Estoque \n3- Relatório de Fornecedores"
-				+"\n4- x \n5- Voltar");
+				+"\n4- Voltar");
 		System.out.print("\nOpção:" );
 	}
 	
 	public static void menuRelatorioVenda() {
-		System.out.println("\n------------ Menu Relatórios ------------");
+		System.out.println("\n------------ Menu Relatórios de Venda ------------");
 		System.out.println("1- Vendas Realizadas no geral \n2- Vendas Realizadas por período \n3- Vendas Realizadas por tipo de prato"
-				+"\n4- x \n5- Voltar");
+				+"\n4-Voltar");
 		System.out.print("\nOpção:" );
 	}
 	
@@ -670,7 +670,8 @@ public class main {
 							}}
 					}
 					else if(opcao==5) {
-						while(opcao!=6) {
+						opcao=2;
+						while(opcao!=5) {
 							menuVendas();
 							continuar = true;
 							while(continuar) {
@@ -784,7 +785,7 @@ public class main {
 							}}
 					}
 					else if(opcao==6) {
-						while(opcao!=7) {
+						while(opcao!=4) {
 							menuRelatorios();
 							continuar = true;
 							while(continuar) {
@@ -798,52 +799,132 @@ public class main {
 								
 							}}
 							switch(opcao) {
-								case 1:
-									System.out.println("Entrou aqui fia");
-									Relatorios.gerarRelatorioVenda(GerenciadorVendas.getListaDeVendas(),1);
-								
-								case 2:
-									//Editar Usuário, não ia pegar da tela as informações?
-									break;
-								
-								case 3:
-									System.out.println("Digite o código da Venda: ");
-									
-									
-									continuar = true;
-									while(continuar) {
-									try {						
-										id=sc.nextInt();
-										continuar= false;
-										sc.nextLine();
-									}
-									catch(InputMismatchException e){
-										System.out.println("Código inválido! ");
-										
-									}}
-									
-									Venda removerVenda= GerenciadorVendas.getVenda(id);
-									if(removerVenda!=null) {
-										System.out.print(removerVenda.infoVenda(removerVenda));
-										System.out.print("\nDeseja remover o Venda? \n1- Sim 2-Não ");
-										System.out.print("\nOpção: ");
+								case 1:									
+									while(opcao!=4) {
+										menuRelatorioVenda();
 										continuar = true;
 										while(continuar) {
 										try {						
 											opcao = sc.nextInt();
 											continuar= false;
-											sc.nextLine();											
+											sc.nextLine();
 										}
 										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");		
-											sc.nextLine();
+											System.out.println("Opção inválida! ");
+											
 										}}
-										if(opcao==1) {
-											GerenciadorPratos.remover(id);
-											System.out.print("\nVenda removida!");
-										}									
+										int gerar=0;
+										switch(opcao) {
+										case 1:
+											System.out.println(Relatorios.imprimirRelatorioVenda(GerenciadorVendas.getListaDeVendas()));
+											System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+											continuar = true;
+											while(continuar) {
+											try {						
+												gerar = sc.nextInt();
+												continuar= false;
+												sc.nextLine();
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");
+												
+											}}
+											if(gerar==1) {
+												Relatorios.gerarRelatorioVenda(GerenciadorVendas.getListaDeVendas(),1,"",CategoriaPrato.BEBIDA);
+											}
+											break;
+										case 2:
+											SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");
+											System.out.print("Digite o período que deseja mês/ano (Ex: 04/2022)");
+											String periodo=sc.nextLine();
+											Date dataPeriodo=null;
+											gerar=0;
+											continuar = true;
+											while(continuar) {
+											try {
+												dataPeriodo=sdf2.parse(periodo);
+												System.out.println(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo)));
+												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+												gerar = sc.nextInt();
+												continuar= false;
+												sc.nextLine();
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");
+												
+											}}
+											if(gerar==1) {
+												Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo),2,periodo,CategoriaPrato.BEBIDA);
+
+											}
+											
+											break;
 										
+										case 3:
+											System.out.print("\nDigite o tipo de prato que deseja gerar o relatório");
+											System.out.print("\n1-Entrada 2-Massa 3-Bebida 4-Sobremesa");
+											gerar=0;
+											
+											continuar = true;
+											while(continuar) {
+											try {
+												int	tipo=sc.nextInt();
+												if(tipo==1) {
+													System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.ENTRADA)));
+												}
+												else if(tipo==2) {
+													System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.MASSA)));
+
+												}
+												else if(tipo==3) {
+													System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.BEBIDA)));
+
+												}
+												else if(tipo==4) {
+													System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.SOBREMESA)));
+
+												}
+												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+												gerar = sc.nextInt();
+												continuar= false;
+												sc.nextLine();
+												
+												if(gerar==1) {
+													if(tipo==1) {
+														Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.ENTRADA),3,"",CategoriaPrato.ENTRADA);
+													}
+													else if(tipo==2) {
+														Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.MASSA),3,"",CategoriaPrato.MASSA);
+													}
+													else if(tipo==3) {
+														Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.BEBIDA),3,"",CategoriaPrato.BEBIDA);
+
+													}
+													else if(tipo==4) {
+														Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.SOBREMESA),3,"",CategoriaPrato.SOBREMESA);
+													}
+													
+												}
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");
+												
+											}catch(DomainException e) {
+												System.out.print("Erro:"+e.getMessage());
+											}
+											}
+
+											
+										
+										}
 									}
+										
+									break;
+								case 2:
+								
+								
+								case 3:
+								
 									
 									break;
 								

@@ -133,7 +133,22 @@ public class GerenciadorPratos {
 		String listagem= " ";
 		
 		for(Prato prato : GerenciadorPratos.listaDePratos) {
-			listagem +="ID: "+ prato.getId()+"\nNome: " + prato.getNome() + "\nCategoria: " + prato.getCategoria()+ 
+			listagem +="Código: "+ prato.getId()+"\nNome: " + prato.getNome() + "\nCategoria: " + prato.getCategoria()+ 
+					"\nDescricao: " +
+					prato.getDescricao() +
+					"\nPreco:  " +
+					prato.getPreco();				
+ 		}
+		
+		return listagem;
+	}
+	
+	public static String listagem(List<Prato> pratos) {
+		
+		String listagem= " ";
+		
+		for(Prato prato : pratos) {
+			listagem +="Código: "+ prato.getId()+"\nNome: " + prato.getNome() + "\nCategoria: " + prato.getCategoria()+ 
 					"\nDescricao: " +
 					prato.getDescricao() +
 					"\nPreco:  " +

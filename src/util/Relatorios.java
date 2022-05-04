@@ -31,7 +31,7 @@ public class Relatorios {
 		
 		
 		for(Venda venda: GerenciadorVendas.getListaDeVendas()) {
-			if(sdf1.format(venda.getData())==sdf1.format(data)) {
+			if(sdf1.format(venda.getData()).equals(sdf1.format(data))) {
 				vendas.add(venda);
 			}
 		}		
@@ -74,7 +74,7 @@ public class Relatorios {
 		return fornecedores;
 	}
 	
-	public static void gerarRelatorioVenda(List<Venda> vendas,Integer tipo) {
+	public static void gerarRelatorioVenda(List<Venda> vendas,Integer tipo,String periodo,CategoriaPrato cat) {
 		SimpleDateFormat sdf1= new SimpleDateFormat("ddMMyyyy");
 		Document doc = new Document();
 		Date atual= new Date();
@@ -82,16 +82,18 @@ public class Relatorios {
 		String titulo="";
 		String prt="";
 		if(tipo==1) {
-			System.out.println("Entrou aqui1");
 			titulo ="Relatório de Venda - "+sdf1.format(atual);
+		}else if(tipo==2) {
+			titulo = "Relatório de venda por período -"+ periodo;
+		}
+		else if(tipo==3) {
+			titulo = "Relatório de venda por tipo de prato -" + cat;
 		}
 		
 		try {
-			System.out.println(arquivoPdf.replace(" ",""));
+			
 			PdfWriter.getInstance(doc, ( new FileOutputStream(arquivoPdf.replace(" ",""))));
-			System.out.println("Entrou aqui3");			
 			doc.open();
-			System.out.println("Entrou aqui3");
 			Paragraph p=new Paragraph(titulo);
 			p.setAlignment(1);
 			doc.add(p);
@@ -111,7 +113,6 @@ public class Relatorios {
 			tabela.addCell(cel3);
 			tabela.addCell(cel4);
 			tabela.addCell(cel5);
-			System.out.println("Até aqui OK");
 			for(Venda venda: vendas) {
 				
 				for(Integer idPrato:venda.getItens()) {
@@ -119,7 +120,7 @@ public class Relatorios {
 							.findFirst().orElse(null);
 					prt+=prato.getNome()+", ";
 				}
-				System.out.println("Até aqui OK");
+				
 				cel1= new PdfPCell(new Paragraph(venda.getId()+""));
 				cel2= new PdfPCell(new Paragraph(sdf1.format(venda.getData())));
 				cel3= new PdfPCell(new Paragraph(prt));		
@@ -134,18 +135,40 @@ public class Relatorios {
 				prt="";
 			}
 			doc.add(tabela);
-			doc.close();
-			System.out.println("Geroubonitnhofia");
+			doc.close();			
 			Desktop.getDesktop().open(new File(arquivoPdf));
 			
 			
 		}
-			catch(Exception e) {
-			System.out.print("DEU ERRADO!");
+			catch(Exception e) {			
 			e.printStackTrace();
 		}
 		
 		
 		
+	}
+	
+	public static String imprimirRelatorioVenda(List<Venda> vendas) {
+		String listagem = "";
+		SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
+		for(Venda venda: vendas) {
+			String prt="";
+			for(Integer idPrato:venda.getItens()) {
+				Prato prato = GerenciadorPratos.getPrato().stream().filter(x->x.getId() == idPrato)
+						.findFirst().orElse(null);
+				prt+=prato.getNome()+", ";
+			}
+			listagem += "\nCódigo: "
+					+ venda.getId() +
+					"\nData: "
+					+sdf1.format(venda.getData())+
+					"\nPratos: "+ prt+
+					"\nPreco Total: "
+					+venda.precoTotal(GerenciadorPratos.getPrato())+
+					"R$"+
+					"\nForma de pagamento: "+
+					venda.getFormaDePagamento()+"\n";
+		}
+		return listagem;
 	}
 }

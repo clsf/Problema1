@@ -119,11 +119,19 @@ public class GerenciadorVendas {
 	
 	public static String listagem(List<Prato> pratos) {
 		String listagem = "";
+		
 		for(Venda venda: GerenciadorVendas.listaDeVendas) {
-			listagem += "ID: "
+			String prt="";
+			for(Integer idPrato:venda.getItens()) {
+				Prato prato = GerenciadorPratos.getPrato().stream().filter(x->x.getId() == idPrato)
+						.findFirst().orElse(null);
+				prt+=prato.getNome()+", ";
+			}
+			listagem += "Código: "
 					+ venda.getId() +
 					"\nData: "
 					+venda.getData()+
+					"\nPratos: "+ prt+
 					"\nPreco Total: "
 					+venda.precoTotal(pratos)+
 					"R$"+
