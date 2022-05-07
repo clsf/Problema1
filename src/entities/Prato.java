@@ -29,9 +29,8 @@ public class Prato {
 	private Double preco;			//Preço do Prato
 	private CategoriaPrato categoria; //Categoria podendo ser uma massa, entrada, bebida etc.
 	private String descricao;		//Descrição do Prato 	
-	private List<Integer> produtos = new ArrayList<>(); //Lista contendo os produtos que compoem 
-														//o prato.
-	private List<Ingredientes> ingredientes = new ArrayList<>();
+
+	private List<Ingredientes> ingredientes = new ArrayList<>(); //Lista de Ingredientes que compõe o prato
 	
 	/**
 	 * Construtor do objeto Prato permitindo instanciar sem fornecer o ID
@@ -146,21 +145,7 @@ public class Prato {
 		return id;
 	}
 
-	/**
-	 * Metódo para pegar a lista de ID's de produtos que compoem o prato
-	 * @return Lista do tipo Integer - ID's dos produtos que compoem o prato
-	 */
-	public List<Integer> getProdutos() {
-		return produtos;
-	}
 
-	/**
-	 * Metódo para configurar a lista de ID's de produtos que compoem o prato
-	 * @param produtos Lista com os ID's dos produtos que compoem o prato
-	 */
-	public void setProdutos(List<Integer> produtos) {
-		this.produtos = produtos;
-	}
 
 	/**
 	 * Metódo para pegar o último ID utilizado pela classe	 * 
@@ -179,25 +164,27 @@ public class Prato {
 		Prato.ultimoId = ultimoId;
 	}
 
+	/**
+	 * Metódo para pegar a lista de ingredientes
+	 * @return Uma lista do tipo Ingredientes contendo os ingredientes
+	 */
 	public List<Ingredientes> getIngredientes() {
 		return ingredientes;
 	}
+	/**
+	 * Metódo para alterar a lista de Ingredientes
+	 * @param ingredientes Lista do tipo ingredientes
+	 */
 
 	public void setIngredientes(List<Ingredientes> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
 	
-	public void setIngredientesUnidade(Ingredientes ingrediente,List<Produto> produtos) throws DomainException {
-		Produto produto = produtos.stream().filter(x -> x.getId() == ingrediente.getId())
-				.findFirst().orElse(null);
-		if(produto==null) {
-			throw new DomainException("Este produto não existe no catálogo!");
-		}else {
-			ingredientes.add(ingrediente);
-		}
-		
-	
-	}
+	/**
+	 * Metódo para visualizar as informações de um prato
+	 * @param p Prato 
+	 * @return String contendo as informações do prato
+	 */
 	
 	public String infoPrato(Prato p) {
 		String info= "Código:" + p.getId() +"\nNome: "+p.getNome() + "\nDescrição:" +p.getDescricao()+"\nCategoria do prato: "+p.getCategoria()+

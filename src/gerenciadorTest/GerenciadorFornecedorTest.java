@@ -80,6 +80,8 @@ public class GerenciadorFornecedorTest {
 		assertEquals(f4,GerenciadorFornecedores.getFornecedor(4));
 		assertEquals(f3,GerenciadorFornecedores.getFornecedor(3));	
 		
+		assertSame(5,Fornecedor.getUltimoId());
+		assertNotNull(GerenciadorFornecedores.cadastrarFornecedor("Nenhum",1,"Nenhum", produtos4));
 	}
 	
 	//Teste de edição do fornecedor
@@ -135,6 +137,12 @@ public class GerenciadorFornecedorTest {
 		Fornecedor f5 = new Fornecedor(545454, "Fornecedor 3", "Nenhum",produtos5);
 		GerenciadorFornecedores.addOuEdit(f5);	
 		
+		assertNotNull(f5.infoFornecedor(f5));
+		assertNotNull(GerenciadorFornecedores.getFornecedor(f5));
+		assertNotNull(GerenciadorFornecedores.getFornecedor(2));
+		assertNotNull(GerenciadorFornecedores.listagem());
+		assertNotNull(GerenciadorFornecedores.getListaDeFornecedores());
+		
 		assertEquals(3, gf.qtd());		
 		assertTrue("Fornecedor 3"==GerenciadorFornecedores.getFornecedor(3).getName());	
 		GerenciadorFornecedores.remover(3);
@@ -147,6 +155,7 @@ public class GerenciadorFornecedorTest {
 		GerenciadorFornecedores.addOuEdit(f5);
 		assertFalse(0==gf.qtd());
 		assertEquals(545454,GerenciadorFornecedores.getFornecedor(3).getCnpj());
+		
 		
 		
 		

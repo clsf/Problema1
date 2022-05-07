@@ -26,8 +26,8 @@ public class Produto {
 	private Integer id;				// Id do produto
 	private String nome;			// Nome do produto
 	private Double preco;			// Preço do produto
-	private Date validade;       // Validade do produto FOI TROCADO NO SEGUNDO PROBLEMA
-	private Double quantidade;   //Quantidade dos ingredientes SEGUNDO PROBLEMA
+	private Date validade;       // Validade do produto 
+	private Double quantidade;   //Quantidade dos ingredientes 
 	 
 
 
@@ -35,7 +35,7 @@ public class Produto {
 	 * Construtor do objeto usuário permitindo instanciar sem fornecer o ID
 	 * @param nome Nome do produto
 	 * @param preco Preço do produto 
-	 * @param validade Validade do produto em dias
+	 * @param validade Validade do produto 
 	 */
 	
 	public Produto(String nome, Double preco,Date validade,Double quantidade) {
@@ -54,7 +54,7 @@ public class Produto {
 	 * @param id Identidade do produto
 	 * @param nome Nome do produto
 	 * @param preco Preço do produto 
-	 * @param validade Validade do produto em dias
+	 * @param validade Validade do produto 
 	 */
 	
 	public Produto(Integer id, String nome, Double preco, Date validade, Double quantidade) {
@@ -143,14 +143,26 @@ public class Produto {
 		Produto.ultimoId = ultimoId;
 	}
 	
-		public Double getQuantidade() {
+	/**
+	 * Metódo para pegar a quantidade do produto
+	 * @return Quantidade em double do produto
+	 */
+	public Double getQuantidade() {
 		return quantidade;
 	}
-
+	
+	/**
+	 * Metódo para alterar a quantidade do produto
+	 * @param quantidade Quantidade do produto
+	 */
 	public void setQuantidade(Double quantidade) {
 		this.quantidade = quantidade;
 	}
-	
+	/**
+	 * Metódo para atualizar o estoque do produto após uma venda
+	 * @param quantidade Quantidade utilizada na produção do prato
+	 * @throws DomainException Erro caso tente produzir o prato sem a quantidade do produto necessária
+	 */
 	public void atualizarEstoque(Double quantidade)throws DomainException {
 		if(this.quantidade<quantidade) {
 			throw new DomainException ("Não há quantidade suficiente do produto "+getNome());
@@ -159,6 +171,12 @@ public class Produto {
 			setQuantidade(this.quantidade-quantidade);
 		}
 	}
+	
+	/**
+	 * Metódo para pegar as informações de um produto específico 
+	 * @param p Produto que terá as informações apresentadas
+	 * @return String contendo as informações do produto
+	 */
 
 	public String infoProduto(Produto p) {
 		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy");

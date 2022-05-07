@@ -118,14 +118,15 @@ public class Relatorios {
 	}
 	
 	public static void gerarRelatorioVenda(List<Venda> vendas,Integer tipo,String periodo,CategoriaPrato cat) {
-		SimpleDateFormat sdf1= new SimpleDateFormat("ddMMyyyy");
+		SimpleDateFormat sdf1= new SimpleDateFormat("dd-MM-yyyy hh-ss");
+		SimpleDateFormat sdf2= new SimpleDateFormat("dd/MM/yyyy");
 		Document doc = new Document();
 		Date atual= new Date();
-		String arquivoPdf="relatorioVenda"+sdf1.format(atual);
+		String arquivoPdf="relatorioVenda "+sdf1.format(atual);
 		String titulo="";
 		String prt="";
 		if(tipo==1) {
-			titulo ="Relatório de Venda - "+sdf1.format(atual);
+			titulo ="Relatório de Venda - "+sdf2.format(atual);
 		}else if(tipo==2) {
 			titulo = "Relatório de venda por período -"+ periodo;
 		}
@@ -135,8 +136,8 @@ public class Relatorios {
 		
 		try {
 			
-			PdfWriter.getInstance(doc, ( new FileOutputStream(arquivoPdf.replace(" ",""))));
-			doc.open();
+			PdfWriter.getInstance(doc, ( new FileOutputStream(arquivoPdf)));
+			doc.open();			
 			Paragraph p=new Paragraph(titulo);
 			p.setAlignment(1);
 			doc.add(p);
@@ -177,7 +178,7 @@ public class Relatorios {
 				tabela.addCell(cel5);
 				prt="";
 			}
-			doc.add(tabela);
+			doc.add(tabela);			
 			doc.close();			
 			Desktop.getDesktop().open(new File(arquivoPdf));
 			
@@ -227,7 +228,7 @@ public class Relatorios {
 	
 	public static void gerarRelatorioProduto(List<Produto> produtos,Integer tipo,String nome, Double total) {
 		SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat sdf2= new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf2= new SimpleDateFormat("dd-MM-yyyy mm-ss");
 		Document doc = new Document();
 		Date atual= new Date();
 		String arquivoPdf="relatorioVenda"+sdf2.format(atual);
@@ -244,7 +245,7 @@ public class Relatorios {
 		
 		try {
 			
-			PdfWriter.getInstance(doc, ( new FileOutputStream(arquivoPdf.replace(" ",""))));
+			PdfWriter.getInstance(doc, ( new FileOutputStream(arquivoPdf)));
 			doc.open();
 			Paragraph p=new Paragraph(titulo);
 			p.setAlignment(1);
@@ -274,7 +275,7 @@ public class Relatorios {
 				cel1= new PdfPCell(new Paragraph(produto.getId()+""));
 				cel2= new PdfPCell(new Paragraph(produto.getNome()));
 				cel3= new PdfPCell(new Paragraph(produto.getQuantidade()+""));		
-				cel4= new PdfPCell(new Paragraph(sdf2.format(produto.getValidade())));
+				cel4= new PdfPCell(new Paragraph(sdf1.format(produto.getValidade())));
 		
 				
 				tabela.addCell(cel1);
@@ -346,7 +347,7 @@ public class Relatorios {
 	
 	public static void gerarRelatorioFornecedor(List<Fornecedor> fornecedores,Integer tipo,String nome) { 
 
-		SimpleDateFormat sdf2= new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf2= new SimpleDateFormat("dd-MM-yyyy mm-ss");
 		Document doc = new Document();
 		Date atual= new Date();
 		String arquivoPdf="relatorioFornecedores"+sdf2.format(atual);
@@ -362,7 +363,7 @@ public class Relatorios {
 		
 		try {
 			
-			PdfWriter.getInstance(doc, ( new FileOutputStream(arquivoPdf.replace(" ",""))));
+			PdfWriter.getInstance(doc, ( new FileOutputStream(arquivoPdf)));
 			doc.open();
 			Paragraph p=new Paragraph(titulo);
 			p.setAlignment(1);
@@ -396,10 +397,10 @@ public class Relatorios {
 					Produto produto = GerenciadorProdutos.getListaDeProdutos().stream().filter(x->x.getId() == idProduto)
 							.findFirst().orElse(null);
 					if(produto==null) {
-						throw new DomainException("Prato não existe!");
+						throw new DomainException("Produto não existe!");
 					}
 					else {
-						pr+="("+idProduto+")"+" "+produto.getNome();
+						pr+="("+idProduto+")"+" "+produto.getNome()+"\n";
 					}
 				}
 				cel5= new PdfPCell(new Paragraph(pr));

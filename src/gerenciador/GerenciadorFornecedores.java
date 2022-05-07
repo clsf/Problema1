@@ -162,5 +162,20 @@ public class GerenciadorFornecedores {
 	public Integer qtd() {
 		return listaFornecedores.size();
 	}
+	
+	/**
+	 * Método para cadastrar um fornecedor 
+	 * @param nome Nome do fornecedor
+	 * @param cnpj Cnpj do fornecedor
+	 * @param endereco Endereço do fornecedor
+	 * @param ids ID's dos produtos que ele fornece
+	 * @return Objeto do tipo fornecedor cadastrado
+	 */
+	public static Fornecedor cadastrarFornecedor(String nome, Integer cnpj, String endereco, List<Integer> ids) {
+		Fornecedor f1=new Fornecedor(cnpj,nome,endereco,ids);
+		GerenciadorFornecedores.addOuEdit(f1);
+		return f1;
+		
+	}
 
 }

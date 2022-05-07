@@ -12,8 +12,10 @@ package gerenciador;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import Exceptions.DomainException;
 import entities.Produto;
 
 /**
@@ -153,6 +155,28 @@ public class GerenciadorProdutos {
 	 */
 	public static void limparLista() {
 		GerenciadorProdutos.listaDeProdutos.clear();
+	}
+	
+	/**
+	 * Metódo para cadastrar um produto
+	 * @param nome Nome do produto
+	 * @param preco Preço do produto
+	 * @param validade Validade do produto
+	 * @param quantidade Quantidade do produto
+	 * @return Produto cadastrado
+	 * @throws DomainException Erro caso o produto já chegue vencido
+	 */
+	public static Produto cadastrarProduto(String nome,Double preco,Date validade,Double quantidade) throws DomainException {
+		
+		Date atual = new Date();
+		
+		if(atual.compareTo(validade)>0) {
+			throw new DomainException("A data de vencimento é antes da data atual, produto já vencido!");
+		}else {
+			Produto p1 = new Produto(nome,preco,validade,quantidade);
+			GerenciadorProdutos.addOuEdit(p1);
+			return p1;
+		}
 	}
 
 }

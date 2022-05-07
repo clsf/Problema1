@@ -13,7 +13,12 @@ package gerenciador;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.DomainException;
+import entities.Ingredientes;
 import entities.Prato;
+import entities.Produto;
+import enums.CategoriaPrato;
+import enums.UnidadeDeMedida;
 
 /**
  * Classe para criação do objeto Gerenciador de Pratos
@@ -63,9 +68,8 @@ public class GerenciadorPratos {
 		if(pratoEdit.getPreco() != alterarPrato.getPreco()) {
 			pratoEdit.setPreco(alterarPrato.getPreco());
 		}
-		//Troca lista de produtos que compoem os pratos se for diferente
-		if(pratoEdit.getProdutos() != alterarPrato.getProdutos()){
-			pratoEdit.setProdutos(alterarPrato.getProdutos());
+		if(pratoEdit.getIngredientes() != alterarPrato.getIngredientes()) {
+			pratoEdit.setIngredientes(alterarPrato.getIngredientes());
 		}
 		
 	}
@@ -143,20 +147,7 @@ public class GerenciadorPratos {
 		return listagem;
 	}
 	
-	public static String listagem(List<Prato> pratos) {
-		
-		String listagem= " ";
-		
-		for(Prato prato : pratos) {
-			listagem +="Código: "+ prato.getId()+"\nNome: " + prato.getNome() + "\nCategoria: " + prato.getCategoria()+ 
-					"\nDescricao: " +
-					prato.getDescricao() +
-					"\nPreco:  " +
-					prato.getPreco();				
- 		}
-		
-		return listagem;
-	}
+
 	
 	/**
 	 * Metódo para pegar a quantidade de fornecedores na lista
@@ -172,6 +163,40 @@ public class GerenciadorPratos {
 	 */
 	public void limpaLista() {
 		GerenciadorPratos.listaDePratos.clear();
+	}
+	
+	/**
+	 * Metódo para adicionar os ingredientes verificando a existência dos produtos
+	 * @param id ID do produto
+	 * @param quantidade Quantidade do produto
+	 * @param unm Unidade de medida do produto
+	 * @return Ingrediente 
+	 * @throws DomainException Erro caso o produto não seja reconhecido
+	 */
+	public static Ingredientes adicionarIngredientes(Integer id, Double quantidade,UnidadeDeMedida unm) throws DomainException {
+		Produto p=GerenciadorProdutos.getProduto(id);
+		if(p==null) {
+			throw new DomainException("Produto não reconhecido!");
+		}else{
+			Ingredientes ingrediente = new Ingredientes(id,quantidade,unm);
+			return ingrediente;
+		}
+	}
+	
+	/**
+	 * Metódo para cadastrar Prato
+	 * @param nome Nome do prato
+	 * @param preco preço do prato
+	 * @param categoria Categoria do prato, podendo ser uma entrada, bebida, massa etc
+	 * @param descricao Descrição do prato
+	 * @param ingredientes Ingredientes que compõe o prato
+	 * @return Prato cadastrado 
+	 */
+	
+	public static Prato cadastrarPrato(String nome, Double preco,CategoriaPrato categoria,String descricao,List<Ingredientes> ingredientes) {
+		Prato p=new Prato(nome,preco,categoria,descricao,ingredientes);
+		GerenciadorPratos.addOuEdit(p);
+		return p;
 	}
 	
 

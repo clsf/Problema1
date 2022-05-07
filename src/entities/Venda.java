@@ -32,7 +32,7 @@ public class Venda {
 												//Pix ou crédito
 	private Date data; 				//Data da venda		
 	private List<Integer> itens = new ArrayList<>(); //Lista com ID's de Pratos que foram comprados
-	private StatusDaVenda status = StatusDaVenda.ABERTO;
+	private StatusDaVenda status = StatusDaVenda.ABERTO; //Status da venda, se já foi realizada, não pode editar caso esteja fechada
 	
 	/**
 	 * Construtor do objeto venda permitindo instanciar sem fornecer o ID
@@ -123,17 +123,7 @@ public class Venda {
 		this.itens=itens;
 	}
 	
-	public void addItens(Integer item,List<Prato> pratos) throws DomainException {
-		Prato prato = pratos.stream().filter(x -> x.getId() == item)
-				.findFirst().orElse(null);
-		if(prato==null) {
-			throw new DomainException("Este prato não existe no catálogo!");
-		}
-		else {
-			this.itens.add(item);
-		}
-		
-	}
+
 	
 	/**
 	 * Metódo para calcular o preço total da venda 
@@ -171,16 +161,22 @@ public class Venda {
 	}
 	
 	
-	
+	/**
+	 * Metódo para pegar o status da venda
+	 * @return Status da venda
+	 */
 	
 	
 	public StatusDaVenda getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusDaVenda status) {
-		this.status = status;
-	}
+	/**
+	 * Metódo para realizar a venda, abatendo os produtos que compõe os pratos
+	 * @param pratos Lista de pratos cadastrados no gerenciador de pratos
+	 * @param produtos Lista de produtos cadastrados no gerenciador de produtos
+	 * @throws DomainException Erro caso tente realizar venda fechada, ou sem prato ou sem produto
+	 */
 
 	public void realizarVenda(List<Prato> pratos, List<Produto> produtos) throws DomainException {
 		if(this.status==StatusDaVenda.FECHADO) {
@@ -208,10 +204,15 @@ public class Venda {
 		this.status=StatusDaVenda.FECHADO;
 	}
 	
+	/**
+	 * Metódo para exibir informações de uma venda
+	 * @param v Venda que será exibida
+	 * @return String com as informações da venda
+	 */
 	public String infoVenda(Venda v) {
 		String info= "Código:" + v.getId() +"\nForma de Pagamento: "+v.getFormaDePagamento() +
 					"\nTotal: "+v.precoTotal(GerenciadorPratos.getPrato())+" R$"+"\nPratos: ";
-		for(int i=0;i<itens.size();i++) {
+		for(int i=1;i<=itens.size();i++) {
 			String prato = GerenciadorPratos.getPrato(i).getNome();
 			info+=prato+", ";
 		}

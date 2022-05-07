@@ -13,6 +13,9 @@ package gerenciador;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.DomainException;
+import entities.Funcionario;
+import entities.Gerente;
 import entities.Usuario;
 
 /**
@@ -143,6 +146,12 @@ public class GerenciadorUsuarios {
 		GerenciadorUsuarios.listaUsuarios.clear();
 	}
 	
+	/**
+	 * Metódo para logar um usuário no sistema
+	 * @param login Login do usuário
+	 * @param senha Senha do Usuário
+	 * @return Objeto do tipo usuário confirmando o login ou null não reconhecendo o usuário
+	 */
 	public static Usuario login(String login, String senha) {
 
 		Usuario usuario =GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getLogin().equals(login)).findFirst().orElse(null);
@@ -154,6 +163,34 @@ public class GerenciadorUsuarios {
 			}
 		}
 		return null;
+	}
+	/**
+	 * Metódo para cadastrar um usuário 
+	 * @param login Login único do usuário
+	 * @param senha Senha do usuário
+	 * @param nome Nome do usuário
+	 * @param opcao Tipo do usuário, gerente ou funcionário (1 ou 2)
+	 * @return Objeto do tipo usuário cadastrado
+	 * @throws DomainException Erro ao criar usuário, login já sendo utilizado
+	 */
+	public static Usuario cadastrarUsuario(String login, String senha, String nome,Integer opcao) throws DomainException {
+		Usuario usuario = GerenciadorUsuarios.getListaDeUsuarios().stream().filter(x -> x.getLogin().equals(login)).findFirst().orElse(null);
+		
+		if(usuario!=null) {
+			throw new DomainException("Login já está sendo utilizado!");
+		}
+		else {	
+			if(opcao==1) {
+				usuario = new Gerente(login, senha, nome);				
+			}
+			else {
+				usuario=new Funcionario(login,senha,nome);
+			}
+			GerenciadorUsuarios.addOuEdit(usuario);
+		}
+		
+		return usuario;
+		
 	}
 }
 

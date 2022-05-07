@@ -156,6 +156,11 @@ public class Fornecedor {
 		Fornecedor.ultimoId = ultimoId;
 	}
 	
+	/**
+	 * Metódo para pegar as informações de um fornecedor
+	 * @param f Objeto do tipo fornecedor
+	 * @return Uma string contendo todas as informações do fornecedor
+	 */
 	public String infoFornecedor(Fornecedor f) {
 		String info= "Código:" + f.getId() +"\nNome: " +f.getName() + "\nCnpj:" +f.getCnpj()+"\nEdenreço:"+
 						f.getEndereco()+"\n Código de Produtos Fornecidos:";

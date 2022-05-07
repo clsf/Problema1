@@ -126,7 +126,11 @@ public class Usuario {
 		Usuario.ultimoId = ultimoId;
 	}
 	
-	
+	/**
+	 * Metódo para exibir as informações de um usuário
+	 * @param u Usuário que será exibido as informações
+	 * @return String contendo as informações do usuário
+	 */
 	public String infoUsuario(Usuario u) {
 		String info= "Código:" + u.getId() +"\nNome: " +u.getNome() + "\nLogin:" +u.getLogin();
 		return info;

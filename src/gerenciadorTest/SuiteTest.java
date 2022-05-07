@@ -20,7 +20,9 @@ import org.junit.platform.suite.api.*;
 	GerenciadorPratoTest.class,
 	GerenciadorProdutoTest.class,
 	GerenciadorUsuariosTest.class,
-	GerenciadorVendaTest.class
+	GerenciadorVendaTest.class,
+	RelatoriosTest.class
+	
 })
 public class SuiteTest {
 }

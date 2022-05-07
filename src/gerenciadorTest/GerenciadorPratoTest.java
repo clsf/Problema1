@@ -13,18 +13,24 @@ package gerenciadorTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Exceptions.DomainException;
 import entities.Ingredientes;
 import entities.Prato;
+import entities.Produto;
 import enums.CategoriaPrato;
 import enums.UnidadeDeMedida;
 import gerenciador.GerenciadorPratos;
+import gerenciador.GerenciadorProdutos;
 
 public class GerenciadorPratoTest {
 	
@@ -32,7 +38,8 @@ public class GerenciadorPratoTest {
 	
 	//Método para inicializar a lista com alguns pratos
 	@BeforeEach
-	 public void init() {
+	 public void init() throws ParseException {
+
 		List<Ingredientes> ingrediente = new ArrayList<>();
 		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
 
@@ -50,19 +57,20 @@ public class GerenciadorPratoTest {
 	public void setUp() {
 		gp.limpaLista();
 		Prato.setUltimoId(1);
+		
 	}
 
 	//Teste de adicionar pratos
 	@Test
-	public void adicionarTeste() {
+	public void adicionarTeste() throws DomainException, ParseException {
 		assertEquals(2,gp.qtd());
-		List<Integer> produtos3 = new ArrayList<>();
-		produtos3.add(44);produtos3.add(3);
+		List<Ingredientes> ingrediente = new ArrayList<>();
+		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
 		
-		Prato p3 = new Prato("Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",produtos3);
+		Prato p3 = new Prato("Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",ingrediente);
 		GerenciadorPratos.addOuEdit(p3);
 		assertEquals(3,gp.qtd());
-		Prato p4 = new Prato("Aimpim Frito",10.0,CategoriaPrato.ENTRADA,"Aimpim frito da casa",produtos3);
+		Prato p4 = new Prato("Aimpim Frito",10.0,CategoriaPrato.ENTRADA,"Aimpim frito da casa",ingrediente);
 		GerenciadorPratos.addOuEdit(p4);		
 		assertFalse(3==gp.qtd());
 		assertEquals(4,gp.qtd());
@@ -70,6 +78,25 @@ public class GerenciadorPratoTest {
 		assertSame(p3,GerenciadorPratos.getPrato(3));
 		assertSame(p4,GerenciadorPratos.getPrato(4));
 		
+		assertEquals(5,Prato.getUltimoId());
+		assertNotNull(GerenciadorPratos.getPrato(1).getIngredientes());
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+		Date d= sdf1.parse("22/05/2022");
+		
+		Produto produto = new Produto("nenhum", 2.0, d, 200.0);
+		GerenciadorProdutos.addOuEdit(produto);
+		assertNotNull(GerenciadorPratos.adicionarIngredientes(1,2.0,UnidadeDeMedida.KG));
+		try {
+			GerenciadorPratos.adicionarIngredientes(6,2.0,UnidadeDeMedida.KG);
+		}catch(DomainException e) {
+			assertTrue(true);
+		}
+		
+		GerenciadorProdutos.limparLista();
+		Produto.setUltimoId(1);
+		
+		assertNotNull(GerenciadorPratos.cadastrarPrato("nenhum",5.0,CategoriaPrato.BEBIDA,"nenhum", ingrediente));
 	}
 	
 	//Teste de edição dos pratos
@@ -82,9 +109,9 @@ public class GerenciadorPratoTest {
 		assertEquals(CategoriaPrato.MASSA,GerenciadorPratos.getPrato(1).getCategoria());
 		assertEquals("Macarrão ao molho", GerenciadorPratos.getPrato(1).getDescricao());
 		
-		List<Integer> produtos1 = new ArrayList<>();
-		produtos1.add(1); produtos1.add(2);
-		Prato p3 = new Prato(1,"Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",produtos1);
+		List<Ingredientes> ingrediente = new ArrayList<>();
+		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
+		Prato p3 = new Prato(1,"Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",ingrediente);
 		GerenciadorPratos.addOuEdit(p3);
 		
 		assertEquals("Batat Frita",GerenciadorPratos.getPrato(1).getNome());
@@ -102,9 +129,9 @@ public class GerenciadorPratoTest {
 		GerenciadorPratos.remover(1);
 		assertEquals(1,gp.qtd());
 		
-		List<Integer> produtos1 = new ArrayList<>();
-		produtos1.add(1); produtos1.add(2);
-		Prato p3 = new Prato(1,"Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",produtos1);
+		List<Ingredientes> ingrediente = new ArrayList<>();
+		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
+		Prato p3 = new Prato(1,"Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa", ingrediente);
 		GerenciadorPratos.addOuEdit(p3);
 		assertEquals(2,gp.qtd());
 		
@@ -121,11 +148,13 @@ public class GerenciadorPratoTest {
 	public void ListagemTeste() {
 		assertEquals(2,gp.qtd());
 		
-		List<Integer> produtos1 = new ArrayList<>();
-		produtos1.add(1); produtos1.add(2);
-		Prato p3 = new Prato("Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",produtos1);
+		List<Ingredientes> ingrediente = new ArrayList<>();
+		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
+		Prato p3 = new Prato("Batat Frita",10.0,CategoriaPrato.ENTRADA,"Batata Frita da casa",ingrediente);
 		GerenciadorPratos.addOuEdit(p3);
 		assertEquals(3,gp.qtd());
+		
+		assertNotNull(GerenciadorPratos.listagem());
 		
 		GerenciadorPratos.remover(1);
 		assertEquals(2,gp.qtd());
@@ -140,7 +169,21 @@ public class GerenciadorPratoTest {
 		assertSame(p3,GerenciadorPratos.getPrato(3));
 		assertEquals("Batat Frita",GerenciadorPratos.getPrato(3).getNome());
 	
+		assertNotNull(p3.infoPrato(p3));
 		
+	}
+	
+	//Testar sets de Ingredientes
+	@Test
+	public void ingredientesTeste() {
+		List<Ingredientes> ingrediente = new ArrayList<>();
+		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
+		
+		assertEquals(UnidadeDeMedida.L,ingrediente.get(0).getUnidadeDeMeida());
+		ingrediente.get(0).setUnidadeDeMeida(UnidadeDeMedida.KG);
+		assertEquals(UnidadeDeMedida.KG,ingrediente.get(0).getUnidadeDeMeida());
+		ingrediente.get(0).setQuantidade(2.0);
+		assertEquals(2.0,ingrediente.get(0).getQuantidade());
 		
 	}
 	

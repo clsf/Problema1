@@ -11,10 +11,13 @@ do código, e estou ciente que estes trechos não serão considerados para fins de 
 package gerenciador;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import Exceptions.DomainException;
 import entities.Prato;
 import entities.Venda;
+import enums.FormaDePagamento;
 /**
  * Classe para criação do objeto Gerenciador de Vendas
  * @author Cláudia Inês Sales
@@ -125,7 +128,10 @@ public class GerenciadorVendas {
 			for(Integer idPrato:venda.getItens()) {
 				Prato prato = GerenciadorPratos.getPrato().stream().filter(x->x.getId() == idPrato)
 						.findFirst().orElse(null);
-				prt+=prato.getNome()+", ";
+				if(prato!=null) {
+					prt+=prato.getNome()+", ";
+				}
+				
 			}
 			listagem += "Código: "
 					+ venda.getId() +
@@ -155,6 +161,35 @@ public class GerenciadorVendas {
 	 */
 	public void limparLista() {
 		GerenciadorVendas.listaDeVendas.clear();
+	}
+	
+	/**
+	 * Metódo para verificar a existência do prato
+	 * @param idPrato ID do prato que vai ser adicionado na venda
+	 * @param pratos Lista de pratos do gerenciador de pratos
+	 * @throws DomainException Erro caso o prato não esteja cadastrado no catálogo 
+	 */
+	public static Boolean verificarPrato(Integer idPrato,List<Prato> pratos) throws DomainException {
+		Prato prato = pratos.stream().filter(x -> x.getId() == idPrato)
+				.findFirst().orElse(null);
+		if(prato==null) {
+			throw new DomainException("Este prato não existe no catálogo!");
+		}
+		return true;
+	}
+	
+	/**
+	 * Metódo para cadastrar uma venda
+	 * @param formaDePagamento Forma de pagamento da venda
+	 * @param data Data que está sendo realizada a venda
+	 * @param pratos Pratos que compões a venda
+	 * @return Venda 
+	 */
+	public static Venda cadastrarVenda(FormaDePagamento formaDePagamento, Date data, List<Integer> pratos) {
+		Venda v=new Venda(formaDePagamento,data,pratos);
+		GerenciadorVendas.addOuEdit(v);
+		return v;
+		
 	}
 }
 
