@@ -113,8 +113,8 @@ public class main {
 	
 	//Printa o menu de relatório de fornecedores na tela
 	public static void menuRelatorioFornecedores() {
-		System.out.println("\n------------ Menu Relatórios de Estoque ------------");
-		System.out.println("1- Fornecedores \n2- Fornecedores por produto"
+		System.out.println("\n------------ Menu Relatórios de Fornecedor ------------");
+		System.out.println("1-Por Fornecedor \n2- Fornecedores por produto"
 				+"\n3-Voltar");
 		System.out.print("\nOpção:" );
 	}
@@ -178,13 +178,13 @@ public class main {
 		
 		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy"); //padrão da data que será impressa
 
-		while(opcao !=0 ) {
+		while(opcao !=0 ) {	
 			
-			paginaPrincipal();
 			//verifica opção do usuário na página principal
 			continuar = true;
 			while(continuar) {
-				try {						
+				try {
+					paginaPrincipal();
 					opcao = sc.nextInt();
 					continuar= false;
 					sc.nextLine();
@@ -210,12 +210,11 @@ public class main {
 					usuario = GerenciadorUsuarios.login(login, senha);	
 					//Se o usuário não for identificado
 					if (usuario == null) {
-						System.out.println("\nUsuário não reconhecido. ");
-						System.out.println("1- Tentar novamente. \n2- Voltar para a página principal \n0- Sair");
-						
+						System.out.println("\nUsuário não reconhecido. ");						
 						continuar=true;
 						while(continuar) {
-							try {					
+							try {
+								System.out.println("1- Tentar novamente. \n2- Voltar para a página principal \n0- Sair");
 								opcao = sc.nextInt();
 								continuar= false;
 								sc.nextLine();
@@ -269,12 +268,12 @@ public class main {
 			}
 			//Caso o usuário faça login ou cadastro corretamente
 			if(usuario!=null) {
-				do {
-					menuPrincipal();
+				do {					
 					//Opção do menu principal
 					continuar = true;
 					while(continuar) {
-						try {						
+						try {
+							menuPrincipal();
 							opcao = sc.nextInt();
 							continuar= false;
 							sc.nextLine();
@@ -286,11 +285,11 @@ public class main {
 					
 					//Menu com opções para gerenciar usuários
 					if(opcao==1) {
-						while(opcao!=5) {
-							menuUsuarios();
+						while(opcao!=5) {							
 							continuar = true;
 							while(continuar) {
-								try {						
+								try {	
+									menuUsuarios();
 									opcao = sc.nextInt();
 									continuar= false;
 									sc.nextLine();
@@ -334,12 +333,13 @@ public class main {
 								
 								//Editar usuário
 								case 2:
-									System.out.print("\nDigite o código do usuário que quer editar:");
+									
 									Integer idUsuario;
 									Usuario usuarioEdit=null;
 									continuar = true;
 									while(continuar) {
-										try {						
+										try {	
+											System.out.print("\nDigite o código do usuário que quer editar:");
 											idUsuario=sc.nextInt();
 											sc.nextLine();
 											usuarioEdit=GerenciadorUsuarios.getUsuario(idUsuario);
@@ -387,11 +387,11 @@ public class main {
 									break;
 								
 								//Remover usuário
-								case 3:
-									System.out.println("Digite o código do Usuário: ");									
+								case 3:																
 									continuar = true;
 									while(continuar) {
-									try {						
+									try {	
+										System.out.println("Digite o código do Usuário: ");		
 										id=sc.nextInt();
 										continuar= false;
 										sc.nextLine();
@@ -405,11 +405,11 @@ public class main {
 									//Mostra as informações do usuário e confirma remoção
 									if(removerUsuario!=null) {
 										System.out.print(removerUsuario.infoUsuario(removerUsuario));
-										System.out.print("\nDeseja remover o Fornecedor? \n1- Sim 2-Não ");
-										System.out.print("\nOpção: ");
+										System.out.print("\nDeseja remover o Fornecedor? \n1- Sim 2-Não ");										
 										continuar = true;
 										while(continuar) {
-											try {						
+											try {	
+												System.out.print("\nOpção: ");
 												opcao = sc.nextInt();
 												continuar= false;
 												sc.nextLine();											
@@ -436,11 +436,11 @@ public class main {
 						}
 					//Menu com opções para gerenciar fornecedores
 					else if(opcao==2) {
-						while(opcao!=5) {
-							menuFornecedores();
+						while(opcao!=5) {							
 							continuar = true;
 							while(continuar) {
-								try {						
+								try {		
+									menuFornecedores();
 									opcao = sc.nextInt();
 									continuar= false;
 									sc.nextLine();
@@ -486,14 +486,14 @@ public class main {
 									break;
 								
 								//Editar fornecedor
-								case 2:
-									System.out.print("\nDigite o código do produto que deseja editar:");
+								case 2:									
 									Integer idFornecedor;
 									Fornecedor fornecedorEdit=null;
 									idsProdutos = new ArrayList<>();
 									continuar = true;
 									while(continuar) {
 										try {
+											System.out.print("\nDigite o código do fornecedor que deseja editar:");
 											idFornecedor = sc.nextInt();
 											sc.nextLine();
 											fornecedorEdit = GerenciadorFornecedores.getFornecedor(idFornecedor);
@@ -535,13 +535,11 @@ public class main {
 									break;
 								
 								//Excluir fornecedor
-								case 3:
-									System.out.println("Digite o código do Fornecedor: ");
-									
-									
+								case 3:																	
 									continuar = true;
 									while(continuar) {
-										try {						
+										try {	
+											System.out.println("Digite o código do Fornecedor: ");	
 											id=sc.nextInt();
 											continuar= false;
 											sc.nextLine();
@@ -555,11 +553,11 @@ public class main {
 									//Exibe informações do fornecedor e confirma remoção
 									if(removerFornecedor!=null) {
 										System.out.print(removerFornecedor.infoFornecedor(removerFornecedor));
-										System.out.print("\nDeseja remover o Fornecedor? \n1- Sim 2-Não ");
-										System.out.print("\nOpção: ");
+										System.out.print("\nDeseja remover o Fornecedor? \n1- Sim 2-Não ");										
 										continuar = true;
 										while(continuar) {
-											try {						
+											try {	
+												System.out.print("\nOpção: ");
 												opcao = sc.nextInt();
 												continuar= false;
 												sc.nextLine();											
@@ -587,11 +585,11 @@ public class main {
 					
 					//Menu com opções para gerenciar produtos
 					else if(opcao==3) {
-						while(opcao!=5) {
-							menuProdutos();
+						while(opcao!=5) {							
 							continuar = true;
 							while(continuar) {
-								try {						
+								try {
+									menuProdutos();
 									opcao = sc.nextInt();
 									continuar= false;
 									sc.nextLine();
@@ -634,13 +632,13 @@ public class main {
 									break;
 								
 								//Editar produto
-								case 2:
-									System.out.print("\nDigite o código do produto que quer editar:");
+								case 2:									
 									Integer idProduto;
 									Produto produtoEdit=null;
 									continuar = true;
 									while(continuar) {
 										try {
+											System.out.print("\nDigite o código do produto que quer editar:");
 											idProduto = sc.nextInt();
 											sc.nextLine();
 											produtoEdit= GerenciadorProdutos.getProduto(idProduto);
@@ -682,13 +680,11 @@ public class main {
 									break;
 									
 								//Remover produto
-								case 3:
-									System.out.println("Digite o código do Produto: ");
-									
-									
+								case 3:									
 									continuar = true;
 									while(continuar) {
-										try {						
+										try {		
+											System.out.println("Digite o código do Produto: ");
 											id=sc.nextInt();
 											continuar= false;
 											sc.nextLine();
@@ -734,10 +730,10 @@ public class main {
 					//Menu com opções para gerenciar os pratos 
 					else if(opcao==4) {
 						while(opcao!=5) {
-							menuPratos();
 							continuar = true;
 							while(continuar) {
-								try {						
+								try {	
+									menuPratos();
 									opcao = sc.nextInt();
 									continuar= false;
 									sc.nextLine();
@@ -814,13 +810,13 @@ public class main {
 									break;
 								
 								//Editar prato
-								case 2:
-									System.out.print("\nDigite o código do prato que quer editar:");
+								case 2:									
 									Integer idPrato;
 									Prato pratoEdit=null;
 									continuar = true;
 									while(continuar) {
 										try {
+											System.out.print("\nDigite o código do prato que quer editar:");
 											idPrato=sc.nextInt();
 											sc.nextLine();
 											pratoEdit = GerenciadorPratos.getPrato(idPrato);
@@ -902,13 +898,12 @@ public class main {
 									}
 									break;
 								//Excluir prato
-								case 3:
-									System.out.println("Digite o código do Prato: ");
-									
+								case 3:		
 									
 									continuar = true;
 									while(continuar) {
-										try {						
+										try {	
+											System.out.println("Digite o código do Prato: ");
 											id=sc.nextInt();
 											continuar= false;
 											sc.nextLine();
@@ -923,11 +918,11 @@ public class main {
 									//Exibe informações do prato que será removido e confirma exclusão
 									if(removerPrato!=null) {
 										System.out.print(removerPrato.infoPrato(removerPrato));
-										System.out.print("\nDeseja remover o Produto? \n1- Sim 2-Não ");
-										System.out.print("\nOpção: ");
+										System.out.print("\nDeseja remover o Produto? \n1- Sim 2-Não ");										
 										continuar = true;
 										while(continuar) {
-											try {						
+											try {
+												System.out.print("\nOpção: ");
 												opcao = sc.nextInt();
 												continuar= false;
 												sc.nextLine();											
@@ -955,11 +950,11 @@ public class main {
 					//Menu com opções para gerenciar vendas
 					else if(opcao==5) {
 						opcao=2;
-						while(opcao!=5) {
-							menuVendas();
+						while(opcao!=5) {							
 							continuar = true;
 							while(continuar) {
-								try {						
+								try {
+									menuVendas();
 									opcao = sc.nextInt();
 									continuar= false;
 									sc.nextLine();
@@ -1026,13 +1021,13 @@ public class main {
 									break;
 									
 								//Edita venda apenas com status aberto
-								case 2:
-									System.out.print("\nDigite o código da venda que quer editar:");
+								case 2:									
 									Integer idVenda;
 									Venda vendaEdit=null;
 									continuar = true;
 									while(continuar) {
 										try {
+											System.out.print("\nDigite o código da venda que quer editar:");
 											idVenda = sc.nextInt();
 											sc.nextLine();
 											vendaEdit = GerenciadorVendas.getVenda(idVenda);
@@ -1107,13 +1102,12 @@ public class main {
 									break;
 									
 								//Exclui venda
-								case 3:
-									System.out.println("Digite o código da Venda: ");
-									
+								case 3:								
 									
 									continuar = true;
 									while(continuar) {
-										try {						
+										try {	
+											System.out.println("Digite o código da Venda: ");
 											id=sc.nextInt();
 											continuar= false;
 											sc.nextLine();
@@ -1158,11 +1152,11 @@ public class main {
 					}
 					//Menu com opções para gerar relatórios
 					else if(opcao==6) {
-						while(opcao!=4) {
-							menuRelatorios();
+						while(opcao!=4) {					
 							continuar = true;
 							while(continuar) {
-								try {						
+								try {	
+									menuRelatorios();
 									opcao = sc.nextInt();
 									continuar= false;
 									sc.nextLine();
@@ -1175,11 +1169,11 @@ public class main {
 							switch(opcao) {
 								//Relatórios de venda
 								case 1:									
-									while(opcao!=4) {
-										menuRelatorioVenda();
+									while(opcao!=4) {										
 										continuar = true;
 										while(continuar) {
-											try {						
+											try {	
+												menuRelatorioVenda();
 												opcao = sc.nextInt();
 												continuar= false;
 												sc.nextLine();
@@ -1192,12 +1186,12 @@ public class main {
 										switch(opcao) {
 											//Gera relatório de vendas cadastradas no geral
 											case 1:												
-												System.out.println(Relatorios.imprimirRelatorioVenda(GerenciadorVendas.getListaDeVendas()));
-												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+												System.out.println(Relatorios.imprimirRelatorioVenda(GerenciadorVendas.getListaDeVendas()));												
 												Double total = Relatorios.precoTotalVenda(GerenciadorVendas.getListaDeVendas());
 												continuar = true;
 												while(continuar) {
-													try {						
+													try {	
+														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
 														gerar = sc.nextInt();
 														continuar= false;
 														sc.nextLine();
@@ -1212,15 +1206,15 @@ public class main {
 												break;
 											//Gera relatório de vendas cadastradas por período	
 											case 2:
-												SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");
-												System.out.print("Digite o período que deseja mês/ano (Ex: 04/2022)");
+												SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");												
 												String periodo=sc.nextLine();
 												Date dataPeriodo=null;		
 												total=0.0;
 												gerar=0;
 												continuar = true;
 												while(continuar) {
-													try {														
+													try {	
+														System.out.print("Digite o período que deseja mês/ano (Ex: 04/2022)");
 														dataPeriodo=sdf2.parse(periodo);
 														System.out.println(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo)));
 														total = Relatorios.precoTotalVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo));
@@ -1231,7 +1225,7 @@ public class main {
 														sc.nextLine();
 													}
 													catch(InputMismatchException e){
-														System.out.println("Opção inválida! ");
+														System.out.println("Opção inválida! Tente novamente");
 														sc.nextLine();
 													}}
 												if(gerar==1) {
@@ -1242,13 +1236,13 @@ public class main {
 												break;
 											//Gera relatório de vendas realizadas por tipo de prato
 											case 3:
-												System.out.print("\nDigite o tipo de prato que deseja gerar o relatório");
-												System.out.print("\n1-Entrada 2-Massa 3-Bebida 4-Sobremesa");
+												System.out.print("\nDigite o tipo de prato que deseja gerar o relatório");												
 												gerar=0;
 												total=0.0;
 												continuar = true;
 												while(continuar) {
 													try {
+														System.out.print("\n1-Entrada 2-Massa 3-Bebida 4-Sobremesa");
 														int	tipo=sc.nextInt();
 														if(tipo==1) {
 															System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.ENTRADA)));
@@ -1309,11 +1303,11 @@ public class main {
 										
 								//Relatórios de estoque		
 								case 2:
-									while(opcao!=4) {
-										menuRelatorioEstoque();
+									while(opcao!=4) {										
 										continuar = true;
 										while(continuar) {
-											try {						
+											try {	
+												menuRelatorioEstoque();
 												opcao = sc.nextInt();
 												continuar= false;
 												sc.nextLine();
@@ -1328,11 +1322,11 @@ public class main {
 											case 1:
 												Integer total = GerenciadorProdutos.getListaDeProdutos().size();
 												System.out.println(Relatorios.imprimirRelatorioProduto(GerenciadorProdutos.getListaDeProdutos()));
-												System.out.print("\nTotal de produtos: "+total);
-												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+												System.out.print("\nTotal de produtos: "+total);												
 												continuar = true;
 												while(continuar) {
-													try {						
+													try {	
+														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
 														gerar = sc.nextInt();
 														continuar= false;
 														sc.nextLine();
@@ -1386,11 +1380,11 @@ public class main {
 												total=Relatorios.relatorioEstoqueProdutosAvencer().size();
 												System.out.print("\nRelatório produtod que irão vencer nos próximos 20 dias");
 												System.out.println(Relatorios.imprimirRelatorioProduto(Relatorios.relatorioEstoqueProdutosAvencer()));
-												System.out.print("\nTotal de produtos: "+total);
-												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");												
+												System.out.print("\nTotal de produtos: "+total);																							
 												continuar = true;
 													while(continuar) {
-													try {																												
+													try {	
+														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");	
 														gerar=sc.nextInt();
 														continuar= false;
 														sc.nextLine();
@@ -1408,11 +1402,11 @@ public class main {
 								//Relatórios de fornecedores
 								case 3:
 									opcao=1;
-									while(opcao!=3) {
-										menuRelatorioFornecedores();
+									while(opcao!=3) {										
 										continuar = true;
 										while(continuar) {
-											try {						
+											try {		
+												menuRelatorioFornecedores();
 												opcao = sc.nextInt();
 												continuar= false;
 												sc.nextLine();
@@ -1423,12 +1417,16 @@ public class main {
 											}}
 										int gerar=0;
 										switch(opcao) {
-											//Gera relatório de fornecedores por produto
+											//Gera relatório de fornecedores por fornecedor
 											case 1:												
 												continuar = true;
+												Integer cod =0;
 												while(continuar) {
 													try {
-														System.out.println(Relatorios.imprimirRelatorioFornecedor(GerenciadorFornecedores.getListaDeFornecedores()));
+														System.out.print("\nDigite o código do fornecedor que deseja obter o relatório");
+														cod = sc.nextInt();
+														sc.nextLine();
+														System.out.println(Relatorios.imprimirRelatorioFornecedor(Relatorios.relatorioFornecedor(cod)));
 														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");						
 														gerar = sc.nextInt();
 														continuar= false;
@@ -1443,12 +1441,12 @@ public class main {
 													}
 												
 												if(gerar==1) {
-													Relatorios.gerarRelatorioFornecedor(GerenciadorFornecedores.getListaDeFornecedores(),2,"");
+													Relatorios.gerarRelatorioFornecedor(Relatorios.relatorioFornecedor(cod),2,"");
 												}			
 												
 												break;
 												
-											//Gera relatório de fornecedores total
+											//Gera relatório de fornecedores por produto
 											case 2:
 												System.out.print("\nDigite o código do produto que deseja filtrar o fornecedor");
 												gerar=0;
@@ -1457,6 +1455,7 @@ public class main {
 												Produto produto=null;
 												while(continuar) {
 													try {
+														System.out.print("\nDigite o código do produto que deseja filtrar o fornecedor");
 														Integer idProduto=sc.nextInt();
 														produto = GerenciadorProdutos.getListaDeProdutos().stream().filter(x-> x.getId() == idProduto).findFirst().orElse(null);
 														fornecedores=Relatorios.relatorioFornecedorePorProduto(idProduto);
