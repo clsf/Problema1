@@ -13,6 +13,7 @@ package util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -129,11 +130,14 @@ public class main {
 		
 		//Criação de produtos
 		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy");
-		Date data1 = sdf1.parse("09/08/2022");
+		Date data1 = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(data1);
+		cal.add(Calendar.DAY_OF_MONTH, 60);
+		data1 = cal.getTime();		
 		Produto p1 = new Produto("Refrigerante",5.0,data1,500.0);		
-		GerenciadorProdutos.addOuEdit(p1);		
-		Date data2 = sdf1.parse("10/08/2022");
-		Produto p2 = new Produto("Arroz", 4.0, data2,600.0);
+		GerenciadorProdutos.addOuEdit(p1);			
+		Produto p2 = new Produto("Arroz", 4.0, data1,600.0);
 		GerenciadorProdutos.addOuEdit(p2); 
 		
 		//Criação de pratos
@@ -1188,6 +1192,7 @@ public class main {
 											case 1:												
 												System.out.println(Relatorios.imprimirRelatorioVenda(GerenciadorVendas.getListaDeVendas()));												
 												Double total = Relatorios.precoTotalVenda(GerenciadorVendas.getListaDeVendas());
+												System.out.println("Preço total =" + total + "R$");
 												continuar = true;
 												while(continuar) {
 													try {	
@@ -1206,15 +1211,15 @@ public class main {
 												break;
 											//Gera relatório de vendas cadastradas por período	
 											case 2:
-												SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");												
+												SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");	
+												System.out.print("Digite o período que deseja mês/ano (Ex: 04/2022)");
 												String periodo=sc.nextLine();
 												Date dataPeriodo=null;		
 												total=0.0;
 												gerar=0;
 												continuar = true;
 												while(continuar) {
-													try {	
-														System.out.print("Digite o período que deseja mês/ano (Ex: 04/2022)");
+													try {															
 														dataPeriodo=sdf2.parse(periodo);
 														System.out.println(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo)));
 														total = Relatorios.precoTotalVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo));
@@ -1378,7 +1383,7 @@ public class main {
 											//Gera relatório de estoque de produtos a vencer
 											case 3:
 												total=Relatorios.relatorioEstoqueProdutosAvencer().size();
-												System.out.print("\nRelatório produtod que irão vencer nos próximos 20 dias");
+												System.out.print("\nRelatório produtos que irão vencer nos próximos 60 dias");
 												System.out.println(Relatorios.imprimirRelatorioProduto(Relatorios.relatorioEstoqueProdutosAvencer()));
 												System.out.print("\nTotal de produtos: "+total);																							
 												continuar = true;
@@ -1399,6 +1404,7 @@ public class main {
 												
 												break;
 										}}
+									break;
 								//Relatórios de fornecedores
 								case 3:
 									opcao=1;
@@ -1447,8 +1453,7 @@ public class main {
 												break;
 												
 											//Gera relatório de fornecedores por produto
-											case 2:
-												System.out.print("\nDigite o código do produto que deseja filtrar o fornecedor");
+											case 2:												
 												gerar=0;
 												continuar = true;												
 												List<Fornecedor> fornecedores=null;

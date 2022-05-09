@@ -142,7 +142,7 @@ public class Relatorios {
 	}
 	
 	/**
-	 * Metódo para obter lista de produtos a vencer no máximo 20 dias
+	 * Metódo para obter lista de produtos a vencer no máximo 60 dias
 	 * @return Lista de produtos a vencer
 	 */
 	
@@ -151,7 +151,7 @@ public class Relatorios {
 		Date dataAtual = new Date();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(dataAtual);
-		cal.add(Calendar.DAY_OF_MONTH, 20);
+		cal.add(Calendar.DAY_OF_MONTH, 60);
 		dataAtual = cal.getTime();
 		
 		for(Produto produto: GerenciadorProdutos.getListaDeProdutos()) {
@@ -306,16 +306,16 @@ public class Relatorios {
 		SimpleDateFormat sdf2= new SimpleDateFormat("dd-MM-yyyy mm-ss");
 		Document doc = new Document();
 		Date atual= new Date();
-		String arquivoPdf="relatorioVenda"+sdf2.format(atual);
+		String arquivoPdf="relatorioEstoque"+sdf2.format(atual);
 		String titulo="";
 	
 		if(tipo==1) {
-			titulo ="Relatório de Produtos - "+sdf1.format(atual);
+			titulo ="Relatório de Estoque - "+sdf1.format(atual);
 		}else if(tipo==2) {
-			titulo = "Relatório de Produtos por tipo -"+ nome ;
+			titulo = "Relatório de Estoque por tipo -"+ nome ;
 		}
 		else if(tipo==3) {
-			titulo = "Relatório de venda a vencer nos próximos 20 dias ";
+			titulo = "Relatório de produtos a vencer nos próximos 60 dias ";
 		}
 		
 		try {
@@ -380,7 +380,7 @@ public class Relatorios {
 		SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
 
 		for(Produto produto: produtos) {
-			listagem+= "Código:" + produto.getId() +"\nNome: " +produto.getNome() + 
+			listagem+= "\nCódigo:" + produto.getId() +"\nNome: " +produto.getNome() + 
 						"\nValidade: "+sdf1.format(produto.getValidade())+"\nQuantidade: "+produto.getQuantidade();
 		}
 		return listagem;
