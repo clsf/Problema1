@@ -129,7 +129,7 @@ public class GerenciadorPratos {
 	
 	/**
 	 * Metódo para fazer a listagem dos fornecedores
-	 * @returne String - Listagem completa dos fornecedores
+	 * @return String - Listagem completa dos fornecedores
 	 */
 	
 	public static String listagem() {

@@ -31,7 +31,7 @@ public class RelatoriosTest {
 	public void tearDown() throws Exception {
 		
 	}
-
+	//Teste para retorno de listas contendo os objetos
 	@Test
 	public void RelatoriosTeste() throws DomainException {
 		assertNotNull(Relatorios.relatorioVendaPorPeriodo(new Date()));
@@ -43,6 +43,7 @@ public class RelatoriosTest {
 		
 	}
 	
+	//Teste para saber se retorna uma string que exibirá as informações na tela
 	@Test 
 	public void ImpressaoRelatorios() throws DomainException{
 		List<Venda> venda= new ArrayList<>();

@@ -190,9 +190,7 @@ public class GerenciadorVendaTest {
 	//Teste calcular preço total da venda
 	@Test
 	public void PrecototalTeste() throws DomainException {
-		assertEquals(2,gv.qtd());
-		
-		
+		assertEquals(2,gv.qtd());	
 		
 		assertEquals(13.5,GerenciadorVendas.getVenda(1).precoTotal(GerenciadorPratos.getPrato()));
 		assertNotNull(GerenciadorVendas.getVenda(1).infoVenda(GerenciadorVendas.getVenda(1)));

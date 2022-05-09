@@ -38,7 +38,7 @@ public class Venda {
 	 * Construtor do objeto venda permitindo instanciar sem fornecer o ID
 	 * @param formaDePagamento Forma de Pagamento, podendo ser Débito, Pix, Crédito, etc...
 	 * @param data Data que foi realizada a venda
-	 * @param ingredientes Lista com ID's de pratos que fazem parte da venda
+	 * @param itens Lista com ID's de pratos que fazem parte da venda
 	 */
 	public Venda(FormaDePagamento formaDePagamento, Date data, List<Integer> itens) {
 		this.id = ultimoId;

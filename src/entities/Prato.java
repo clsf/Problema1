@@ -13,7 +13,6 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.DomainException;
 import enums.CategoriaPrato;
 
 /**
@@ -38,7 +37,7 @@ public class Prato {
 	 * @param preco Preço do prato
 	 * @param categoria Categoria do prato, podendo ser uma massa, entrada, bebida etc
 	 * @param descricao	Descrição do prato	
-	 * @param produtos 	Lista contendo os produtos que compoem o prato
+	 * @param ingredientes 	Lista contendo os ingredientes que compoem o prato
 	 */
 	
 	public Prato(String nome, Double preco, CategoriaPrato categoria, String descricao, 
@@ -60,7 +59,7 @@ public class Prato {
 	 * @param preco Preço do prato
 	 * @param categoria Categoria do prato, podendo ser uma massa, entrada, bebida etc
 	 * @param descricao	Descrição do prato	
-	 * @param produtos 	Lista contendo os produtos que compoem o prato
+	 * @param ingredientes 	Lista contendo os ingredientes que compoem o prato
 	 */
 	public Prato(Integer id, String nome, Double preco, CategoriaPrato categoria, String descricao,
 			List<Ingredientes> ingredientes) {

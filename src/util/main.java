@@ -1,6 +1,14 @@
+/*******************************************************************************
+Autor: Cláudia Inês Sales Freitas
+Componente Curricular: MI de Programação II
+Concluido em: 07/05/2022
+Declaro que este código foi elaborado por mim de forma individual e não contém nenhum
+trecho de código de outro colega ou de outro autor, tais como provindos de livros e
+apostilas, e páginas ou documentos eletrônicos da Internet. Qualquer trecho de código
+de outra autoria que não a minha está destacado com uma citação para o autor e a fonte
+do código, e estou ciente que estes trechos não serão considerados para fins de avaliação.
+******************************************************************************************/
 package util;
-
-import static org.junit.Assert.assertArrayEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,8 +17,6 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
-import org.junit.jupiter.api.Disabled;
 
 import Exceptions.DomainException;
 import entities.*;
@@ -23,9 +29,9 @@ import gerenciador.GerenciadorPratos;
 import gerenciador.GerenciadorProdutos;
 import gerenciador.GerenciadorUsuarios;
 import gerenciador.GerenciadorVendas;
-@Disabled 
+
 public class main {
-	
+	//Printa o menu principal na tela
 	public static void menuPrincipal() {
 		System.out.println("\n------------ Menu Principal ------------");
 		System.out.println("1- Gerenciar Usuários. \n2- Gerenciar Fornecedores. \n"
@@ -34,6 +40,7 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu de usuários na tela
 	public static void menuUsuarios() {
 		System.out.println("\n------------ Menu Usuarios ------------");
 		System.out.println("1- Adicionar usuário \n2- Editar Usuário \n3- Excluir Usuário"
@@ -41,12 +48,14 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa a página principal antes de logar na tela
 	public static void paginaPrincipal() {
 		System.out.println("\n------------ Página Principal ------------");
 		System.out.println("1- Entrar \n2- Cadastrar Usuário \n0- Sair");
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu dos fornecedores na tela
 	public static void menuFornecedores() {
 		System.out.println("\n------------ Menu Usuarios ------------");
 		System.out.println("1- Adicionar Fornecedor \n2- Editar Fornecedor \n3- Excluir Fornecedor"
@@ -54,6 +63,7 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu dos produtos na tela
 	public static void menuProdutos() {
 		System.out.println("\n------------ Menu Produtos ------------");
 		System.out.println("1- Adicionar Produto \n2- Editar Produto \n3- Excluir Produto"
@@ -61,6 +71,7 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu dos pratos na tela
 	public static void menuPratos() {
 		System.out.println("\n------------ Menu Pratos ------------");
 		System.out.println("1- Adicionar Prato \n2- Editar Prato \n3- Excluir Prato"
@@ -68,6 +79,7 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu de vendas na tela
 	public static void menuVendas() {
 		System.out.println("\n------------ Menu Vendas ------------");
 		System.out.println("1- Adicionar Venda \n2- Editar Venda \n3- Excluir Venda"
@@ -75,6 +87,7 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu de relatórios na tela
 	public static void menuRelatorios() {
 		System.out.println("\n------------ Menu Relatórios ------------");
 		System.out.println("1- Relatórios de Venda \n2- Relatórios de Estoque \n3- Relatório de Fornecedores"
@@ -82,6 +95,7 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu de relatório de venda na tela
 	public static void menuRelatorioVenda() {
 		System.out.println("\n------------ Menu Relatórios de Venda ------------");
 		System.out.println("1- Vendas Realizadas no geral \n2- Vendas Realizadas por período \n3- Vendas Realizadas por tipo de prato"
@@ -89,6 +103,7 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu de relatório de estoque na tela
 	public static void menuRelatorioEstoque() {
 		System.out.println("\n------------ Menu Relatórios de Estoque ------------");
 		System.out.println("1- Estoque geral \n2- Estoque por produto \n3- Produtos a vencer"
@@ -96,20 +111,23 @@ public class main {
 		System.out.print("\nOpção:" );
 	}
 	
+	//Printa o menu de relatório de fornecedores na tela
 	public static void menuRelatorioFornecedores() {
 		System.out.println("\n------------ Menu Relatórios de Estoque ------------");
-		System.out.println("1- Fornecedores por produto \n2- Fornecedores"
-				+"\n4-Voltar");
+		System.out.println("1- Fornecedores \n2- Fornecedores por produto"
+				+"\n3-Voltar");
 		System.out.print("\nOpção:" );
 	}
 	
-	
+	//Inicializa com usuários, fornecedores, produtos, pratos e vendas no sistema
 	public static void inicializar() throws ParseException {
+		//Criação de usuários
 		Usuario u1 = new Usuario("claus","cometa","Cláudia Inês");
 		Usuario u2 = new Usuario("SLC","Estrelas","Inês Cláudia");
 		GerenciadorUsuarios.addOuEdit(u1);
 		GerenciadorUsuarios.addOuEdit(u2);
 		
+		//Criação de produtos
 		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy");
 		Date data1 = sdf1.parse("09/08/2022");
 		Produto p1 = new Produto("Refrigerante",5.0,data1,500.0);		
@@ -118,7 +136,7 @@ public class main {
 		Produto p2 = new Produto("Arroz", 4.0, data2,600.0);
 		GerenciadorProdutos.addOuEdit(p2); 
 		
-		
+		//Criação de pratos
 		List<Ingredientes> ingrediente = new ArrayList<>();
 		ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.L)); ingrediente.add(new Ingredientes(1,5.0,UnidadeDeMedida.KG));
 		Prato pr1 = new Prato("Macarrão",8.5,CategoriaPrato.MASSA,"Macarrão ao molho",ingrediente);
@@ -126,7 +144,7 @@ public class main {
 		GerenciadorPratos.addOuEdit(pr1);
 		GerenciadorPratos.addOuEdit(pr2);
 		
-		
+		//Criação de vendas
 		List<Integer> itens1 = new ArrayList<>();
 		itens1.add(1); itens1.add(2);		
 		Date data3 = new Date();		
@@ -136,7 +154,7 @@ public class main {
 		Venda venda2 = new Venda(FormaDePagamento.PIX, data4, itens1);
 		GerenciadorVendas.addOuEdit(venda2);
 		
-		
+		//Criação de fornecedores
 		List<Integer> produtos1 = new ArrayList<>();
 		produtos1.add(1); produtos1.add(2);		
 		Fornecedor f1 = new Fornecedor(1123,"CLS EMPRESA","Tomba",produtos1);
@@ -150,32 +168,35 @@ public class main {
 	
 	
 	public static void main(final String[] args) throws ParseException {
-		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
-		int opcao=1; boolean continuar; Integer id=null;
-		Usuario usuario=null; Usuario usuarioCad=null;
-		inicializar();
+		int opcao=1;  //variável para continuar armazenar opção
+		boolean continuar; //variável para continuar loopings
+		Integer id=null; //variável para armazernar id
+		Usuario usuario=null; //variável para armazenar usuário logado
+		Usuario usuarioCad=null; //variável para armazenar usuário cadastrado 
+		inicializar(); //inicializa os dados no sistema
 		
-		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf1=new SimpleDateFormat("dd/MM/yyyy"); //padrão da data que será impressa
 
 		while(opcao !=0 ) {
 			
 			paginaPrincipal();
-			
+			//verifica opção do usuário na página principal
 			continuar = true;
 			while(continuar) {
-			try {						
-				opcao = sc.nextInt();
-				continuar= false;
-				sc.nextLine();
-			}
-			catch(InputMismatchException e){
-				System.out.println("Opção inválida! ");
-				sc.nextLine();
-				
-			}}
+				try {						
+					opcao = sc.nextInt();
+					continuar= false;
+					sc.nextLine();
+				}
+				catch(InputMismatchException e){
+					System.out.println("Opção inválida! ");
+					sc.nextLine();
+					
+				}}
 			
 			switch(opcao) {
+				//Caso o usuário já tenha uma conta fará login
 				case 1:
 					boolean continuar2 = true;
 					while(continuar2) {
@@ -187,22 +208,22 @@ public class main {
 					String senha = sc.nextLine();
 		
 					usuario = GerenciadorUsuarios.login(login, senha);	
-					
+					//Se o usuário não for identificado
 					if (usuario == null) {
 						System.out.println("\nUsuário não reconhecido. ");
 						System.out.println("1- Tentar novamente. \n2- Voltar para a página principal \n0- Sair");
 						
 						continuar=true;
 						while(continuar) {
-						try {					
-							opcao = sc.nextInt();
-							continuar= false;
-							sc.nextLine();
-						}
-						catch(InputMismatchException e){
-							System.out.println("Opção inválida! ");		
-							sc.nextLine();
-						}}
+							try {					
+								opcao = sc.nextInt();
+								continuar= false;
+								sc.nextLine();
+							}
+							catch(InputMismatchException e){
+								System.out.println("Opção inválida! ");		
+								sc.nextLine();
+							}}
 						if(opcao!=1) {
 							continuar2=false;						
 						}
@@ -216,6 +237,7 @@ public class main {
 					break;
 				
 				case 2:
+					//Caso o usuário não tenha uma conta fará cadastro
 					System.out.println("Crie o seu login: ");
 					String loginNovo = sc.nextLine();
 					
@@ -226,7 +248,8 @@ public class main {
 					String nome = sc.nextLine();
 					try {
 						System.out.print("\nTipo de Usuário: \n1- Gerente \n2- Funcionário");
-						Integer tipo = sc.nextInt();						
+						Integer tipo = sc.nextInt();
+						sc.nextLine();						
 						usuario= GerenciadorUsuarios.cadastrarUsuario(loginNovo, senhaNovo,nome,tipo);
 					}
 					catch(DomainException e) {
@@ -241,41 +264,43 @@ public class main {
 							System.out.print("\nUsuário Criado com sucesso!");
 						}
 					}
-					sc.nextLine();
+					
 					break;
 			}
-			
+			//Caso o usuário faça login ou cadastro corretamente
 			if(usuario!=null) {
 				do {
 					menuPrincipal();
-					
+					//Opção do menu principal
 					continuar = true;
 					while(continuar) {
-					try {						
-						opcao = sc.nextInt();
-						continuar= false;
-						sc.nextLine();
-					}
-					catch(InputMismatchException e){
-						System.out.println("Opção inválida! ");
-						sc.nextLine();
-					}}
+						try {						
+							opcao = sc.nextInt();
+							continuar= false;
+							sc.nextLine();
+						}
+						catch(InputMismatchException e){
+							System.out.println("Opção inválida! ");
+							sc.nextLine();
+						}}
 					
+					//Menu com opções para gerenciar usuários
 					if(opcao==1) {
 						while(opcao!=5) {
 							menuUsuarios();
 							continuar = true;
 							while(continuar) {
-							try {						
-								opcao = sc.nextInt();
-								continuar= false;
-								sc.nextLine();
-							}
-							catch(InputMismatchException e){
-								System.out.println("Opção inválida! ");
-								sc.nextLine();
-							}}
+								try {						
+									opcao = sc.nextInt();
+									continuar= false;
+									sc.nextLine();
+								}
+								catch(InputMismatchException e){
+									System.out.println("Opção inválida! ");
+									sc.nextLine();
+								}}
 							switch(opcao) {
+								//Cadastrar Usuário
 								case 1:
 									System.out.println("Digite o nome do Usuário: ");
 									String nome = sc.nextLine();
@@ -297,72 +322,73 @@ public class main {
 										sc.nextLine();
 									}catch(DomainException e) {
 										System.out.println("Erro na criação do usuário: "+e.getMessage());
+										sc.nextLine();
 									}finally {
 										if(usuarioCad!=null) {
 											System.out.print("\nUsuário Criado com sucesso!");
 										}
 									}
 									
-									sc.nextLine();
+									
 									break;
 								
+								//Editar usuário
 								case 2:
 									System.out.print("\nDigite o código do usuário que quer editar:");
 									Integer idUsuario;
 									Usuario usuarioEdit=null;
 									continuar = true;
 									while(continuar) {
-									try {						
-										idUsuario=sc.nextInt();
-										sc.nextLine();
-										usuarioEdit=GerenciadorUsuarios.getUsuario(idUsuario);
-										if(usuarioEdit!=null) {
-											System.out.println("Entre novamente com todas as informações: ");
-											System.out.println("Digite o nome do Usuário: ");
-											nome = sc.nextLine();
-											
-											System.out.print("\nDigite o login do Usuário: ");
-											login = sc.nextLine();
-											
-											System.out.print("\nDigite a senha do Usuário: ");
-											senha = sc.nextLine();
-											
-											System.out.print("\nDigite o tipo de usuário 1- Gerente e 2 - Funcionário: ");
-											Integer tipo=sc.nextInt();
+										try {						
+											idUsuario=sc.nextInt();
 											sc.nextLine();
-											if(tipo==1) {
-												usuarioEdit = new Gerente(idUsuario,login,senha,nome);
+											usuarioEdit=GerenciadorUsuarios.getUsuario(idUsuario);
+											if(usuarioEdit!=null) {
+												System.out.println("Entre novamente com todas as informações: ");
+												System.out.println("Digite o nome do Usuário: ");
+												nome = sc.nextLine();
+												
+												System.out.print("\nDigite o login do Usuário: ");
+												login = sc.nextLine();
+												
+												System.out.print("\nDigite a senha do Usuário: ");
+												senha = sc.nextLine();
+												
+												System.out.print("\nDigite o tipo de usuário 1- Gerente e 2 - Funcionário: ");
+												Integer tipo=sc.nextInt();
+												sc.nextLine();
+												if(tipo==1) {
+													usuarioEdit = new Gerente(idUsuario,login,senha,nome);
+												}
+												else {
+													usuarioEdit = new Funcionario(idUsuario,login,senha,nome);
+												}
+												
+												GerenciadorUsuarios.addOuEdit(usuarioEdit);											
 											}
 											else {
-												usuarioEdit = new Funcionario(idUsuario,login,senha,nome);
+												System.out.println("Código não encontrado!");
 											}
-											
-											GerenciadorUsuarios.addOuEdit(usuarioEdit);											
+											continuar= false;
+											sc.nextLine();
 										}
-										else {
-											System.out.println("Código não encontrado!");
+										catch(InputMismatchException e){
+											System.out.println("Opção inválida! ");
+											sc.nextLine();
 										}
-										continuar= false;
-										sc.nextLine();
-									}
-									catch(InputMismatchException e){
-										System.out.println("Opção inválida! ");
-										sc.nextLine();
-									}
-									finally {
-										if(usuarioEdit!=null) {
-											System.out.print("\nUsuário Editado com sucesso!");
-											System.out.println(usuarioEdit.infoUsuario(usuarioEdit));
+										finally {
+											if(usuarioEdit!=null) {
+												System.out.print("\nUsuário Editado com sucesso!");
+												System.out.println(usuarioEdit.infoUsuario(usuarioEdit));
+											}
 										}
-									}
 									}
 									
 									break;
 								
+								//Remover usuário
 								case 3:
-									System.out.println("Digite o código do Usuário: ");
-									
-									
+									System.out.println("Digite o código do Usuário: ");									
 									continuar = true;
 									while(continuar) {
 									try {						
@@ -376,21 +402,22 @@ public class main {
 									}}
 									
 									Usuario removerUsuario= GerenciadorUsuarios.getUsuario(id);
+									//Mostra as informações do usuário e confirma remoção
 									if(removerUsuario!=null) {
 										System.out.print(removerUsuario.infoUsuario(removerUsuario));
 										System.out.print("\nDeseja remover o Fornecedor? \n1- Sim 2-Não ");
 										System.out.print("\nOpção: ");
 										continuar = true;
 										while(continuar) {
-										try {						
-											opcao = sc.nextInt();
-											continuar= false;
-											sc.nextLine();											
-										}
-										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");		
-											sc.nextLine();
-										}}
+											try {						
+												opcao = sc.nextInt();
+												continuar= false;
+												sc.nextLine();											
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");		
+												sc.nextLine();
+											}}
 										if(opcao==1) {
 											GerenciadorFornecedores.remover(id);
 											System.out.print("\nUsuário removido!");
@@ -399,7 +426,7 @@ public class main {
 									}
 									
 									break;
-								
+								//Listar todos os usuários
 								case 4:
 									System.out.print(GerenciadorUsuarios.listagem());
 									break;
@@ -407,21 +434,23 @@ public class main {
 									break;
 							}}
 						}
+					//Menu com opções para gerenciar fornecedores
 					else if(opcao==2) {
 						while(opcao!=5) {
 							menuFornecedores();
 							continuar = true;
 							while(continuar) {
-							try {						
-								opcao = sc.nextInt();
-								continuar= false;
-								sc.nextLine();
-							}
-							catch(InputMismatchException e){
-								System.out.println("Opção inválida! ");
-								sc.nextLine();
-							}}
+								try {						
+									opcao = sc.nextInt();
+									continuar= false;
+									sc.nextLine();
+								}
+								catch(InputMismatchException e){
+									System.out.println("Opção inválida! ");
+									sc.nextLine();
+								}}
 							switch(opcao) {
+								//Cadastrar Fornecedor
 								case 1:
 									Fornecedor f= null;
 									System.out.println("Digite o nome do Fornecedor: ");
@@ -443,7 +472,7 @@ public class main {
 											Integer idProduto=sc.nextInt();
 											idsProdutos.add(idProduto);
 										}
-										
+										sc.nextLine();
 										 f=GerenciadorFornecedores.cadastrarFornecedor(nome,cnpj,endereco,idsProdutos);
 										
 									}catch(InputMismatchException e) {
@@ -453,9 +482,10 @@ public class main {
 									if(f!=null) {
 										System.out.print("\nFornecedor Cadastrado com Sucesso!");
 									}
-									sc.nextLine();
+									
 									break;
 								
+								//Editar fornecedor
 								case 2:
 									System.out.print("\nDigite o código do produto que deseja editar:");
 									Integer idFornecedor;
@@ -463,79 +493,81 @@ public class main {
 									idsProdutos = new ArrayList<>();
 									continuar = true;
 									while(continuar) {
-									try {
-										idFornecedor = sc.nextInt();
-										sc.nextLine();
-										fornecedorEdit = GerenciadorFornecedores.getFornecedor(idFornecedor);
-										if(fornecedorEdit!=null) {
-											System.out.println("Entre novamente com todas as informações: ");
-											System.out.println("Digite o nome do Fornecedor: ");
-											nome = sc.nextLine();
-											System.out.print("\nDigite o endereço do Fornecedor: ");
-											endereco = sc.nextLine();
-											System.out.print("\nDigite o CNPJ do Fornecedor: ");
-											Integer cnpj = sc.nextInt();
+										try {
+											idFornecedor = sc.nextInt();
 											sc.nextLine();
-											System.out.print("\nQuantos produtos ele fornece? ");
-											Integer qtdProdutos= sc.nextInt();
-											for(int i = 0; i<qtdProdutos;i++) {
-												System.out.print("\nDigite o id do "+(i+1)+" produto: ");
-												Integer idProduto=sc.nextInt();
-												idsProdutos.add(idProduto);
+											fornecedorEdit = GerenciadorFornecedores.getFornecedor(idFornecedor);
+											if(fornecedorEdit!=null) {
+												System.out.println("Entre novamente com todas as informações: ");
+												System.out.println("Digite o nome do Fornecedor: ");
+												nome = sc.nextLine();
+												System.out.print("\nDigite o endereço do Fornecedor: ");
+												endereco = sc.nextLine();
+												System.out.print("\nDigite o CNPJ do Fornecedor: ");
+												Integer cnpj = sc.nextInt();
+												sc.nextLine();
+												System.out.print("\nQuantos produtos ele fornece? ");
+												Integer qtdProdutos= sc.nextInt();
+												for(int i = 0; i<qtdProdutos;i++) {
+													System.out.print("\nDigite o id do "+(i+1)+" produto: ");
+													Integer idProduto=sc.nextInt();
+													idsProdutos.add(idProduto);
+												}
+												fornecedorEdit= new Fornecedor(idFornecedor,cnpj,nome,endereco,idsProdutos);
+												GerenciadorFornecedores.addOuEdit(fornecedorEdit);
+												
 											}
-											fornecedorEdit= new Fornecedor(idFornecedor,cnpj,nome,endereco,idsProdutos);
-											GerenciadorFornecedores.addOuEdit(fornecedorEdit);
-											
+											else {
+												System.out.print("\nCódigo não encontrado");
+											}
 										}
-										else {
-											System.out.print("\nCódigo não encontrado");
+										catch(InputMismatchException e) {
+											System.out.print("Dado inválido");
+											sc.nextLine();
 										}
-									}
-									catch(InputMismatchException e) {
-										System.out.print("Dado inválido");
-										sc.nextLine();
-									}
-									finally {
-										if(fornecedorEdit!=null) {
-											System.out.print("\nFornecedor editado com sucesso!");
-											System.out.println(fornecedorEdit.infoFornecedor(fornecedorEdit));;
+										finally {
+											if(fornecedorEdit!=null) {
+												System.out.print("\nFornecedor editado com sucesso!");
+												System.out.println(fornecedorEdit.infoFornecedor(fornecedorEdit));;
+											}
 										}
-									}
 									}
 									break;
 								
+								//Excluir fornecedor
 								case 3:
 									System.out.println("Digite o código do Fornecedor: ");
 									
 									
 									continuar = true;
 									while(continuar) {
-									try {						
-										id=sc.nextInt();
-										continuar= false;
-										sc.nextLine();
-									}
-									catch(InputMismatchException e){
-										System.out.println("Código inválido! ");
-										sc.nextLine();
-									}}
+										try {						
+											id=sc.nextInt();
+											continuar= false;
+											sc.nextLine();
+										}
+										catch(InputMismatchException e){
+											System.out.println("Código inválido! ");
+											sc.nextLine();
+										}}
 									
 									Fornecedor removerFornecedor= GerenciadorFornecedores.getFornecedor(id);
+									//Exibe informações do fornecedor e confirma remoção
 									if(removerFornecedor!=null) {
 										System.out.print(removerFornecedor.infoFornecedor(removerFornecedor));
 										System.out.print("\nDeseja remover o Fornecedor? \n1- Sim 2-Não ");
 										System.out.print("\nOpção: ");
 										continuar = true;
 										while(continuar) {
-										try {						
-											opcao = sc.nextInt();
-											continuar= false;
-											sc.nextLine();											
-										}
-										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");		
-											sc.nextLine();
-										}}
+											try {						
+												opcao = sc.nextInt();
+												continuar= false;
+												sc.nextLine();											
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");		
+												sc.nextLine();
+											}}
 										if(opcao==1) {
 											GerenciadorFornecedores.remover(id);
 											System.out.print("\nFornecedor removido!");
@@ -544,7 +576,7 @@ public class main {
 									}
 									
 									break;
-								
+								//Lista todos os fornecedores cadastrados
 								case 4:
 									System.out.print(GerenciadorFornecedores.listagem());
 									break;
@@ -553,27 +585,30 @@ public class main {
 							}}
 					}
 					
+					//Menu com opções para gerenciar produtos
 					else if(opcao==3) {
 						while(opcao!=5) {
 							menuProdutos();
 							continuar = true;
 							while(continuar) {
-							try {						
-								opcao = sc.nextInt();
-								continuar= false;
-								sc.nextLine();
-							}
-							catch(InputMismatchException e){
-								System.out.println("Opção inválida! ");
-								sc.nextLine();
-							}}
+								try {						
+									opcao = sc.nextInt();
+									continuar= false;
+									sc.nextLine();
+								}
+								catch(InputMismatchException e){
+									System.out.println("Opção inválida! ");
+									sc.nextLine();
+								}}
+								
+							//Cadastrar produto
 							switch(opcao) {
 								case 1:
 									Produto p=null;
 									System.out.println("Digite o nome do Produto: ");
 									String nome = sc.nextLine();
 									try {
-										System.out.print("\nDigite o Preço do Produto (Ex:2.0): ");
+										System.out.print("\nDigite o Preço do Produto (Ex:2,0): ");
 										Double preco = sc.nextDouble();
 										sc.nextLine();
 										
@@ -581,13 +616,10 @@ public class main {
 										String val=sc.nextLine();
 										Date validade = sdf1.parse(val);
 										
-										System.out.print("\nDigite a quantidade do Produto em KG ou L (Ex:2.0): ");
+										System.out.print("\nDigite a quantidade do Produto em KG ou L (Ex:2,0): ");
 										Double quantidade = sc.nextDouble();
 										sc.nextLine();
-										
-										
-
-										 p=GerenciadorProdutos.cadastrarProduto(nome,preco,validade,quantidade);
+										p=GerenciadorProdutos.cadastrarProduto(nome,preco,validade,quantidade);
 										
 									}catch(InputMismatchException e) {
 										System.out.print("Dado inválido");
@@ -598,9 +630,10 @@ public class main {
 									if(p!=null) {
 										System.out.print("\nProduto criado com sucesso!");
 									}
-									sc.nextLine();
+									
 									break;
 								
+								//Editar produto
 								case 2:
 									System.out.print("\nDigite o código do produto que quer editar:");
 									Integer idProduto;
@@ -614,7 +647,7 @@ public class main {
 											if(produtoEdit!=null) {
 												System.out.println("Digite o nome do Produto: ");
 												nome = sc.nextLine();
-												System.out.print("\nDigite o Preço do Produto (Ex:2.0): ");
+												System.out.print("\nDigite o Preço do Produto (Ex:2,0): ");
 												Double preco = sc.nextDouble();
 												sc.nextLine();
 												
@@ -622,7 +655,7 @@ public class main {
 												String val=sc.nextLine();
 												Date validade = sdf1.parse(val);
 												
-												System.out.print("\nDigite a quantidade do Produto em KG ou L (Ex:2.0): ");
+												System.out.print("\nDigite a quantidade do Produto em KG ou L (Ex:2,0): ");
 												Double quantidade = sc.nextDouble();
 												sc.nextLine();
 												
@@ -647,39 +680,41 @@ public class main {
 									}
 									
 									break;
-								
+									
+								//Remover produto
 								case 3:
 									System.out.println("Digite o código do Produto: ");
 									
 									
 									continuar = true;
 									while(continuar) {
-									try {						
-										id=sc.nextInt();
-										continuar= false;
-										sc.nextLine();
-									}
-									catch(InputMismatchException e){
-										System.out.println("Código inválido! ");
+										try {						
+											id=sc.nextInt();
+											continuar= false;
+											sc.nextLine();
+										}
+										catch(InputMismatchException e){
+											System.out.println("Código inválido! ");
+											sc.nextLine();
+										}}
 										
-									}}
-									
 									Produto removerProduto= GerenciadorProdutos.getProduto(id);
+									//Exibe informações do produto e confirma exclusão
 									if(removerProduto!=null) {
 										System.out.print(removerProduto.infoProduto(removerProduto));
 										System.out.print("\nDeseja remover o Produto? \n1- Sim 2-Não ");
 										System.out.print("\nOpção: ");
 										continuar = true;
 										while(continuar) {
-										try {						
-											opcao = sc.nextInt();
-											continuar= false;
-											sc.nextLine();											
-										}
-										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");		
-											sc.nextLine();
-										}}
+											try {						
+												opcao = sc.nextInt();
+												continuar= false;
+												sc.nextLine();											
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");		
+												sc.nextLine();
+											}}
 										if(opcao==1) {
 											GerenciadorProdutos.remover(id);
 											System.out.print("\nProduto removido!");
@@ -688,30 +723,32 @@ public class main {
 									}
 									
 									break;
-								
+								//Lista todos os produtos cadastrados no sistema
 								case 4:
 									System.out.print(GerenciadorProdutos.listagem());
 									break;
 								default:									
 									break;
 							}}
-					}					
+					}
+					//Menu com opções para gerenciar os pratos 
 					else if(opcao==4) {
 						while(opcao!=5) {
 							menuPratos();
 							continuar = true;
 							while(continuar) {
-							try {						
-								opcao = sc.nextInt();
-								continuar= false;
-								sc.nextLine();
-							}
-							catch(InputMismatchException e){
-								System.out.println("Opção inválida! ");
-								sc.nextLine();
-								
-							}}
+								try {						
+									opcao = sc.nextInt();
+									continuar= false;
+									sc.nextLine();
+								}
+								catch(InputMismatchException e){
+									System.out.println("Opção inválida! ");
+									sc.nextLine();
+									
+								}}
 							switch(opcao) {
+								//Cadastrar prato
 								case 1:
 									Prato p=null;
 									System.out.println("Digite o nome do Prato: ");
@@ -720,7 +757,7 @@ public class main {
 									System.out.println("Digite a descrição do Prato: ");
 									String descricao = sc.nextLine();
 									try {
-										System.out.print("\nDigite o Preço do Prato (Ex:2.0): ");
+										System.out.print("\nDigite o Preço do Prato (Ex:2,0): ");
 										Double preco = sc.nextDouble();
 										sc.nextLine();
 										
@@ -762,10 +799,8 @@ public class main {
 										}
 										else {											
 											p=GerenciadorPratos.cadastrarPrato(nome,preco,CategoriaPrato.BEBIDA,descricao,ingredientes);											
-										}
-
-										 
-										
+										}										 
+										sc.nextLine();
 									}catch(InputMismatchException e) {
 										System.out.print("Dado inválido");
 										sc.nextLine();
@@ -775,9 +810,10 @@ public class main {
 									if(p!=null) {
 										System.out.print("\nPrato cadastrado com Sucesso!");
 									}
-									sc.nextLine();
+									
 									break;
 								
+								//Editar prato
 								case 2:
 									System.out.print("\nDigite o código do prato que quer editar:");
 									Integer idPrato;
@@ -797,7 +833,7 @@ public class main {
 												System.out.println("Digite a descrição do Prato: ");
 												descricao = sc.nextLine();
 												
-												System.out.print("\nDigite o Preço do Prato (Ex:2.0): ");
+												System.out.print("\nDigite o Preço do Prato (Ex:2,0): ");
 												Double preco = sc.nextDouble();
 												sc.nextLine();
 												
@@ -848,6 +884,7 @@ public class main {
 											else {
 												System.out.print("\nCódigo não encontrado");
 											}
+											sc.nextLine();
 										}
 										catch(InputMismatchException e) {
 											System.out.print("Dado inválido");
@@ -864,40 +901,41 @@ public class main {
 										}
 									}
 									break;
-								
+								//Excluir prato
 								case 3:
 									System.out.println("Digite o código do Prato: ");
 									
 									
 									continuar = true;
 									while(continuar) {
-									try {						
-										id=sc.nextInt();
-										continuar= false;
-										sc.nextLine();
-									}
-									catch(InputMismatchException e){
-										System.out.println("Código inválido! ");
-										sc.nextLine();
-										
-									}}
+										try {						
+											id=sc.nextInt();
+											continuar= false;
+											sc.nextLine();
+										}
+										catch(InputMismatchException e){
+											System.out.println("Código inválido! ");
+											sc.nextLine();
+											
+										}}
 									
 									Prato removerPrato= GerenciadorPratos.getPrato(id);
+									//Exibe informações do prato que será removido e confirma exclusão
 									if(removerPrato!=null) {
 										System.out.print(removerPrato.infoPrato(removerPrato));
 										System.out.print("\nDeseja remover o Produto? \n1- Sim 2-Não ");
 										System.out.print("\nOpção: ");
 										continuar = true;
 										while(continuar) {
-										try {						
-											opcao = sc.nextInt();
-											continuar= false;
-											sc.nextLine();											
-										}
-										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");		
-											sc.nextLine();
-										}}
+											try {						
+												opcao = sc.nextInt();
+												continuar= false;
+												sc.nextLine();											
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");		
+												sc.nextLine();
+											}}
 										if(opcao==1) {
 											GerenciadorPratos.remover(id);
 											System.out.print("\nProduto removido!");
@@ -906,7 +944,7 @@ public class main {
 									}
 									
 									break;
-								
+								//Lista todos os pratos cadastrados no sistema
 								case 4:
 									System.out.print(GerenciadorPratos.listagem());
 									break;
@@ -914,23 +952,25 @@ public class main {
 									break;
 							}}
 					}
+					//Menu com opções para gerenciar vendas
 					else if(opcao==5) {
 						opcao=2;
 						while(opcao!=5) {
 							menuVendas();
 							continuar = true;
 							while(continuar) {
-							try {						
-								opcao = sc.nextInt();
-								continuar= false;
-								sc.nextLine();
-							}
-							catch(InputMismatchException e){
-								System.out.println("Opção inválida! ");
-								sc.nextLine();
-								
-							}}
+								try {						
+									opcao = sc.nextInt();
+									continuar= false;
+									sc.nextLine();
+								}
+								catch(InputMismatchException e){
+									System.out.println("Opção inválida! ");
+									sc.nextLine();
+									
+								}}
 							switch(opcao) {
+								//Cadastra venda
 								case 1:
 									Venda v=null;
 									Date atual = new Date();
@@ -971,10 +1011,8 @@ public class main {
 										sc.nextLine();
 										if(alterar==1) {											
 											v.realizarVenda(GerenciadorPratos.getPrato(), GerenciadorProdutos.getListaDeProdutos());
-										}
-
-										 
-										
+										}									 
+										sc.nextLine();
 									}catch(InputMismatchException e) {
 										System.out.println("Dado inválido");
 										sc.nextLine();
@@ -984,9 +1022,10 @@ public class main {
 									if(v!=null) {
 										System.out.print("\nPrato cadastrado com Sucesso!");
 									}
-									sc.nextLine();
+									
 									break;
-								
+									
+								//Edita venda apenas com status aberto
 								case 2:
 									System.out.print("\nDigite o código da venda que quer editar:");
 									Integer idVenda;
@@ -1066,48 +1105,50 @@ public class main {
 									}
 									
 									break;
-								
+									
+								//Exclui venda
 								case 3:
 									System.out.println("Digite o código da Venda: ");
 									
 									
 									continuar = true;
 									while(continuar) {
-									try {						
-										id=sc.nextInt();
-										continuar= false;
-										sc.nextLine();
-									}
-									catch(InputMismatchException e){
-										System.out.println("Código inválido! ");
-										sc.nextLine();
-									}}
+										try {						
+											id=sc.nextInt();
+											continuar= false;
+											sc.nextLine();
+										}
+										catch(InputMismatchException e){
+											System.out.println("Código inválido! ");
+											sc.nextLine();
+										}}
 									
 									Venda removerVenda= GerenciadorVendas.getVenda(id);
+									//Exibe todas as informações da venda e confirma remoção
 									if(removerVenda!=null) {
 										System.out.print(removerVenda.infoVenda(removerVenda));
 										System.out.print("\nDeseja remover o Venda? \n1- Sim 2-Não ");
 										System.out.print("\nOpção: ");
 										continuar = true;
 										while(continuar) {
-										try {						
-											opcao = sc.nextInt();
-											continuar= false;
-											sc.nextLine();											
-										}
-										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");		
-											sc.nextLine();
-										}}
+											try {						
+												opcao = sc.nextInt();
+												continuar= false;
+												sc.nextLine();											
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");		
+												sc.nextLine();
+											}}
 										if(opcao==1) {
 											GerenciadorPratos.remover(id);
 											System.out.print("\nVenda removida!");
 										}									
 										
-									}
-									
+									}									
 									break;
 								
+								//Lista todas as vendas cadastradas no sistema
 								case 4:
 									System.out.print(GerenciadorVendas.listagem(GerenciadorPratos.getPrato()));
 									break;
@@ -1115,196 +1156,217 @@ public class main {
 									break;
 							}}
 					}
+					//Menu com opções para gerar relatórios
 					else if(opcao==6) {
 						while(opcao!=4) {
 							menuRelatorios();
 							continuar = true;
 							while(continuar) {
-							try {						
-								opcao = sc.nextInt();
-								continuar= false;
-								sc.nextLine();
-							}
-							catch(InputMismatchException e){
-								System.out.println("Opção inválida! ");
-								sc.nextLine();
-							}}
+								try {						
+									opcao = sc.nextInt();
+									continuar= false;
+									sc.nextLine();
+								}
+								catch(InputMismatchException e){
+									System.out.println("Opção inválida! ");
+									sc.nextLine();
+								}}
+								
 							switch(opcao) {
+								//Relatórios de venda
 								case 1:									
 									while(opcao!=4) {
 										menuRelatorioVenda();
 										continuar = true;
 										while(continuar) {
-										try {						
-											opcao = sc.nextInt();
-											continuar= false;
-											sc.nextLine();
-										}
-										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");
-											sc.nextLine();
-										}}
+											try {						
+												opcao = sc.nextInt();
+												continuar= false;
+												sc.nextLine();
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");
+												sc.nextLine();
+											}}
 										int gerar=0;
 										switch(opcao) {
-										case 1:
-											System.out.println(Relatorios.imprimirRelatorioVenda(GerenciadorVendas.getListaDeVendas()));
-											System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
-											continuar = true;
-											while(continuar) {
-											try {						
-												gerar = sc.nextInt();
-												continuar= false;
-												sc.nextLine();
-											}
-											catch(InputMismatchException e){
-												System.out.println("Opção inválida! ");
-												sc.nextLine();
-											}}
-											if(gerar==1) {
-												Relatorios.gerarRelatorioVenda(GerenciadorVendas.getListaDeVendas(),1,"",CategoriaPrato.BEBIDA);
-											}
-											break;
-										case 2:
-											SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");
-											System.out.print("Digite o período que deseja mês/ano (Ex: 04/2022)");
-											String periodo=sc.nextLine();
-											Date dataPeriodo=null;
-											gerar=0;
-											continuar = true;
-											while(continuar) {
-											try {
-												dataPeriodo=sdf2.parse(periodo);
-												System.out.println(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo)));
+											//Gera relatório de vendas cadastradas no geral
+											case 1:												
+												System.out.println(Relatorios.imprimirRelatorioVenda(GerenciadorVendas.getListaDeVendas()));
 												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
-												gerar = sc.nextInt();
-												continuar= false;
-												sc.nextLine();
-											}
-											catch(InputMismatchException e){
-												System.out.println("Opção inválida! ");
-												sc.nextLine();
-											}}
-											if(gerar==1) {
-												Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo),2,periodo,CategoriaPrato.BEBIDA);
-
-											}
-											
-											break;
-										
-										case 3:
-											System.out.print("\nDigite o tipo de prato que deseja gerar o relatório");
-											System.out.print("\n1-Entrada 2-Massa 3-Bebida 4-Sobremesa");
-											gerar=0;
-											
-											continuar = true;
-											while(continuar) {
-											try {
-												int	tipo=sc.nextInt();
-												if(tipo==1) {
-													System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.ENTRADA)));
+												Double total = Relatorios.precoTotalVenda(GerenciadorVendas.getListaDeVendas());
+												continuar = true;
+												while(continuar) {
+													try {						
+														gerar = sc.nextInt();
+														continuar= false;
+														sc.nextLine();
+													}
+													catch(InputMismatchException e){
+														System.out.println("Opção inválida! ");
+														sc.nextLine(); 
+													}}
+													if(gerar==1) {
+													Relatorios.gerarRelatorioVenda(GerenciadorVendas.getListaDeVendas(),1,"",CategoriaPrato.BEBIDA,total);
 												}
-												else if(tipo==2) {
-													System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.MASSA)));
-
-												}
-												else if(tipo==3) {
-													System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.BEBIDA)));
-
-												}
-												else if(tipo==4) {
-													System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.SOBREMESA)));
-
-												}
-												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
-												gerar = sc.nextInt();
-												continuar= false;
-												sc.nextLine();
-												
+												break;
+											//Gera relatório de vendas cadastradas por período	
+											case 2:
+												SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");
+												System.out.print("Digite o período que deseja mês/ano (Ex: 04/2022)");
+												String periodo=sc.nextLine();
+												Date dataPeriodo=null;		
+												total=0.0;
+												gerar=0;
+												continuar = true;
+												while(continuar) {
+													try {														
+														dataPeriodo=sdf2.parse(periodo);
+														System.out.println(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo)));
+														total = Relatorios.precoTotalVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo));
+														System.out.print("\nPreço total = "+total+" R$");
+														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+														gerar = sc.nextInt();
+														continuar= false;
+														sc.nextLine();
+													}
+													catch(InputMismatchException e){
+														System.out.println("Opção inválida! ");
+														sc.nextLine();
+													}}
 												if(gerar==1) {
-													if(tipo==1) {
-														Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.ENTRADA),3,"",CategoriaPrato.ENTRADA);
-													}
-													else if(tipo==2) {
-														Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.MASSA),3,"",CategoriaPrato.MASSA);
-													}
-													else if(tipo==3) {
-														Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.BEBIDA),3,"",CategoriaPrato.BEBIDA);
-
-													}
-													else if(tipo==4) {
-														Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.SOBREMESA),3,"",CategoriaPrato.SOBREMESA);
-													}
-													
+													Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPeriodo(dataPeriodo),2,periodo,CategoriaPrato.BEBIDA,total);
+	
 												}
+												
+												break;
+											//Gera relatório de vendas realizadas por tipo de prato
+											case 3:
+												System.out.print("\nDigite o tipo de prato que deseja gerar o relatório");
+												System.out.print("\n1-Entrada 2-Massa 3-Bebida 4-Sobremesa");
+												gerar=0;
+												total=0.0;
+												continuar = true;
+												while(continuar) {
+													try {
+														int	tipo=sc.nextInt();
+														if(tipo==1) {
+															System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.ENTRADA)));
+															total = Relatorios.precoTotalVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.ENTRADA));
+															System.out.print("\nPreço total = "+total+" R$");
+														}
+														else if(tipo==2) {
+															System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.MASSA)));
+															total = Relatorios.precoTotalVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.MASSA));
+															System.out.print("\nPreço total = "+total+" R$");
+		
+														}
+														else if(tipo==3) {
+															System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.BEBIDA)));
+															total = Relatorios.precoTotalVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.BEBIDA));
+															System.out.print("\nPreço total = "+total+" R$");
+															
+														}
+														else if(tipo==4) {
+															System.out.print(Relatorios.imprimirRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.SOBREMESA)));
+															total = Relatorios.precoTotalVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.SOBREMESA));
+															System.out.print("\nPreço total = "+total+" R$");
+		
+														}
+														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+														gerar = sc.nextInt();
+														continuar= false;
+														sc.nextLine();
+														
+														if(gerar==1) {
+															if(tipo==1) {
+																Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.ENTRADA),3,"",CategoriaPrato.ENTRADA,total);
+															}
+															else if(tipo==2) {
+																Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.MASSA),3,"",CategoriaPrato.MASSA,total);
+															}
+															else if(tipo==3) {
+																Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.BEBIDA),3,"",CategoriaPrato.BEBIDA,total);
+		
+															}
+															else if(tipo==4) {
+																Relatorios.gerarRelatorioVenda(Relatorios.relatorioVendaPorPrato(CategoriaPrato.SOBREMESA),3,"",CategoriaPrato.SOBREMESA,total);
+															}
+															
+														}
+													}
+													catch(InputMismatchException e){
+														System.out.println("Opção inválida! ");
+														sc.nextLine();
+													}catch(DomainException e) {
+														System.out.print("Erro:"+e.getMessage());
+													}
+													}											
 											}
-											catch(InputMismatchException e){
-												System.out.println("Opção inválida! ");
-												sc.nextLine();
-											}catch(DomainException e) {
-												System.out.print("Erro:"+e.getMessage());
-											}
-											}
-
-											
-										
 										}
-									}
+											
+										break;
 										
-									break;
+								//Relatórios de estoque		
 								case 2:
 									while(opcao!=4) {
 										menuRelatorioEstoque();
 										continuar = true;
 										while(continuar) {
-										try {						
-											opcao = sc.nextInt();
-											continuar= false;
-											sc.nextLine();
-										}
-										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");
-											sc.nextLine();
-										}}
+											try {						
+												opcao = sc.nextInt();
+												continuar= false;
+												sc.nextLine();
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");
+												sc.nextLine();
+											}}
 										int gerar=0;
 										switch(opcao) {
+											//Gera relatório de estoque no geral
 											case 1:
-												Double total = Relatorios.precoTotalProduto(GerenciadorProdutos.getListaDeProdutos());
+												Integer total = GerenciadorProdutos.getListaDeProdutos().size();
 												System.out.println(Relatorios.imprimirRelatorioProduto(GerenciadorProdutos.getListaDeProdutos()));
+												System.out.print("\nTotal de produtos: "+total);
 												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
 												continuar = true;
 												while(continuar) {
-												try {						
-													gerar = sc.nextInt();
-													continuar= false;
-													sc.nextLine();
-												}
-												catch(InputMismatchException e){
-													System.out.println("Opção inválida! ");
-													sc.nextLine();
-												}}
+													try {						
+														gerar = sc.nextInt();
+														continuar= false;
+														sc.nextLine();
+													}
+													catch(InputMismatchException e){
+														System.out.println("Opção inválida! ");
+														sc.nextLine();
+													}}
 												if(gerar==1) {
 													Relatorios.gerarRelatorioProduto(GerenciadorProdutos.getListaDeProdutos(), 1, null, total);
-												}
-													
+												}													
 												
 												break;
-										
+											//Gera relatório de estoque por produto
 											case 2:
 												
 												gerar=0;
 												continuar = true;
 												List<Produto> produtos =null;
-												total=null;
+												total=0;
+												String nome = "";
 												while(continuar) {
 													try {
 														System.out.print("\nDigite o código do produto que deseja gerar o relatório");
 														Integer idProduto=sc.nextInt();
 														produtos = Relatorios.relatorioEstoquePorProduto(idProduto);
+														if(produtos !=null) {
+															nome= GerenciadorProdutos.getProduto(idProduto).getNome();
+														}
 														System.out.print(Relatorios.imprimirRelatorioProduto(produtos));
-														total = Relatorios.precoTotalProduto(produtos);
+														total = 1;
+														System.out.print("\nTotal de produtos: "+total);
 														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
-														gerar = sc.nextInt();
-														
+														gerar = sc.nextInt();														
 														continuar= false;
 														sc.nextLine();
 													}
@@ -1314,77 +1376,79 @@ public class main {
 													}
 												}
 												if(gerar==1) {
-													Relatorios.gerarRelatorioProduto(produtos,2 , "", total);
+													Relatorios.gerarRelatorioProduto(produtos,2 , nome, total);
 												}
 												
 												
 												break;
-											
+											//Gera relatório de estoque de produtos a vencer
 											case 3:
+												total=Relatorios.relatorioEstoqueProdutosAvencer().size();
+												System.out.print("\nRelatório produtod que irão vencer nos próximos 20 dias");
 												System.out.println(Relatorios.imprimirRelatorioProduto(Relatorios.relatorioEstoqueProdutosAvencer()));
-												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
-												total=0.0;
+												System.out.print("\nTotal de produtos: "+total);
+												System.out.print("\nDeseja imprimir? 1-Sim 0-Não");												
 												continuar = true;
-												while(continuar) {
-												try {
-													total=Relatorios.precoTotalProduto(Relatorios.relatorioEstoqueProdutosAvencer());
-													gerar = sc.nextInt();
-													continuar= false;
-													sc.nextLine();
-												}
-												catch(InputMismatchException e){
-													System.out.println("Opção inválida! ");
-													sc.nextLine();
-												}}
+													while(continuar) {
+													try {																												
+														gerar=sc.nextInt();
+														continuar= false;
+														sc.nextLine();
+													}
+													catch(InputMismatchException e){
+														System.out.println("Opção inválida! ");
+														sc.nextLine();
+													}}
 												if(gerar==1) {
 													Relatorios.gerarRelatorioProduto(Relatorios.relatorioEstoqueProdutosAvencer(), 3, null, total);
 												}													
 												
 												break;
 										}}
+								//Relatórios de fornecedores
 								case 3:
 									opcao=1;
 									while(opcao!=3) {
 										menuRelatorioFornecedores();
 										continuar = true;
 										while(continuar) {
-										try {						
-											opcao = sc.nextInt();
-											continuar= false;
-											sc.nextLine();
-										}
-										catch(InputMismatchException e){
-											System.out.println("Opção inválida! ");
-											sc.nextLine();
-										}}
+											try {						
+												opcao = sc.nextInt();
+												continuar= false;
+												sc.nextLine();
+											}
+											catch(InputMismatchException e){
+												System.out.println("Opção inválida! ");
+												sc.nextLine();
+											}}
 										int gerar=0;
 										switch(opcao) {
-											case 1:
-												
+											//Gera relatório de fornecedores por produto
+											case 1:												
 												continuar = true;
 												while(continuar) {
-												try {
-													System.out.println(Relatorios.imprimirRelatorioFornecedor(GerenciadorFornecedores.getListaDeFornecedores()));
-													System.out.print("\nDeseja imprimir? 1-Sim 0-Não");						
-													gerar = sc.nextInt();
-													continuar= false;
-													sc.nextLine();
-												}
-												catch(InputMismatchException e){
-													System.out.println("Opção inválida! ");
-													sc.nextLine();
-												}catch(DomainException e) {
-													System.out.print("\nErro:"+e.getMessage());
+													try {
+														System.out.println(Relatorios.imprimirRelatorioFornecedor(GerenciadorFornecedores.getListaDeFornecedores()));
+														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");						
+														gerar = sc.nextInt();
+														continuar= false;
+														sc.nextLine();
 													}
-												}
-												sc.nextLine();
+													catch(InputMismatchException e){
+														System.out.println("Opção inválida! ");
+														sc.nextLine();
+													}catch(DomainException e) {
+														System.out.print("\nErro:"+e.getMessage());
+														}
+													}
+												
 												if(gerar==1) {
 													Relatorios.gerarRelatorioFornecedor(GerenciadorFornecedores.getListaDeFornecedores(),2,"");
-												}
-													
+												}			
 												
 												break;
-										
+												
+											//Gera relatório de fornecedores total
 											case 2:
 												System.out.print("\nDigite o código do produto que deseja filtrar o fornecedor");
 												gerar=0;
@@ -1392,24 +1456,24 @@ public class main {
 												List<Fornecedor> fornecedores=null;
 												Produto produto=null;
 												while(continuar) {
-												try {
-													Integer idProduto=sc.nextInt();
-													produto = GerenciadorProdutos.getListaDeProdutos().stream().filter(x-> x.getId() == idProduto).findFirst().orElse(null);
-													fornecedores=Relatorios.relatorioFornecedorePorProduto(idProduto);
-													System.out.print(Relatorios.imprimirRelatorioFornecedor(fornecedores));
-													
-													System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
-													gerar = sc.nextInt();
-													continuar= false;
-													sc.nextLine();
-												}
-												catch(InputMismatchException e){
-													System.out.println("Opção inválida! ");
-													sc.nextLine();
-												}catch(DomainException e) {
-													System.out.print("\nErro:"+e.getMessage());
-												}
-												}
+													try {
+														Integer idProduto=sc.nextInt();
+														produto = GerenciadorProdutos.getListaDeProdutos().stream().filter(x-> x.getId() == idProduto).findFirst().orElse(null);
+														fornecedores=Relatorios.relatorioFornecedorePorProduto(idProduto);
+														System.out.print(Relatorios.imprimirRelatorioFornecedor(fornecedores));
+														
+														System.out.print("\nDeseja imprimir? 1-Sim 0-Não");
+														gerar = sc.nextInt();
+														continuar= false;
+														sc.nextLine();
+													}
+													catch(InputMismatchException e){
+														System.out.println("Opção inválida! ");
+														sc.nextLine();
+													}catch(DomainException e) {
+														System.out.print("\nErro:"+e.getMessage());
+													}
+													}
 												if(gerar==1) {
 													if(produto==null) {
 														Relatorios.gerarRelatorioFornecedor(fornecedores,1,"");
@@ -1418,28 +1482,17 @@ public class main {
 														Relatorios.gerarRelatorioFornecedor(fornecedores,1,produto.getNome());
 													}
 												}
-												break;
-											
-											
+												break;											
 										}}
-								
-
 								default:									
 									break;
 							}}
 					}
-					System.out.println("OPCAO:"+opcao);
 				} while (opcao != 0);
 			}
 
-			
-			
-			
-
-	
-			
 		}
-		
+		//Fim Do looping encerra aplicação
 		System.out.println("Encerrando aplicação!");
 		sc.close();
 	

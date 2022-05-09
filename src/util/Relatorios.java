@@ -1,4 +1,18 @@
+/*******************************************************************************
+Autor: Cláudia Inês Sales Freitas
+Componente Curricular: MI de Programação II
+Concluido em: 07/05/2022
+Declaro que este código foi elaborado por mim de forma individual e não contém nenhum
+trecho de código de outro colega ou de outro autor, tais como provindos de livros e
+apostilas, e páginas ou documentos eletrônicos da Internet. Qualquer trecho de código
+de outra autoria que não a minha está destacado com uma citação para o autor e a fonte
+do código, e estou ciente que estes trechos não serão considerados para fins de avaliação.
+******************************************************************************************/
 package util;
+/**
+ * Classe para gerar os relatórios do sistema
+ * @author Cláudia Inês Sales
+ */
 
 import java.awt.Desktop;
 import java.io.File;
@@ -27,6 +41,11 @@ import gerenciador.GerenciadorProdutos;
 import gerenciador.GerenciadorVendas;
 
 public class Relatorios {
+	/**
+	 * Metódo para retornar lista contendo as vendas de um determinado período
+	 * @param data Data que foram realizadas as vendas
+	 * @return Lista do tipo venda contendo vendas realizadas no período 
+	 */
 	
 	public static List<Venda> relatorioVendaPorPeriodo(Date data) {
 		List<Venda> vendas = new ArrayList<>();
@@ -41,6 +60,13 @@ public class Relatorios {
 		
 		return vendas;
 	}
+	
+	/**
+	 * Metódo para retonar lista contendo vendas realizadas por tipo de prato
+	 * @param categoria Categoria do prato que deseja gerar o relatório
+	 * @return Lista contendo as vendas por tipo de prato
+	 * @throws DomainException Erro caso o prato não exista
+	 */
 	
 	public static List<Venda> relatorioVendaPorPrato(CategoriaPrato categoria) throws DomainException{
 		List<Venda> vendas = new ArrayList<>();
@@ -63,6 +89,11 @@ public class Relatorios {
 		return vendas;
 	}
 	
+	/**
+	 * Metódo para obter lista de fornecedores por produto
+	 * @param idProduto Id do produto 
+	 * @return Lista contendo fornecedores que fornecem o determinado produto
+	 */
 	public static List<Fornecedor> relatorioFornecedorePorProduto(Integer idProduto){
 		List<Fornecedor> fornecedores = new ArrayList<>();
 		
@@ -76,7 +107,11 @@ public class Relatorios {
 		
 		return fornecedores;
 	}
-	
+	/**
+	 * Metódo para buscar determinado fornecedor
+	 * @param idFornecedor Id do fornecedor
+	 * @return Fornecedor encontrado
+	 */
 	public static List<Fornecedor> relatorioFornecedor(Integer idFornecedor){
 		List<Fornecedor> fornecedores = new ArrayList<>();
 		
@@ -89,6 +124,12 @@ public class Relatorios {
 		return fornecedores;
 	}
 	
+	/**
+	 * Metódo para obter o relatório do estoque por produto
+	 * @param idProduto Id do produto que deseja informação
+	 * @return Produto que contém aquele ID
+	 */
+	
 	public static List<Produto> relatorioEstoquePorProduto(Integer idProduto){
 		List<Produto> produtos = new ArrayList<>();
 		
@@ -99,6 +140,11 @@ public class Relatorios {
 		
 		return produtos;
 	}
+	
+	/**
+	 * Metódo para obter lista de produtos a vencer no máximo 20 dias
+	 * @return Lista de produtos a vencer
+	 */
 	
 	public static List<Produto> relatorioEstoqueProdutosAvencer(){
 		List<Produto> produtos = new ArrayList<>();
@@ -116,15 +162,23 @@ public class Relatorios {
 		
 		return produtos;
 	}
+	/**
+	 * Metódo para gerar o relatório de venda
+	 * @param vendas Lista de vendas 
+	 * @param tipo Inteiro contendo o tipo de venda(Geral, por período ou por tipo de prato)
+	 * @param periodo Período para caso o relatório seja do tipo de venda por período
+	 * @param cat Categoria do prato para caso o relatório seja do tipo por prato
+	 * @param total Preço total das vendas
+	 */
 	
-	public static void gerarRelatorioVenda(List<Venda> vendas,Integer tipo,String periodo,CategoriaPrato cat) {
+	public static void gerarRelatorioVenda(List<Venda> vendas,Integer tipo,String periodo,CategoriaPrato cat, Double total) {
 		SimpleDateFormat sdf1= new SimpleDateFormat("dd-MM-yyyy hh-ss");
 		SimpleDateFormat sdf2= new SimpleDateFormat("dd/MM/yyyy");
 		Document doc = new Document();
 		Date atual= new Date();
 		String arquivoPdf="relatorioVenda "+sdf1.format(atual);
 		String titulo="";
-		String prt="";
+		String prt=""; 
 		if(tipo==1) {
 			titulo ="Relatório de Venda - "+sdf2.format(atual);
 		}else if(tipo==2) {
@@ -162,11 +216,11 @@ public class Relatorios {
 				for(Integer idPrato:venda.getItens()) {
 					Prato prato = GerenciadorPratos.getPrato().stream().filter(x->x.getId() == idPrato)
 							.findFirst().orElse(null);
-					prt+=prato.getNome()+", ";
+					prt+=prato.getNome()+"\n";
 				}
 				
 				cel1= new PdfPCell(new Paragraph(venda.getId()+""));
-				cel2= new PdfPCell(new Paragraph(sdf1.format(venda.getData())));
+				cel2= new PdfPCell(new Paragraph(sdf2.format(venda.getData())));
 				cel3= new PdfPCell(new Paragraph(prt));		
 				cel4= new PdfPCell(new Paragraph(venda.precoTotal(GerenciadorPratos.getPrato())+" R$"));
 				cel5= new PdfPCell(new Paragraph(venda.getItens().size()+""));
@@ -178,7 +232,10 @@ public class Relatorios {
 				tabela.addCell(cel5);
 				prt="";
 			}
-			doc.add(tabela);			
+			doc.add(tabela);	
+			p= new Paragraph("Preço total: "+total+" R$");
+			p.setAlignment(2);
+			doc.add(p);
 			doc.close();			
 			Desktop.getDesktop().open(new File(arquivoPdf));
 			
@@ -191,6 +248,11 @@ public class Relatorios {
 		
 		
 	}
+	/**
+	 * Exibe o relatório de vendas na tela do usuário
+	 * @param vendas Lista de vendas que será gerada o relatório
+	 * @return String cotendo as informações 
+	 */
 	
 	public static String imprimirRelatorioVenda(List<Venda> vendas) {
 		String listagem = "";
@@ -215,6 +277,11 @@ public class Relatorios {
 		}
 		return listagem;
 	}
+	/**
+	 * Metódo para calcular o preço total das vendas
+	 * @param vendas Lista de vendas que serão calculadas o preço total
+	 * @return Preço total das vendas
+	 */
 	
 	public static Double precoTotalVenda(List<Venda> vendas) {
 		Double total=0.0;
@@ -226,7 +293,15 @@ public class Relatorios {
 		return total;
 	}
 	
-	public static void gerarRelatorioProduto(List<Produto> produtos,Integer tipo,String nome, Double total) {
+	/**
+	 * Metódo para gerar relatório de estoque
+	 * @param produtos Lista de produtos que serão gerados o relatório
+	 * @param tipo Tipo do relatório (Geral, por produto ou produtos a vencer)
+	 * @param nome Nome do produto que será gerado relatório de estoque
+	 * @param total Total de produtos
+	 */
+	
+	public static void gerarRelatorioProduto(List<Produto> produtos,Integer tipo,String nome, Integer total) {
 		SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
 		SimpleDateFormat sdf2= new SimpleDateFormat("dd-MM-yyyy mm-ss");
 		Document doc = new Document();
@@ -240,7 +315,7 @@ public class Relatorios {
 			titulo = "Relatório de Produtos por tipo -"+ nome ;
 		}
 		else if(tipo==3) {
-			titulo = "Relatório de venda a vencer -";
+			titulo = "Relatório de venda a vencer nos próximos 20 dias ";
 		}
 		
 		try {
@@ -266,11 +341,7 @@ public class Relatorios {
 			tabela.addCell(cel3);
 			tabela.addCell(cel4);
 
-			for(Produto produto: produtos) {
-				System.out.print(produto.getId());
-				System.out.print(produto.getNome());
-				System.out.print(produto.getQuantidade());
-				System.out.print(sdf2.format(produto.getValidade()));
+			for(Produto produto: produtos) {		
 				
 				cel1= new PdfPCell(new Paragraph(produto.getId()+""));
 				cel2= new PdfPCell(new Paragraph(produto.getNome()));
@@ -284,7 +355,7 @@ public class Relatorios {
 				tabela.addCell(cel4);
 			}
 			doc.add(tabela);
-			p= new Paragraph("Preço total:"+total+"R$       "+"Total de produtos: "+total);
+			p= new Paragraph("Total de produtos: "+total);
 			p.setAlignment(2);
 			doc.add(p);
 			
@@ -299,6 +370,11 @@ public class Relatorios {
 		
 	}
 	
+	/**
+	 * Metódo para exibir o relatório de estoque na tela 
+	 * @param produtos Lista de produtos que será exibido o relatório
+	 * @return String contendo as informações
+	 */
 	public static String imprimirRelatorioProduto(List<Produto> produtos) {
 		String listagem = "";
 		SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
@@ -320,6 +396,12 @@ public class Relatorios {
 		return total;
 	}
 	
+	/**
+	 * Metódo para exibir o relatório de fornecedores na tela
+	 * @param fornecedores Lista de fornecedores que serão exibidos as informações
+	 * @return String contendo as informações
+	 * @throws DomainException Erro caso o produto não exista
+	 */
 	
 	public static String imprimirRelatorioFornecedor(List<Fornecedor> fornecedores) throws DomainException {
 		String listagem = "";
@@ -332,7 +414,7 @@ public class Relatorios {
 				Produto produto = GerenciadorProdutos.getListaDeProdutos().stream().filter(x->x.getId() == idProduto)
 						.findFirst().orElse(null);
 				if(produto==null) {
-					throw new DomainException("Prato não existe!");
+					throw new DomainException("Produto não existe!");
 				}
 				else {
 					listagem+="("+idProduto+")"+" "+produto.getNome();
@@ -344,6 +426,12 @@ public class Relatorios {
 		return listagem;
 	}
 	
+	/**
+	 * Metódo para gerar o relatório de fornecedor
+	 * @param fornecedores Lista de fornecedores que será gerado o relatório 
+	 * @param tipo Tipo de relatório (Por produto, ou fornecedores )
+	 * @param nome Nome do produto caso o relatório seja fornecedor por produto
+	 */
 	
 	public static void gerarRelatorioFornecedor(List<Fornecedor> fornecedores,Integer tipo,String nome) { 
 
