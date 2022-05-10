@@ -10,6 +10,7 @@ do código, e estou ciente que estes trechos não serão considerados para fins de 
 ******************************************************************************************/
 package gerenciador;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -122,7 +123,7 @@ public class GerenciadorVendas {
 	
 	public static String listagem(List<Prato> pratos) {
 		String listagem = "";
-		
+		SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
 		for(Venda venda: GerenciadorVendas.listaDeVendas) {
 			String prt="";
 			for(Integer idPrato:venda.getItens()) {
@@ -133,10 +134,10 @@ public class GerenciadorVendas {
 				}
 				
 			}
-			listagem += "Código: "
+			listagem += "\nCódigo: "
 					+ venda.getId() +
 					"\nData: "
-					+venda.getData()+
+					+sdf1.format(venda.getData())+
 					"\nPratos: "+ prt+
 					"\nPreco Total: "
 					+venda.precoTotal(pratos)+

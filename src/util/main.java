@@ -423,7 +423,7 @@ public class main {
 												sc.nextLine();
 											}}
 										if(opcao==1) {
-											GerenciadorFornecedores.remover(id);
+											GerenciadorUsuarios.remover(id);
 											System.out.print("\nUsuário removido!");
 										}									
 										
@@ -1027,8 +1027,8 @@ public class main {
 										sc.nextLine();
 										if(alterar==1) {											
 											v.realizarVenda(GerenciadorPratos.getPrato(), GerenciadorProdutos.getListaDeProdutos());
-										}									 
-										sc.nextLine();
+										}		 
+										
 									}catch(InputMismatchException e) {
 										System.out.println("Dado inválido");
 										sc.nextLine();
@@ -1157,7 +1157,7 @@ public class main {
 												sc.nextLine();
 											}}
 										if(opcao==1) {
-											GerenciadorPratos.remover(id);
+											GerenciadorVendas.remover(id);
 											System.out.print("\nVenda removida!");
 										}									
 										

@@ -94,6 +94,7 @@ public class GerenciadorUsuarios {
 		Usuario result = GerenciadorUsuarios.listaUsuarios.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		if(result!=null) {
 			GerenciadorUsuarios.listaUsuarios.remove(result);
+			
 		}
 	}
 	
@@ -125,7 +126,7 @@ public class GerenciadorUsuarios {
 		String listagem=" ";
 		//Percorre a lista concatenando as informações todas em uma variável do tipo String
 		for(Usuario usuario : GerenciadorUsuarios.listaUsuarios) {
-			listagem +="ID: "+usuario.getId()+"\nLogin: "+usuario.getLogin()+
+			listagem +="\nCódigo: "+usuario.getId()+"\nLogin: "+usuario.getLogin()+
 					"\nSenha: "+usuario.getSenha()+"\n";
 		}
 		
