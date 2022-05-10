@@ -428,6 +428,9 @@ public class main {
 										}									
 										
 									}
+									else {
+										System.out.print("Código não reconhecido!");
+									}
 									
 									break;
 								//Listar todos os usuários
@@ -524,6 +527,7 @@ public class main {
 											else {
 												System.out.print("\nCódigo não encontrado");
 											}
+											continuar=false;
 										}
 										catch(InputMismatchException e) {
 											System.out.print("Dado inválido");
@@ -575,6 +579,9 @@ public class main {
 											System.out.print("\nFornecedor removido!");
 										}									
 										
+									}
+									else {
+										System.out.print("Código não reconhecido!");
 									}
 									
 									break;
@@ -676,8 +683,9 @@ public class main {
 											sc.nextLine();
 										}
 										finally {
+											if(produtoEdit!=null) {
 											System.out.print("\nProduto editado com sucesso!");
-											System.out.print(produtoEdit.infoProduto(produtoEdit));
+											System.out.print(produtoEdit.infoProduto(produtoEdit));}
 										}
 									}
 									
@@ -720,6 +728,9 @@ public class main {
 											System.out.print("\nProduto removido!");
 										}									
 										
+									}
+									else {
+										System.out.print("Código não reconhecido!");
 									}
 									
 									break;
@@ -801,6 +812,7 @@ public class main {
 											p=GerenciadorPratos.cadastrarPrato(nome,preco,CategoriaPrato.BEBIDA,descricao,ingredientes);											
 										}										 
 										sc.nextLine();
+										continuar=false;
 									}catch(InputMismatchException e) {
 										System.out.print("Dado inválido");
 										sc.nextLine();
@@ -878,13 +890,15 @@ public class main {
 													pratoEdit=new Prato(idPrato,nome,preco,CategoriaPrato.BEBIDA,descricao,ingredientes);										
 												}
 												
-												GerenciadorPratos.addOuEdit(pratoEdit);											
+												GerenciadorPratos.addOuEdit(pratoEdit);	
+												
 												
 											}
 											else {
 												System.out.print("\nCódigo não encontrado");
 											}
 											sc.nextLine();
+											continuar=false;
 										}
 										catch(InputMismatchException e) {
 											System.out.print("Dado inválido");
@@ -940,6 +954,9 @@ public class main {
 											System.out.print("\nProduto removido!");
 										}									
 										
+									}
+									else {
+										System.out.print("Código não reconhecido!");
 									}
 									
 									break;
@@ -1086,6 +1103,7 @@ public class main {
 											else {
 												System.out.println("Código não encontrado!");
 											}
+											continuar=false;
 											
 										}
 										catch(InputMismatchException e) {
@@ -1143,7 +1161,10 @@ public class main {
 											System.out.print("\nVenda removida!");
 										}									
 										
-									}									
+									}
+									else {
+										System.out.print("Código não reconhecido!");
+									}
 									break;
 								
 								//Lista todas as vendas cadastradas no sistema
@@ -1293,6 +1314,7 @@ public class main {
 															}
 															
 														}
+														continuar=false;
 													}
 													catch(InputMismatchException e){
 														System.out.println("Opção inválida! ");
