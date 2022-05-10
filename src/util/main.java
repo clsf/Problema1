@@ -409,7 +409,7 @@ public class main {
 									//Mostra as informações do usuário e confirma remoção
 									if(removerUsuario!=null) {
 										System.out.print(removerUsuario.infoUsuario(removerUsuario));
-										System.out.print("\nDeseja remover o Fornecedor? \n1- Sim 2-Não ");										
+										System.out.print("\nDeseja remover o Usuario? \n1- Sim 2-Não ");										
 										continuar = true;
 										while(continuar) {
 											try {	
@@ -936,7 +936,7 @@ public class main {
 									//Exibe informações do prato que será removido e confirma exclusão
 									if(removerPrato!=null) {
 										System.out.print(removerPrato.infoPrato(removerPrato));
-										System.out.print("\nDeseja remover o Produto? \n1- Sim 2-Não ");										
+										System.out.print("\nDeseja remover o Prato? \n1- Sim 2-Não ");										
 										continuar = true;
 										while(continuar) {
 											try {
@@ -1143,7 +1143,7 @@ public class main {
 									//Exibe todas as informações da venda e confirma remoção
 									if(removerVenda!=null) {
 										System.out.print(removerVenda.infoVenda(removerVenda));
-										System.out.print("\nDeseja remover o Venda? \n1- Sim 2-Não ");
+										System.out.print("\nDeseja remover a Venda? \n1- Sim 2-Não ");
 										System.out.print("\nOpção: ");
 										continuar = true;
 										while(continuar) {
